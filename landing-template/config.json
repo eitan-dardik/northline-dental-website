@@ -1,0 +1,66 @@
+{
+  "customer": {
+    "name": "Northline Dental Group",
+    "tagline": "this is their motto",
+    "established": "2011"
+  },
+  "brand": {
+    "primary": "#1B5E8C",
+    "accent": "#2F6E68",
+    "text": "#6B6560",
+    "logo": "assets/logo.svg"
+  },
+  "locations": [
+    {
+      "id": "maple-ridge",
+      "name": "Maple Ridge",
+      "primary": true,
+      "address": "1847 Maple Ridge Road, Suite 200, Northline OH 44094",
+      "phone": "+1-440-555-0140",
+      "hours": [
+        { "days": "Mon-Thu", "open": "08:00", "close": "17:00", "frequency": "weekly" },
+        { "days": "Fri",     "open": "08:00", "close": "14:00", "frequency": "weekly" },
+        { "days": "Sat",     "open": "09:00", "close": "13:00", "frequency": "monthly", "occurrences": [1, 3] }
+      ]
+    },
+    {
+      "id": "fairview",
+      "name": "Fairview",
+      "primary": false,
+      "address": "92 Fairview Crossing, Northline OH 44095",
+      "phone": "+1-440-555-0161",
+      "hours": [
+        { "days": "Mon,Wed,Fri", "open": "08:30", "close": "17:30", "frequency": "weekly" },
+        { "days": "Tue, Thu", "open": "08:30", "close": "19:00", "frequency": "weekly" }
+      ]
+    },
+    {
+      "id": "grandon",
+      "name": "Grandon",
+      "primary": false,
+      "address": "14 Grandon Street, Grandon OH 44099",
+      "phone": "+1-440-555-0178",
+      "hours": [
+        { "days": "Tue-Thu", "open": "09:00", "close": "16:00", "frequency": "weekly" }
+      ]
+    }
+  ],
+  "notice": { "active": false, "heading": "", "body": "", "until": null },
+  "contact": { "form_endpoint": "", "fallback_phone": "+1-XXX-XXX-XXXX" },
+  "analytics": { "site_id": "" },
+  "services": [
+    { "id": "general-dentistry",  "name": "General dentistry",         "description": "Complete exams, digital X-rays, oral cancer screenings, and honest treatment planning for the whole family." },
+    { "id": "cleanings-hygiene",  "name": "Cleanings and hygiene",      "description": "Gentle, thorough cleanings from our hygiene team, plus practical advice for keeping your smile healthy between visits." },
+    { "id": "fillings",           "name": "Fillings",                  "description": "Tooth-colored composite fillings that blend in naturally and restore strength to decayed or damaged teeth." },
+    { "id": "crowns-bridges",     "name": "Crowns and bridges",         "description": "Durable, natural-looking crowns and bridges to repair broken teeth and replace missing ones." },
+    { "id": "root-canal",         "name": "Root canal treatment",       "description": "Comfortable root canal therapy that relieves pain and saves your natural tooth." },
+    { "id": "extractions",        "name": "Extractions",                "description": "Gentle tooth extractions — including troublesome wisdom teeth — with clear aftercare instructions." },
+    { "id": "teeth-whitening",    "name": "Teeth whitening",            "description": "Professional whitening that brightens your smile several shades, safely and quickly." },
+    { "id": "invisalign",         "name": "Invisalign clear aligners",  "description": "Straighten your teeth discreetly with clear, removable aligners. Ask us whether Invisalign is right for you." },
+    { "id": "emergency",          "name": "Emergency appointments",     "description": "Toothache, chipped tooth, or lost filling? Call us — we reserve time every business day for dental emergencies." },
+    { "id": "childrens-dentistry","name": "Children's dentistry",       "description": "Friendly first visits and gentle care that helps kids grow up unafraid of the dentist." }
+], 
+"social-media": [
+  {"id": "facebook", "name": "Facebook", "link": "https://www.facebook.com/NorthlineDentalGroup"}
+]
+}

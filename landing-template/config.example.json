@@ -1,0 +1,35 @@
+{
+  "practice": {
+    "name": "customer",
+    "tagline": "this is their motto",
+    "established": "2011"
+  },
+  "brand": {
+    "primary": "#1B5E8C",
+    "accent": "#2F6E68",
+    "text": "#6B6560",
+    "logo": "assets/logo.svg"
+  },
+  "locations": [
+    {
+      "id": "first-location",
+      "name": "Main Branch",
+      "primary": true,
+      "address": "1847 Example Road, Suite 200, Example OH 44094",
+      "phone": "+1-XXX-XXX-XXXX",
+      "hours": [
+        { "days": "Mon-Thu", "open": "08:00", "close": "17:00" },
+        { "days": "Fri",     "open": "08:00", "close": "14:00" }
+      ]
+    }
+  ],
+  "notice": { "active": false, "heading": "", "body": "", "until": null },
+  "contact": { "form_endpoint": "", "fallback_phone": "+1-XXX-XXX-XXXX" },
+  "analytics": { "site_id": "" },
+  "services": [
+    { "id": "general-service",  "name": "Service name",         "description": "selling this is our speciality." }
+  ],
+  "social-media": [
+  {"id": "facebook", "name": "Facebook", "link": "https://www.facebook.com/LINKTOPAGE"}
+  ]
+}
