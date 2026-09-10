@@ -6,7 +6,7 @@ export default function AboutPage() {
   return <>
             <Helmet>
                 <title>About Us — {config.customer.name}</title>
-                <meta name="description" content={'Founded in ${config.customer.established} by Dr. Anjali Patel, {config.customer.name} is a fourteen-person team providing family and cosmetic dentistry at three {config.customer.city}-area locations.'} />
+                <meta name="description" content={'Founded in ${config.customer.established} by Dr. Anjali Patel, {config.customer.name} is a ${config.customer.staffSize} person team providing family and cosmetic dentistry at three {config.customer.city}-area locations.'} />
             </Helmet>
 
             <div className="content">
@@ -38,7 +38,7 @@ export default function AboutPage() {
                 <hr className="sep" />
 
                 <h2>The Team</h2>
-                <p>Fourteen people keep {config.customer.city} running: two dentists, our hygiene team, dental assistants, and the front-desk staff who greet you by name.</p>
+                <p>{config.customer.staffSize} people keep {config.customer.city} running: two dentists, our hygiene team, dental assistants, and the front-desk staff who greet you by name.</p>
                 <div className="photo-frame" style={{
         maxWidth: '620px'
       }}>

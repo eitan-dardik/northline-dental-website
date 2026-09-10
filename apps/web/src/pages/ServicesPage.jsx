@@ -2,57 +2,16 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import config from '../../../../landing-template/config.json';
 
-const SERVICES = [
-    {
-        name: 'General Dentistry',
-        text: 'Complete exams, digital X-rays, oral cancer screenings, and honest treatment planning for the whole family.',
-    },
-    {
-        name: 'Cleanings & Hygiene',
-        text: 'Gentle, thorough cleanings from our hygiene team, plus practical advice for keeping your smile healthy between visits.',
-    },
-    {
-        name: 'Fillings',
-        text: 'Tooth-colored composite fillings that blend in naturally and restore strength to decayed or damaged teeth.',
-    },
-    {
-        name: 'Crowns & Bridges',
-        text: 'Durable, natural-looking crowns and bridges to repair broken teeth and replace missing ones.',
-    },
-    {
-        name: 'Root Canal Treatment',
-        text: 'Comfortable root canal therapy that relieves pain and saves your natural tooth.',
-    },
-    {
-        name: 'Extractions',
-        text: 'Gentle tooth extractions — including troublesome wisdom teeth — with clear aftercare instructions.',
-    },
-    {
-        name: 'Teeth Whitening',
-        text: 'Professional whitening that brightens your smile several shades, safely and quickly.',
-    },
-    {
-        name: 'Invisalign Clear Aligners',
-        text: 'Straighten your teeth discreetly with clear, removable aligners. Ask us whether Invisalign is right for you.',
-    },
-    {
-        name: 'Emergency Appointments',
-        text: 'Toothache, chipped tooth, or lost filling? Call us — we reserve time every business day for dental emergencies.',
-    },
-    {
-        name: "Children's Dentistry",
-        text: 'Friendly first visits and gentle care that helps kids grow up unafraid of the dentist.',
-    },
-];
-
 export default function ServicesPage() {
+    const services = config.services || [];
+
     return (
         <>
             <Helmet>
                 <title>Our Services — {config.customer.name}</title>
                 <meta
                     name="description"
-                    content="General dentistry, cleanings and hygiene, fillings, crowns and bridges, root canal treatment, extractions, teeth whitening, Invisalign, emergency appointments, and children's dentistry."
+                    content={(config.services || []).map((s) => s.name.toLowerCase()).join(', ')}
                 />
             </Helmet>
 
@@ -83,10 +42,10 @@ export default function ServicesPage() {
                 </div>
 
                 <div className="box-grid">
-                    {SERVICES.map((service) => (
-                        <div className="info-box" key={service.name}>
+                    {services.map((service) => (
+                        <div className="info-box" key={service.id || service.name}>
                             <h3>{service.name}</h3>
-                            <p>{service.text}</p>
+                            <p>{service.description}</p>
                         </div>
                     ))}
                 </div>
