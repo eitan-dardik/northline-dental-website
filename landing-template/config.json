@@ -16,19 +16,48 @@
     "logo": "/assets/logo.svg"
   },
   "images": {
-    "receptionMainOffice": "/assets/placeholder.svg",
-    "homeOffice": "/assets/placeholder.svg",
-    "treatmentRoom": "/assets/placeholder.svg",
-    "aboutTeam": "/assets/placeholder.svg",
-    "aboutPatel": "/assets/aboutPatel.png",
-    "aboutFeld": "/assets/placeholder.svg",
-    "aboutDenise": "/assets/aboutDenise.png"
+    "receptionMainOffice": {
+      "src": "/assets/placeholder.svg",
+      "alt": "Dental office reception",
+      "locationId": "maple-ridge",
+      "caption": "Our welcoming reception area at {location}"
+    },
+    "homeOffice": {
+      "src": "/assets/placeholder.svg",
+      "alt": "Our main office",
+      "locationId": "maple-ridge",
+      "caption": "Our main office at {location}"
+    },
+    "treatmentRoom":{
+      "src": "/assets/placeholder.svg",
+      "alt": "One of our treatment rooms",
+      "locationId": "maple-ridge",
+      "caption": "One of our treatment rooms at {location}"
+    },
+    "aboutTeam": {
+      "src": "/assets/placeholder.svg",
+      "alt": "Northline Dental Group team",
+      "caption": "Our team at work"
+    },
+    "aboutPatel": {
+      "src": "/assets/aboutPatel.png",
+      "alt": "Dr. Anjali Patel, DDS"
+    },
+    "aboutFeld": {
+      "src": "/assets/placeholder.svg",
+      "alt": "Dr. Marcus Feld, DDS"
+    },
+    "aboutDenise": {
+      "src": "/assets/aboutDenise.png",
+      "alt": "Denise Kowalczyk"
+    }
   },
   "locations": [
     {
       "id": "maple-ridge",
       "name": "Maple Ridge",
       "primary": true,
+      "active": true,
       "address": "1847 Maple Ridge Road, Suite 200, Northline OH 44094",
       "phone": "+1-440-555-0140",
       "hours": [
@@ -41,6 +70,7 @@
       "id": "fairview",
       "name": "Fairview",
       "primary": false,
+      "active": true,
       "address": "92 Fairview Crossing, Northline OH 44095",
       "phone": "+1-440-555-0161",
       "hours": [
@@ -52,11 +82,37 @@
       "id": "grandon",
       "name": "Grandon",
       "primary": false,
+      "active": true,
       "address": "14 Grandon Street, Grandon OH 44099",
       "phone": "+1-440-555-0178",
       "hours": [
         { "days": "Tue-Thu", "open": "09:00", "close": "16:00", "frequency": "weekly" }
       ]
+    }
+  ],
+  "team": [
+  {
+    "id": "patel",
+    "name": "Dr. Anjali Patel, DDS",
+    "role": "Practice Principal",
+    "imageKey": "aboutPatel",
+    "locationIds": ["maple-ridge", "fairview"],
+    "bio": "Dr. Patel earned her Doctor of Dental Surgery degree from The Ohio State University in 2007 and founded Northline Dental Group in 2011. She has a special interest in restorative and cosmetic work, and sees patients at our Maple Ridge and Fairview offices."
+  },
+    {
+      "id": "feld",
+      "name": "Dr. Marcus Feld, DDS",
+      "role": "General Dentist",
+      "imageKey": "aboutFeld",
+      "locationIds": ["grandon", "fairview"],
+      "bio": "A vital part of our team since 2019, Dr. Marcus is a 2016 Case Western graduate who provides comprehensive general and family dentistry. He also leads most of our children’s dental work. If you or your little ones get a bit anxious about dental visits, you are in the best hands."
+    },
+    {
+      "id": "denise",
+      "name": "Denise Kowalczyk",
+      "role": "Office Manager",
+      "imageKey": "aboutDenise",
+      "bio": "Denise has been with Northline since our first year and runs the front desk — scheduling, insurance questions, billing, and just about everything adjacent to it. If you’ve ever called one of our offices, there’s a good chance you’ve already talked to her"
     }
   ],
   "notice": { "active": false, "heading": "", "body": "", "until": null },
