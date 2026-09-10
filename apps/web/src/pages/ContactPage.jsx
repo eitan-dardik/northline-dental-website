@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { LOCATIONS } from '../components/LocationsTable';
+import { LOCATIONS } from '../lib/locations';
 import config from '../../../../landing-template/config.json';
 
 const facebook = config['social-media']?.find((s) => s.id === 'facebook');

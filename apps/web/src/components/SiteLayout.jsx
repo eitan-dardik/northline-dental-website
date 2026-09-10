@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
-import { LOCATIONS } from './LocationsTable';
 import config from '../../../../landing-template/config.json';
 
 const NAV_ITEMS = [
