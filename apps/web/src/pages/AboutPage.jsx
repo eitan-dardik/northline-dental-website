@@ -1,10 +1,5 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-const EXTERIOR_URL = 'https://images.hostinger.com/155c700e-8e59-453a-ae14-89ce8b66a91c.png';
-const TEAM_URL = 'https://images.hostinger.com/6f3d27b7-d060-4423-a982-d6c8d11ab14f.png';
-const PATEL_URL = 'https://images.hostinger.com/4cf2be9d-0d63-4cae-af09-f719b3574355.png';
-const TOOTHLESS_URL = 'https://images.hostinger.com/41dc4e0e-650e-45c2-a193-c443ee23ea48.png';
-const DENISE_URL = 'https://images.hostinger.com/1f2442f1-75b4-4c7c-8467-eac2bcc05720.png';
 import config from '../../../../landing-template/config.json';
 
 export default function AboutPage() {
@@ -27,15 +22,16 @@ export default function AboutPage() {
                         </p>
                         <p>
                             What began as a single office on Maple Ridge Road has grown to three locations —
-                            Maple Ridge, Fairview, and Grandon — but the idea hasn&rsquo;t changed: comfortable,
-                            honest dentistry for the whole family.
+                            Maple Ridge, Fairview, and Grandon — but the idea hasn&rsquo;t changed: {config.customer.tagline}
                         </p>
                     </div>
                     <div className="col-photo">
                         <div className="photo-frame">
-                            <img src={EXTERIOR_URL} alt="Our Maple Ridge main office on Maple Ridge Road" />
+                            <img
+                            src={config.images?.homeOffice || '/assets/placeholder.svg'} 
+                            alt={`$our main office at {config.locations[0].name}`} />
                         </div>
-                        <p className="photo-caption">Our Maple Ridge main office, where it all started in 2011.</p>
+                        <p className="photo-caption">Our {config.locations[0].name} main office, where it all started in {config.customer.established}.</p>
                     </div>
                 </div>
 
@@ -46,14 +42,19 @@ export default function AboutPage() {
                 <div className="photo-frame" style={{
         maxWidth: '620px'
       }}>
-                    <img src={TEAM_URL} alt={"The ${config.customer.name} team in the hallway of our Maple Ridge office"} />
+                    <img
+                    src={config.images?.aboutTeam || '/assets/placeholder.svg'} 
+                    alt={`${config.customer.name} team`}
+                    />
                 </div>
-                <p className="photo-caption">Some of the team at our Maple Ridge office, spring 2017.</p>
+                <p className="photo-caption">Some of the team at our {config.locations[0].name} office.</p>
 
                 <div className="bio-row">
                     <div className="bio-photo">
                         <div className="photo-frame">
-                            <img src={PATEL_URL} alt="Dr. Anjali Patel, DDS" />
+                            <img 
+                            src={config.images?.aboutPatel || '/assets/placeholder.svg'}
+                            alt="Dr. Anjali Patel, DDS" />
                         </div>
                     </div>
                     <div className="bio-text">
@@ -71,17 +72,19 @@ export default function AboutPage() {
                 <div className="bio-row">
                     <div className="bio-photo">
                         <div className="photo-frame">
-                            <img src={TOOTHLESS_URL} alt="Dr. Roy Toothless, DDS" />
+                            <img
+                            src={config.images?.aboutFeld || '/assets/placeholder.svg'}
+                            alt="Dr. Marcus Feld, DMD" />
                         </div>
                     </div>
                     <div className="bio-text">
-                        <h3>Dr. Roy Toothless, DDS</h3>
+                        <h3>Dr. Marcus Feld, DMD</h3>
                         <p className="bio-role">General Dentist</p>
                         <p>
-                            Dr. Toothless earned his dental degree from Case Western Reserve University in 2001
-                            and joined {config.customer.city} in 2014. He focuses on family and preventive dentistry, and has
-                            a real knack for putting nervous patients — kids especially — at ease. He sees
-                            patients at our Grandon and Fairview offices.
+                            A vital part of our team since 2019, 
+                            Dr. Marcus is a 2016 Case Western graduate who provides comprehensive general and family dentistry.
+                            He also leads most of our children’s dental work.
+                            If you or your little ones get a bit anxious about dental visits, you are in the best hands.
                         </p>
                     </div>
                 </div>
@@ -89,7 +92,9 @@ export default function AboutPage() {
                 <div className="bio-row">
                     <div className="bio-photo">
                         <div className="photo-frame">
-                            <img src={DENISE_URL} alt="Denise Kowalczyk at the front desk" />
+                            <img
+                            src={config.images?.aboutDenise || '/assets/placeholder.svg'}
+                            alt="Denise Kowalczyk at the front desk" />
                         </div>
                     </div>
                     <div className="bio-text">

@@ -2,8 +2,6 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import config from '../../../../landing-template/config.json';
 
-const OPERATORY_URL = 'https://images.hostinger.com/ec19a440-6dbb-457e-9404-ad98cbf36420.png';
-
 const SERVICES = [
     {
         name: 'General Dentistry',
@@ -76,9 +74,11 @@ export default function ServicesPage() {
                     </div>
                     <div className="col-photo">
                         <div className="photo-frame">
-                            <img src={OPERATORY_URL} alt="One of our treatment rooms" />
+                            <img
+                            src={config.images?.treatmentRoom || '/assets/placeholder.svg'}
+                            alt="One of our treatment rooms" />
                         </div>
-                        <p className="photo-caption">One of our treatment rooms at the Maple Ridge office.</p>
+                        <p className="photo-caption">One of our treatment rooms at {config.locations[0].name}.</p>
                     </div>
                 </div>
 

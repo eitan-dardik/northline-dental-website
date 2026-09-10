@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import LocationsTable from '../components/LocationsTable';
 import config from '../../../../landing-template/config.json';
 
-const WAITING_ROOM_URL = 'https://images.hostinger.com/5ebc1a5c-6bd0-4644-8403-e85ee880e385.png';
-
 export default function HomePage() {
     return (
         <>
@@ -49,9 +47,12 @@ export default function HomePage() {
                     </div>
                     <div className="col-photo">
                         <div className="photo-frame">
-                            <img src={WAITING_ROOM_URL} alt="The waiting room at our Maple Ridge main office" />
+                            <img 
+                            src={config.images?.receptionMainOffice || '/assets/placeholder.svg'} 
+                            alt="Dental office reception"
+                            />
                         </div>
-                        <p className="photo-caption">The waiting room at our Maple Ridge main office.</p>
+                        <p className="photo-caption">Our welcoming reception area at {config.locations[0].name}</p>
                     </div>
                 </div>
 

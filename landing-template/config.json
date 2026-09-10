@@ -14,6 +14,15 @@
     "text": "#6B6560",
     "logo": "assets/logo.svg"
   },
+  "images": {
+    "receptionMainOffice": "/assets/placeholder.svg",
+    "homeOffice": "/assets/placeholder.svg",
+    "treatmentRoom": "/assets/placeholder.svg",
+    "aboutTeam": "/assets/placeholder.svg",
+    "aboutPatel": "/assets/aboutPatel.png",
+    "aboutFeld": "/assets/placeholder.svg",
+    "aboutDenise": "/assets/aboutDenise.png"
+  },
   "locations": [
     {
       "id": "maple-ridge",
