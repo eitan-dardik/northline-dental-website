@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import config from '../../../../landing-template/config.json';
 
 const OPERATORY_URL = 'https://images.hostinger.com/ec19a440-6dbb-457e-9404-ad98cbf36420.png';
 
@@ -50,7 +51,7 @@ export default function ServicesPage() {
     return (
         <>
             <Helmet>
-                <title>Our Services — Northline Dental Group</title>
+                <title>Our Services — {config.customer.name}</title>
                 <meta
                     name="description"
                     content="General dentistry, cleanings and hygiene, fillings, crowns and bridges, root canal treatment, extractions, teeth whitening, Invisalign, emergency appointments, and children's dentistry."

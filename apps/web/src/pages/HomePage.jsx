@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import LocationsTable from '../components/LocationsTable';
+import config from '../../../../landing-template/config.json';
 
 const WAITING_ROOM_URL = 'https://images.hostinger.com/5ebc1a5c-6bd0-4644-8403-e85ee880e385.png';
 
@@ -9,18 +10,17 @@ export default function HomePage() {
     return (
         <>
             <Helmet>
-                <title>Northline Dental Group — Family &amp; Cosmetic Dentistry in Northline, Ohio</title>
+                <title>{config.customer.name} — {config.customer.tagline} in {config.customer.city}, {config.customer.state}</title>
                 <meta
                     name="description"
-                    content="Comfortable, honest dentistry for the whole family. Northline Dental Group has served the Northline area since 2011."
+                    content="{config.customer.tagline. {config.customer.name} has served the {config.customer.city} area since {config.customer.established}."
                 />
             </Helmet>
 
             <div className="banner">
-                <h1>Comfortable, honest dentistry for the whole family.</h1>
-                <p>
-                    Family &amp; cosmetic dentistry for neighbors across the Northline area. Proudly serving the
-                    community since 2011.
+                <h1>{config.customer.tagline}.</h1>
+                <p>{config.customer.header} across the {config.customer.city} area.<br></br>
+                    Proudly serving the ommunity since {config.customer.established}.
                 </p>
                 <p className="banner-actions">
                     <Link className="btn" to="/services">
@@ -35,9 +35,9 @@ export default function HomePage() {
             <div className="content">
                 <div className="two-col">
                     <div className="col-text">
-                        <h2>Welcome to Northline Dental Group</h2>
+                        <h2>Welcome to {config.customer.name}</h2>
                         <p>
-                            Since 2011, Northline Dental Group has cared for families across the Northline area
+                            Since {config.customer.established}, {config.customer.name} has cared for families across the {config.customer.city} area
                             with comfortable, honest dentistry. Whether you&rsquo;re due for a cleaning, thinking
                             about Invisalign, or need a crown in a hurry, our team takes the time to explain your
                             options and treat you like a neighbor — because you are one.

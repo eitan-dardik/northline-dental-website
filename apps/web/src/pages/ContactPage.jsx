@@ -10,10 +10,10 @@ export default function ContactPage() {
     return (
         <>
             <Helmet>
-                <title>Contact Us — Northline Dental Group</title>
+                <title>Contact Us — {config.customer.name}</title>
                 <meta
                     name="description"
-                    content="Contact Northline Dental Group at one of our three locations — Maple Ridge, Fairview, or Grandon. Call the office nearest you to schedule an appointment."
+                    content={'Contact ${config.customer.name} at one of our locations. Call the office nearest you to schedule an appointment.'}
                 />
             </Helmet>
 
@@ -42,7 +42,7 @@ export default function ContactPage() {
                 <p>
                     Follow{' '}
                     <a href={facebookUrl} target="_blank" rel="noopener noreferrer">
-                        Northline Dental Group on Facebook
+                        {config.customer.name} on Facebook
                     </a>{' '}
                     for office news, holiday hours, and the occasional smile tip. Please don&rsquo;t send
                     personal health information through Facebook — for anything private, give us a call.

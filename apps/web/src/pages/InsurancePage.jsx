@@ -1,14 +1,15 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import config from '../../../../landing-template/config.json';
 
 export default function InsurancePage() {
     return (
         <>
             <Helmet>
-                <title>Insurance &amp; Payment — Northline Dental Group</title>
+                <title>Insurance &amp; Payment — {config.customer.name}</title>
                 <meta
                     name="description"
-                    content="Northline Dental Group helps patients understand their insurance benefits, files claims, and offers flexible payment options."
+                    content={'${config.customer.name} helps patients understand their insurance benefits, files claims, and offers flexible payment options.'}
                 />
             </Helmet>
 

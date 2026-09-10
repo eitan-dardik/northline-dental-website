@@ -1,7 +1,11 @@
 {
   "customer": {
     "name": "Northline Dental Group",
-    "tagline": "this is their motto",
+    "city": "Northline",
+    "state": "Ohio",
+    "header": "Family and cosmetic dentistry",
+    "tagline": "Comfortable, honest dentistry for the whole family",
+    "subhead": "We don’t lecture people about flossing",
     "established": "2011"
   },
   "brand": {
@@ -46,7 +50,7 @@
     }
   ],
   "notice": { "active": false, "heading": "", "body": "", "until": null },
-  "contact": { "form_endpoint": "", "fallback_phone": "+1-XXX-XXX-XXXX" },
+  "contact": { "form_endpoint": "", "fallback_phone": "+1-440-555-0140" },
   "analytics": { "site_id": "" },
   "services": [
     { "id": "general-dentistry",  "name": "General dentistry",         "description": "Complete exams, digital X-rays, oral cancer screenings, and honest treatment planning for the whole family." },

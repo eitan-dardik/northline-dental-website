@@ -5,11 +5,13 @@ const TEAM_URL = 'https://images.hostinger.com/6f3d27b7-d060-4423-a982-d6c8d11ab
 const PATEL_URL = 'https://images.hostinger.com/4cf2be9d-0d63-4cae-af09-f719b3574355.png';
 const TOOTHLESS_URL = 'https://images.hostinger.com/41dc4e0e-650e-45c2-a193-c443ee23ea48.png';
 const DENISE_URL = 'https://images.hostinger.com/1f2442f1-75b4-4c7c-8467-eac2bcc05720.png';
+import config from '../../../../landing-template/config.json';
+
 export default function AboutPage() {
   return <>
             <Helmet>
-                <title>About Us — Northline Dental Group</title>
-                <meta name="description" content="Founded in 2011 by Dr. Anjali Patel, Northline Dental Group is a fourteen-person team providing family and cosmetic dentistry at three Northline-area locations." />
+                <title>About Us — {config.customer.name}</title>
+                <meta name="description" content={'Founded in ${config.customer.established} by Dr. Anjali Patel, {config.customer.name} is a fourteen-person team providing family and cosmetic dentistry at three {config.customer.city}-area locations.'} />
             </Helmet>
 
             <div className="content">
@@ -19,7 +21,7 @@ export default function AboutPage() {
                     <div className="col-text">
                         <h2>Our Practice</h2>
                         <p>
-                            Northline Dental Group was founded in 2011 by Dr. Anjali Patel, who wanted to build
+                            {config.customer.name} was founded in {config.customer.established} by Dr. Anjali Patel, who wanted to build
                             the kind of practice she&rsquo;d want for her own family: unhurried appointments,
                             plain-spoken advice, and treatment plans that respect your budget.
                         </p>
@@ -40,11 +42,11 @@ export default function AboutPage() {
                 <hr className="sep" />
 
                 <h2>The Team</h2>
-                <p>Fourteen people keep Northline running: two dentists, our hygiene team, dental assistants, and the front-desk staff who greet you by name.</p>
+                <p>Fourteen people keep {config.customer.city} running: two dentists, our hygiene team, dental assistants, and the front-desk staff who greet you by name.</p>
                 <div className="photo-frame" style={{
         maxWidth: '620px'
       }}>
-                    <img src={TEAM_URL} alt="The Northline Dental Group team in the hallway of our Maple Ridge office" />
+                    <img src={TEAM_URL} alt={"The ${config.customer.name} team in the hallway of our Maple Ridge office"} />
                 </div>
                 <p className="photo-caption">Some of the team at our Maple Ridge office, spring 2017.</p>
 
@@ -59,7 +61,7 @@ export default function AboutPage() {
                         <p className="bio-role">Practice Principal</p>
                         <p>
                             Dr. Patel earned her Doctor of Dental Surgery degree from The Ohio State University
-                            in 2007 and founded Northline Dental Group in 2011. She has a special interest in
+                            in 2007 and founded {config.customer.name} in {config.customer.established}. She has a special interest in
                             restorative and cosmetic work, and sees patients at our Maple Ridge and Fairview
                             offices.
                         </p>
@@ -77,7 +79,7 @@ export default function AboutPage() {
                         <p className="bio-role">General Dentist</p>
                         <p>
                             Dr. Toothless earned his dental degree from Case Western Reserve University in 2001
-                            and joined Northline in 2014. He focuses on family and preventive dentistry, and has
+                            and joined {config.customer.city} in 2014. He focuses on family and preventive dentistry, and has
                             a real knack for putting nervous patients — kids especially — at ease. He sees
                             patients at our Grandon and Fairview offices.
                         </p>
@@ -94,7 +96,7 @@ export default function AboutPage() {
                         <h3>Denise Kowalczyk</h3>
                         <p className="bio-role">Office Manager</p>
                         <p>
-                            Denise has been with Northline since our first year and runs the front desk —
+                            Denise has been with {config.customer.city} since our first year and runs the front desk —
                             scheduling, insurance questions, billing, and just about everything adjacent to it.
                             If you&rsquo;ve ever called one of our offices, there&rsquo;s a good chance
                             you&rsquo;ve already talked to her.
