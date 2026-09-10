@@ -3,8 +3,6 @@ import { Link, NavLink, Outlet } from 'react-router-dom';
 import { LOCATIONS } from './LocationsTable';
 import config from '../../../../landing-template/config.json';
 
-const FACEBOOK_URL = 'https://www.facebook.com/NorthlineDentalGroup';
-
 const NAV_ITEMS = [
     { to: '/', label: 'Home', end: true },
     { to: '/about', label: 'About Us' },
@@ -14,6 +12,9 @@ const NAV_ITEMS = [
 ];
 
 export default function SiteLayout() {
+    const facebook = config['social-media']?.find((s) => s.id === 'facebook');
+    const facebookUrl = facebook ? facebook.link : '#';
+
     return (
         <div className="page-wrap">
             <header className="site-header">
@@ -61,7 +62,7 @@ export default function SiteLayout() {
             </footer>
             <div className="footer-bottom">
                 © 2017 Northline Dental Group · All rights reserved ·{' '}
-                <a href={FACEBOOK_URL} target="_blank" rel="noopener noreferrer">
+                <a href={facebookUrl} target="_blank" rel="noopener noreferrer">
                     Find us on Facebook
                 </a>
             </div>

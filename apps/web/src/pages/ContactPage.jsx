@@ -1,8 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { LOCATIONS } from '../components/LocationsTable';
+import config from '../../../../landing-template/config.json';
 
-const FACEBOOK_URL = 'https://www.facebook.com/NorthlineDentalGroup';
+const facebook = config['social-media']?.find((s) => s.id === 'facebook');
+const facebookUrl = facebook ? facebook.link : '#';
 
 export default function ContactPage() {
     return (
@@ -39,7 +41,7 @@ export default function ContactPage() {
                 <h2>Find Us on Facebook</h2>
                 <p>
                     Follow{' '}
-                    <a href={FACEBOOK_URL} target="_blank" rel="noopener noreferrer">
+                    <a href={facebookUrl} target="_blank" rel="noopener noreferrer">
                         Northline Dental Group on Facebook
                     </a>{' '}
                     for office news, holiday hours, and the occasional smile tip. Please don&rsquo;t send
