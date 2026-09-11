@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { LOCATIONS } from '../lib/locations';
+import { telHref } from '../lib/format';
 import config from '../../../../landing-template/config.json';
 
 const facebook = config['social-media']?.find((s) => s.id === 'facebook');
@@ -31,7 +32,7 @@ export default function ContactPage() {
                             <h3>{loc.name}</h3>
                             <p>{loc.address}</p>
                             <p>
-                                <strong>{loc.phone}</strong>
+                                <strong><a href={telHref(loc.phone)}>{loc.phone}</a></strong>
                             </p>
                             <p>{loc.hours}</p>
                         </div>
