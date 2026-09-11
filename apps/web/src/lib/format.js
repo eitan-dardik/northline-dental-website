@@ -38,3 +38,7 @@ export const formatList = (items) => {
     if (items.length === 2) return `${items[0]} and ${items[1]}`;
     return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
 };
+
+ // Turns a display phone number into a valid `tel:` by stripping everything except digits and leading "+". 
+ // Keeps the punctuated version for display and the raw version for the link, without needing two copies in config.json.
+export const telHref = (phone) => `tel:${String(phone || '').replace(/[^\d+]/g, '')}`;
