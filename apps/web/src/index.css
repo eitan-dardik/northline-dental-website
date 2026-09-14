@@ -275,3 +275,27 @@ hr.sep {
   font-size: 12px;
 }
 .footer-bottom a { color: #8fd0c9; }
+
+/* ---------- Notice banner ---------- */
+/* Deliberately NOT nested inside .page-wrap's fixed-width layout (see
+   components/NoticeBanner.jsx) — full viewport width by default. */
+.notice-banner {
+  width: 100%;
+  box-sizing: border-box;
+  background: #b3261e;
+  color: #ffffff;
+  text-align: center;
+  padding: 14px 20px;
+}
+.notice-banner-heading {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: bold;
+  font-size: 17px;
+  margin: 0 0 4px;
+}
+.notice-banner-body {
+  font-size: 13px;
+  margin: 0;
+  color: #ffe9e7;
+}
+ 

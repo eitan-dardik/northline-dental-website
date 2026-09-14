@@ -115,7 +115,7 @@
       "bio": "Denise has been with Northline since our first year and runs the front desk — scheduling, insurance questions, billing, and just about everything adjacent to it. If you’ve ever called one of our offices, there’s a good chance you’ve already talked to her"
     }
   ],
-  "notice": { "active": false, "heading": "", "body": "", "until": null },
+  "notice": { "active": true, "heading": "Important Notice", "body": "Fairview is closed until next week", "until": "14/09/2026" },
   "contact": { "form_endpoint": "", "fallback_phone": "+1-440-555-0140" },
   "analytics": { "site_id": "" },
   "services": [
