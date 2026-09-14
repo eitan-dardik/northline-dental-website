@@ -337,3 +337,38 @@ hr.sep {
   }
   .site-footer { padding: 22px 20px 16px; }
 }
+
+
+/* ---------- Contact form ---------- */
+.contact-form { max-width: 480px; margin: 20px 0; }
+.contact-form .form-row { margin-bottom: 14px; }
+.contact-form label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  color: #6B6560;
+  margin-bottom: 4px;
+}
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 12px;
+  border: 1px solid #d7e2e6;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: #6B6560;
+}
+.contact-form textarea { resize: vertical; }
+.form-error {
+  color: #a32d2d;
+  font-size: 13px;
+  margin: 4px 0 8px;
+}
+.field-hint {
+  color: #9a948e;
+  font-size: 12px;
+  margin: 4px 0 0;
+}
