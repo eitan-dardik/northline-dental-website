@@ -31,8 +31,13 @@
    Brand: layout, font and colors
    ============================================================ */
 
+:root {
+  --font-body: 'Inter', Arial, Helvetica, sans-serif;
+  --font-heading: 'Fraunces', Georgia, 'Times New Roman', serif;
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.6;
   color: #6B6560;
@@ -42,7 +47,8 @@ body {
 }
 
 h1, h2, h3, h4 {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-heading);
+  font-weight: 500;
   color: #1B5E8C;
   line-height: 1.3;
 }
@@ -56,8 +62,11 @@ p { margin: 0 0 12px; }
 a { color: #4FA8A0; text-decoration: none; }
 a:hover { color: #1B5E8C; text-decoration: underline; }
 
+img { max-width: 100%; height: auto; }
+
 .page-wrap {
-  width: 960px;
+  max-width: 960px;
+  width: 100%;
   margin: 28px auto 44px;
   background: #ffffff;
   border-radius: 8px;
@@ -76,17 +85,12 @@ a:hover { color: #1B5E8C; text-decoration: underline; }
 .site-header .logo img { display: block; }
 .header-right { text-align: right; }
 .header-tag {
-  font-family: Georgia, serif;
+  font-family: var(--font-heading);
+  font-weight: 500;
   font-style: italic;
   color: #1B5E8C;
   font-size: 15px;
   margin: 0 0 2px;
-}
-.header-phone {
-  font-size: 18px;
-  font-weight: bold;
-  color: #6B6560;
-  margin: 0;
 }
 .header-sub { font-size: 12px; color: #9a948e; margin: 0; }
 
@@ -196,7 +200,8 @@ a:hover { color: #1B5E8C; text-decoration: underline; }
   margin: 18px 0 22px;
 }
 .callout p {
-  font-family: Georgia, serif;
+  font-family: var(--font-heading);
+  font-weight: 500;
   font-size: 17px;
   color: #1B5E8C;
   margin: 0;
@@ -216,25 +221,6 @@ a:hover { color: #1B5E8C; text-decoration: underline; }
   font-style: italic;
   margin: 6px 2px 0;
 }
-
-/* ---------- Locations table ---------- */
-.locations-table { width: 100%; border-collapse: collapse; margin: 8px 0 4px; }
-.locations-table td {
-  padding: 12px 14px;
-  border-bottom: 1px solid #e6e3df;
-  vertical-align: top;
-  font-size: 14px;
-}
-.locations-table tr:last-child td { border-bottom: none; }
-.locations-table .loc-name {
-  font-family: Georgia, serif;
-  font-weight: bold;
-  color: #1B5E8C;
-  white-space: normal;
-  width: 130px;
-}
-.locations-table .loc-addr { width: 250px; }
-.locations-table .loc-phone { width: 110px; white-space: nowrap; }
 
 /* ---------- Bios ---------- */
 .bio-row { display: flex; gap: 22px; align-items: flex-start; margin: 22px 0; }
@@ -288,8 +274,8 @@ hr.sep {
   padding: 14px 20px;
 }
 .notice-banner-heading {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-weight: bold;
+  font-family: var(--font-heading);
+  font-weight: 500;
   font-size: 17px;
   margin: 0 0 4px;
 }
@@ -298,4 +284,56 @@ hr.sep {
   margin: 0;
   color: #ffe9e7;
 }
- 
+
+/* ---------- Responsive (mobile) ---------- */
+@media (max-width: 700px) {
+  .page-wrap {
+    margin: 0 auto;
+    border-radius: 0;
+  }
+
+  .site-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 16px 20px 12px;
+  }
+  .site-header .logo img { width: 160px; height: auto; }
+  .header-right { text-align: center; }
+
+  .main-nav ul {
+    flex-wrap: wrap;
+    padding: 0;
+  }
+  .main-nav a {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .banner { padding: 30px 20px 26px; }
+  .banner h1 { font-size: 24px; }
+
+  .content { padding: 20px 18px 26px; }
+
+  .two-col { flex-direction: column; }
+  .two-col .col-photo { flex: 0 0 auto; width: 100%; }
+
+  .box-row { flex-direction: column; }
+
+  .box-grid { grid-template-columns: 1fr; }
+
+  .bio-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .bio-row .bio-photo { flex: 0 0 auto; width: 160px; }
+
+  .footer-cols {
+    flex-direction: column;
+    gap: 18px;
+    text-align: center;
+  }
+  .site-footer { padding: 22px 20px 16px; }
+}
