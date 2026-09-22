@@ -7,11 +7,14 @@
 		"dev": "concurrently --kill-others --raw \"npm run dev --prefix apps/web\"",
 		"build": "concurrently --raw \"npm run build --prefix apps/web\"",
 		"start": "concurrently --kill-others --raw",
-		"lint": "concurrently --raw \"npm run lint --prefix apps/web\""
+		"lint": "concurrently --raw \"npm run lint --prefix apps/web\"",
+		"knip": "knip"
 	},
 	"devDependencies": {
+		"@types/node": "^26.6.2",
 		"concurrently": "^10.0.4",
-		"knip": "^6.32.1"
+		"knip": "^6.37.0",
+		"typescript": "^7.0.2"
 	},
 	"workspaces": [
 		"apps/*"
