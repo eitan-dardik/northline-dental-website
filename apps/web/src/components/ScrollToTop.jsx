@@ -21,5 +21,3 @@ const ScrollToTop = () => {
 }
 
 export default ScrollToTop;
-
-export { ScrollToTop };
