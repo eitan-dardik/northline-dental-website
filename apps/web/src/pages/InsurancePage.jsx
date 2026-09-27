@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import config from '../../../../landing-template/config.json';
+import { config } from '../lib/config/index.js';
 
 export default function InsurancePage() {
 	return (

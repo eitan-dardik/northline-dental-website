@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import FramedPhoto from '../components/FramedPhoto';
-import config from '../../../../landing-template/config.json';
+import { config } from '../lib/config/index.js';
 
 export default function ServicesPage() {
 	const services = config.services || [];

@@ -3,8 +3,7 @@ import { Helmet } from 'react-helmet';
 import { ACTIVE_LOCATIONS } from '../lib/locations';
 import FramedPhoto from '../components/FramedPhoto';
 import { formatList } from '../lib/format';
-import config from '../../../../landing-template/config.json';
-
+import { config } from '../lib/config/index.js';
 export default function AboutPage() {
 	const locationCount = ACTIVE_LOCATIONS.length;
 	const locationNames = formatList(ACTIVE_LOCATIONS.map((loc) => loc.name));
