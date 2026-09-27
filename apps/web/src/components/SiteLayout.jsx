@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import NoticeBanner from './NoticeBanner';
-import config from '../../../../landing-template/config.json';
+import { config } from '../lib/config/index.js';
 
 const NAV_ITEMS = [
     { to: '/', label: 'Home', end: true },

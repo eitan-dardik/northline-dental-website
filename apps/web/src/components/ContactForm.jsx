@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ACTIVE_LOCATIONS } from '../lib/locations';
 import { telHref } from '../lib/format';
-import config from '../../../../landing-template/config.json';
+import { config } from '../lib/config/index.js';
 
 const EMPTY_FORM = { name: '', phone: '', email: '', location: '', message: '' };
 

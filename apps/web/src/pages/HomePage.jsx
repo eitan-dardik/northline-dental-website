@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import FramedPhoto from '../components/FramedPhoto';
-import config from '../../../../landing-template/config.json';
+import { config } from '../lib/config/index.js';
 
 export default function HomePage() {
 	return (

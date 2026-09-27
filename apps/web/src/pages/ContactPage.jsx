@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { LOCATIONS } from '../lib/locations';
 import { telHref } from '../lib/format';
 import ContactForm from '../components/ContactForm';
-import config from '../../../../landing-template/config.json';
+import { config } from '../lib/config/index.js';
 
 const facebook = config['social-media']?.find((s) => s.id === 'facebook');
 const facebookUrl = facebook ? facebook.link : '#';

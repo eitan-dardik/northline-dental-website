@@ -1,4 +1,4 @@
-import config from '../../../../landing-template/config.json';
+import { config } from './config/index.js';
 
 // Filtered list: contains ONLY locations where active is true.
 // This is the single source of truth for "is this office open" — every
