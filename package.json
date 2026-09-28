@@ -14,6 +14,7 @@
 		"@types/node": "^26.6.2",
 		"concurrently": "^10.0.4",
 		"knip": "^6.37.0",
+		"supabase": "^2.117.0",
 		"typescript": "^7.0.2"
 	},
 	"workspaces": [
