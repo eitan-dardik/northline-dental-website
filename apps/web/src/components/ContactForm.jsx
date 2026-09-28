@@ -2,22 +2,12 @@ import React, { useState } from 'react';
 import { ACTIVE_LOCATIONS } from '../lib/locations';
 import { telHref } from '../lib/format';
 import { config } from '../lib/config/index.js';
+import { submitLead } from'../lib/data/leads';
 
 const EMPTY_FORM = { name: '', phone: '', email: '', location: '', message: '' };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[+]?[\d\s()-]{7,20}$/;
-
-// TEMPORARY placeholder. Part 6 only builds the database — wiring this
-// form to it is Week 4's job. This always "fails" for now, so the error
-// state below is visible and testable today. In Week 4, replace the
-// body of this function with a real
-//   supabase.from('leads').insert(lead)
-// call. Nothing else in this component needs to change — the form,
-// validation, and error/success UI don't know or care how this works.
-async function submitLead(lead) {
-	return { error: new Error('Not wired to a database yet') };
-}
 
 function validate(values) {
 	const errors = {};
