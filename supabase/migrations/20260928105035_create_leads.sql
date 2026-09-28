@@ -1,8 +1,7 @@
 -- Creates the leads table the contact form writes to.
---
--- This is a numbered migration: once it has been run against the
+-- This is a timestamps migration: once it has been run against the
 -- database, this file must never be edited. Any future change to this
--- table gets a new file (002_..., 003_...), never an edit to this one.
+-- table gets a new migration file
 
 create table leads (
   id uuid primary key default gen_random_uuid(),
