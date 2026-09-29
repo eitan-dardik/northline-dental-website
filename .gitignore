@@ -4,4 +4,5 @@ dist/
 .env.local
 *.csv
 vault/
-/apps/web/public/assets/unapproved_assetes
+/apps/web/public/assets/unapproved_assets
+.vscode/
