@@ -8,7 +8,6 @@ names, phone numbers or email addresses from the file.
 Rows in the table: <4>
 
 
-
 ---
 
 ## Problems found
@@ -65,30 +64,6 @@ Rows in the table: <4>
 | **What it breaks** | Any follow-up that dials or texts automatically, and any duplicate check — the same number written two ways looks like two people. No country code, which is acceptable for a US practice but should be stated rather than assumed|
 | **How I would fix it** | Store digits only in one agreed format and format for display. Same rule as the website form |
 
-
-## Columns checked
-
-Every column, and what I found in it — including the ones with no problems,
-so it is clear they were looked at rather than skipped.
-
-| Column | What I found |
-|---|---|
-| `date` | |
-| `name` | |
-| `phone` | |
-| `email` | |
-| `heard_about_us` | |
-| `location` | |
-| `notes` | |
-
-## What this means for the answers in `data-questions.md`
-
-<which of the five answers are affected by which problem, and how much>
-
-## What would stop this happening again
-
-<what would have to change about how enquiries are collected or stored>
-
 ## Personal data
 
 | Column | Identifies a person? | Could hold something sensitive? | Must never go |
@@ -101,8 +76,8 @@ so it is clear they were looked at rather than skipped.
 | `location` | X|X| |
 | `notes` | V|V |Repo, Screenshots,Evidence Pack,Issues and PRs, Analytics, Email subject lines , AI tools |
 
-name — Direct identifier, the clearest case. NIST names it explicitly
-phone and email — Direct identifiers, and also contact routes, which adds a second risk: leaked, they enable someone to reach the person, not just recognize them.
-notes - Under NIST, medical information is listed as linkable to an individual. This is the most sensitive column in the table, and it's free text, so you can't predict what else staff have typed there.
-date and location - Alone, neither identifies anyone. But "linked or linkable" increases the chance of identifying someone when combined with the others.
-heard_about_us- not identifiable if it remains as a fixed list. while as a free text can have a chance of containing names or other sensitive data.
++ Name — Direct identifier.
++ Phone and Email — Direct identifiers, and also adds a second risk: if leaked, they enable someone to reach the person, not just recognize them.
++ Notes - This is the most sensitive column in the table. Under NIST, medical information is listed as linkable to an individual. Because it's free text, we can't predict what else staff have typed there.
++ Date and Location - Alone, neither identifies anyone. But when combined with the others they increase the chance of identifying someone.
++ Heard_about_us - not identifiable if it remains as a fixed list, but as a free text it can contain names or other sensitive data.
