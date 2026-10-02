@@ -1,6 +1,8 @@
-import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv } from 'vite';
+
+const rootDir = fileURLToPath(new URL('.', import.meta.url));
 
 // The app can't run without these. Vite bakes VITE_* values into the bundle at
 // build time, so a build without them "succeeds" but ships a blank page.
@@ -9,7 +11,7 @@ const REQUIRED_ENV = ['VITE_SUPABASE_URL', 'VITE_SUPABASE_PUBLISHABLE_KEY'];
 export default defineConfig(({ command, mode }) => {
 	if (command === 'build') {
 		// Reads .env, .env.local, .env.[mode] and real environment variables (e.g. set on the host).
-		const env = loadEnv(mode, __dirname, 'VITE_');
+		const env = loadEnv(mode, rootDir, 'VITE_');
 		const missing = REQUIRED_ENV.filter((key) => !env[key]);
 		if (missing.length) {
 			throw new Error(
@@ -26,7 +28,7 @@ export default defineConfig(({ command, mode }) => {
 		resolve: {
 			extensions: ['.jsx', '.js', '.json'],
 			alias: {
-				'@': path.resolve(__dirname, './src'),
+				'@': `${rootDir}src`,
 			},
 		},
 	};
