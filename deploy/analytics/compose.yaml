@@ -1,0 +1,35 @@
+name: analytics     
+
+services:                                   
+  umami:
+    image: ghcr.io/umami-software/umami:3.4.0   #used a fully pinned version
+    restart: unless-stopped                   #comes back after a crash or a reboot but not if closed manually.
+    mem_limit: 512m
+    depends_on: 
+      db: 
+        condition: service_healthy            #wait until db's healthcheck passes, not just until it started
+    ports: 
+      - "127.0.0.1:3100:3000"
+    env_file: .env              #shared file: umami uses DATABASE_URL + APP_SECRET
+    init: true      #docker uses init program (tini) as PID 1, which then starts Umami - for exiting umami cleanly + it's child processes
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:3000/api/heartbeat || exit 1"]  #0 means success, and the container is healthy. -f is for http errors. it uses CMD-SHELL so piping will work
+      interval: 5s      # run it every 5 seconds
+      timeout: 5s       # if it takes longer than 5 seconds, count it as a failure
+      retries: 5        # 5 failures in a row → unhealthy
+  db: 
+    image: postgres:18.6-alpine3.24     # fully pinned: Postgres 18.6 on Alpine 3.24  
+    restart: unless-stopped                  #comes back after a crash or a reboot
+    mem_limit: 512m
+    env_file: .env        #shared file: postgres uses POSTGRES_DB + POSTGRES_USER + POSTGRES_PASSWORD 
+    volumes:
+       # postgres version 18 and above change the data path changed from /data
+      - umami-db-data:/var/lib/postgresql   #named volume. it's on the server and stays after docker compose down
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]   #uses CMD-SHELL so ${VAR} will work doesn't login just check connection to db.
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  umami-db-data:      # named volume, managed by Compose: kept by "down", deleted by "down -v"
