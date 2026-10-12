@@ -1,0 +1,22 @@
+name: northline-edge
+
+services:
+  caddy:
+    image: caddy:2.11.6-alpine
+    restart: unless-stopped
+    network_mode: host                 # binds the server's real 80 and 443; reaches 127.0.0.1:*
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data               # certificates and account keys live here
+      - caddy_config:/config
+    mem_limit: 128m                   
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:2019/config/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  caddy_data:
+    external: true                     # created once by hand; compose never deletes it
+  caddy_config:
