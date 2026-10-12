@@ -1,0 +1,407 @@
+# =============================================================================
+#  Northline Dental -- self-hosted Supabase, TRIMMED          (Week 3 handout)
+# =============================================================================
+#
+#  WHAT THIS IS
+#    The official Supabase self-hosting compose file with everything Northline
+#    does not use taken out. Six services stay:
+#
+#      db       PostgreSQL 17 with Supabase's roles and extensions
+#      api-gw   the API gateway (Envoy). The one door into the stack: it checks
+#               the API key on every request and forwards it to rest or auth
+#      rest     PostgREST -- turns  /rest/v1/leads  requests into SQL
+#      auth     GoTrue -- logins and tokens. Northline has no logins; it stays
+#               because the gateway and Studio expect it
+#      meta     postgres-meta -- the API Studio uses to read tables and policies
+#      studio   the admin web screen. NEVER public: reach it via an SSH tunnel
+#
+#    Removed, with every depends_on and setting that pointed at them:
+#      realtime, storage, imgproxy, functions (edge runtime), supavisor (pooler).
+#      analytics and vector are no longer in the upstream base file at all --
+#      upstream moved them to docker-compose.logs.yml, which you do not use.
+#
+#  DERIVED FROM
+#    github.com/supabase/supabase  docker/docker-compose.yml
+#    commit 3fc8af387ec4dfb449510828a938e1f6e57a9575  (2026-09-30)
+#    Image tags below are exactly the ones pinned in that commit. Do not change
+#    them to :latest -- a pinned tag is what makes "it worked yesterday" true.
+#
+#  WHAT ELSE CHANGED FROM UPSTREAM, AND WHY
+#    1. Every published port is bound to 127.0.0.1, so nothing in this stack is
+#       reachable from outside the server. Caddy (on the same server) reaches the
+#       gateway on 127.0.0.1; you reach Studio and Postgres through an SSH tunnel.
+#    2. No container_name: lines. Fixed names would stop you running a staging
+#       and a production copy on one server. Containers are named
+#       <project>-<service>-1 instead, e.g.  northline-stage-db-1.
+#    3. The project name comes from COMPOSE_PROJECT_NAME in .env, and the file
+#       refuses to start without it -- so staging and production can never
+#       collide by accident.
+#    4. db publishes its port on 127.0.0.1 only (the pooler used to own 5432).
+#       This is how  supabase db push  reaches the database through a tunnel.
+#    5. meta gets a healthcheck (upstream has none), because every service must
+#       declare one.
+#    6. Studio's AI assistant is switched off (OPENAI_API_KEY is empty): it would
+#       send your schema and queries to a third party.
+#    7. db no longer loads the init scripts for removed services
+#       (realtime.sql, logs.sql, pooler.sql, _supabase.sql).
+#
+#  HOW TO USE IT -- once per environment (staging, then production)
+#
+#    1. Get the upstream docker/ folder. It holds files this one needs:
+#       volumes/api/envoy/*  (the gateway config) and volumes/db/*.sql.
+#
+#         git clone --depth 1 https://github.com/supabase/supabase /tmp/supabase-src
+#         mkdir -p ~/northline/stage
+#         cp -r /tmp/supabase-src/docker ~/northline/stage/supabase
+#         cd ~/northline/stage/supabase
+#
+#    2. Replace their compose file with this one, keeping the name it expects:
+#
+#         cp ~/2026-10-05-week-3-supabase-compose.yaml docker-compose.yml
+#
+#    3. Make the .env, and generate FRESH secrets -- different for staging and
+#       production. Never copy one environment's .env to the other.
+#
+#         cp .env.example .env
+#         sh utils/generate-keys.sh --update-env
+#         sh utils/add-new-auth-keys.sh --update-env
+#
+#       add-new-auth-keys.sh also tries to uncomment four lines in
+#       docker-compose.yml. Only GOTRUE_JWT_KEYS exists in this file -- the other
+#       three belonged to removed services -- so it prints "Warning: could not
+#       edit docker-compose.yml". That warning is expected. Check the one line
+#       that matters:   grep -n "GOTRUE_JWT_KEYS" docker-compose.yml
+#       It must no longer start with  #.
+#
+#    4. Then edit .env by hand. Add the three new lines, change the rest:
+#
+#         COMPOSE_PROJECT_NAME=northline-stage      # northline-prod in production
+#         API_GW_HTTP_PORT=8000                     # 8100 in production
+#         DB_HOST_PORT=5432                         # 5433 in production
+#
+#         SUPABASE_PUBLIC_URL=https://northline-api-stage.<your-domain>
+#         API_EXTERNAL_URL=https://northline-api-stage.<your-domain>/auth/v1
+#         SITE_URL=https://northline-stage.<your-domain>
+#         DISABLE_SIGNUP=true                       # Northline has no logins
+#         DASHBOARD_USERNAME=<not "supabase">
+#         DASHBOARD_PASSWORD=<openssl rand -hex 24>
+#
+#       If POSTGRES_PASSWORD contains characters such as @ / : ? # it breaks the
+#       connection URLs. Hex is safe:  openssl rand -hex 24
+#
+#       Variables for removed services (POOLER_*, LOGFLARE_*, MINIO_*, REGION,
+#       STORAGE_TENANT_ID, IMGPROXY_*, FUNCTIONS_VERIFY_JWT, ...) are simply
+#       unused. You may delete them; leaving them changes nothing.
+#
+#    5. Check, then start:
+#
+#         docker compose config -q          # prints nothing when the file is valid
+#         docker compose up -d
+#         docker compose ps                 # wait until every service is (healthy)
+#
+#  THE GATEWAY CONFIG (volumes/api/envoy/)
+#    Its route and cluster files still mention realtime, storage and functions.
+#    Leave them: the gateway starts fine, and requests to those paths simply find
+#    nothing to answer them. Editing a 1,200-line generated file is not this
+#    week's job. What does matter: the gateway serves STUDIO at "/" behind a
+#    username and password. That is why Caddy must forward only /rest/v1/* and
+#    /auth/v1/* to it, and nothing else (see the brief, lesson 3.5).
+#
+#    Older guides, and the program document, call the gateway "Kong". Upstream
+#    switched the default to Envoy and has marked the Kong override deprecated,
+#    so this file uses Envoy. The job is the same.
+#
+#  NOTHING IN HERE IS A SECRET. Every secret lives in .env, which stays on the
+#  server and is never committed.
+# =============================================================================
+
+name: ${COMPOSE_PROJECT_NAME:?set COMPOSE_PROJECT_NAME in .env, e.g. northline-stage}
+
+services:
+
+  studio:
+    image: supabase/studio:2026.09.07-sha-7996410
+    restart: unless-stopped
+    mem_limit: 512m
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "node -e \"fetch('http://localhost:3000/api/platform/profile').then((r) => {if (r.status !== 200) throw new Error(r.status)})\""
+        ]
+      timeout: 10s
+      interval: 5s
+      retries: 3
+      start_period: 20s
+    environment:
+      # Listen on all interfaces INSIDE the container; nothing is published.
+      HOSTNAME: "0.0.0.0"
+
+      STUDIO_PG_META_URL: http://meta:8080
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+      # See: https://supabase.com/docs/guides/self-hosting/remove-superuser-access
+      POSTGRES_USER_READ_WRITE: postgres
+
+      PG_META_CRYPTO_KEY: ${PG_META_CRYPTO_KEY}
+      PGRST_DB_SCHEMAS: ${PGRST_DB_SCHEMAS}
+      PGRST_DB_MAX_ROWS: ${PGRST_DB_MAX_ROWS:-1000}
+      PGRST_DB_EXTRA_SEARCH_PATH: ${PGRST_DB_EXTRA_SEARCH_PATH:-public}
+
+      DEFAULT_ORGANIZATION_NAME: ${STUDIO_DEFAULT_ORGANIZATION}
+      DEFAULT_PROJECT_NAME: ${STUDIO_DEFAULT_PROJECT}
+      # Deliberately empty: the AI assistant would send schema and SQL to a
+      # third party. Northline's leads are personal data.
+      OPENAI_API_KEY: ""
+
+      SUPABASE_URL: http://api-gw:8000
+      SUPABASE_PUBLIC_URL: ${SUPABASE_PUBLIC_URL}
+      SUPABASE_ANON_KEY: ${ANON_KEY}
+      SUPABASE_SERVICE_KEY: ${SERVICE_ROLE_KEY}
+      AUTH_JWT_SECRET: ${JWT_SECRET}
+      SUPABASE_PUBLISHABLE_KEY: ${SUPABASE_PUBLISHABLE_KEY}
+      SUPABASE_SECRET_KEY: ${SUPABASE_SECRET_KEY}
+
+      # Log views need the analytics stack, which is not part of this file.
+      ENABLED_FEATURES_LOGS_ALL: "false"
+
+      SNIPPETS_MANAGEMENT_FOLDER: /app/snippets
+    volumes:
+      - ./volumes/snippets:/app/snippets:z
+
+  # Envoy is the default API gateway upstream.
+  # See: https://github.com/orgs/supabase/discussions/48048
+  api-gw:
+    image: envoyproxy/envoy:v1.39.1
+    restart: unless-stopped
+    mem_limit: 128m       # originally was 256m
+    networks:
+      default:
+        # Internal configs refer to the gateway as "envoy" or "kong"; both names
+        # resolve to this service inside this project's network only.
+        aliases:
+          - envoy
+          - kong
+    healthcheck:
+      # TCP port check: this image does not include curl or wget.
+      test: ["CMD-SHELL", "timeout 1 bash -c '</dev/tcp/127.0.0.1/8000'"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      studio:
+        condition: service_healthy
+    ports:
+      # 127.0.0.1 = this server only. Caddy reaches it here; the internet cannot.
+      - "127.0.0.1:${API_GW_HTTP_PORT:-8000}:8000/tcp"
+    volumes:
+      - ./volumes/api/envoy/envoy.yaml:/etc/envoy/envoy.yaml:ro
+      - ./volumes/api/envoy/cds.yaml:/etc/envoy/cds.yaml:ro
+      - ./volumes/api/envoy/lds.template.yaml:/etc/envoy/lds.template.yaml:ro
+      - ./volumes/api/envoy/docker-entrypoint.sh:/docker-entrypoint.sh:ro
+    environment:
+      ANON_KEY: ${ANON_KEY}
+      SERVICE_ROLE_KEY: ${SERVICE_ROLE_KEY}
+      SUPABASE_PUBLISHABLE_KEY: ${SUPABASE_PUBLISHABLE_KEY:-}
+      SUPABASE_SECRET_KEY: ${SUPABASE_SECRET_KEY:-}
+      ANON_KEY_ASYMMETRIC: ${ANON_KEY_ASYMMETRIC:-}
+      SERVICE_ROLE_KEY_ASYMMETRIC: ${SERVICE_ROLE_KEY_ASYMMETRIC:-}
+      SUPABASE_PUBLIC_URL: ${SUPABASE_PUBLIC_URL}
+      DASHBOARD_USERNAME: ${DASHBOARD_USERNAME}
+      DASHBOARD_PASSWORD: ${DASHBOARD_PASSWORD}
+    entrypoint: ["/bin/sh", "/docker-entrypoint.sh"]
+
+  auth:
+    image: supabase/gotrue:v2.196.0
+    restart: unless-stopped
+    mem_limit: 128m       # originally was 256m
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:9999/health"
+        ]
+      timeout: 5s
+      interval: 5s
+      retries: 3
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      GOTRUE_API_HOST: 0.0.0.0
+      GOTRUE_API_PORT: 9999
+      API_EXTERNAL_URL: ${API_EXTERNAL_URL}
+
+      GOTRUE_DB_DRIVER: postgres
+      GOTRUE_DB_DATABASE_URL: postgres://supabase_auth_admin:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+
+      GOTRUE_SITE_URL: ${SITE_URL}
+      GOTRUE_URI_ALLOW_LIST: ${ADDITIONAL_REDIRECT_URLS}
+      # Set DISABLE_SIGNUP=true in .env: Northline has no logins, and an open
+      # signup endpoint on a public API lets anyone create accounts.
+      GOTRUE_DISABLE_SIGNUP: ${DISABLE_SIGNUP}
+
+      GOTRUE_JWT_ADMIN_ROLES: service_role
+      GOTRUE_JWT_AUD: authenticated
+      GOTRUE_JWT_DEFAULT_GROUP_NAME: authenticated
+      GOTRUE_JWT_EXP: ${JWT_EXPIRY}
+
+      # Legacy symmetric HS256 key
+      GOTRUE_JWT_SECRET: ${JWT_SECRET}
+
+      # JSON array of signing JWKs (EC private + legacy symmetric).
+      # utils/add-new-auth-keys.sh --update-env uncomments the next line.
+      # Leave its spelling exactly as it is, or the script cannot find it.
+      # For Podman, use: GOTRUE_JWT_KEYS: ${JWT_KEYS}
+      GOTRUE_JWT_KEYS: ${JWT_KEYS:-[]}
+
+      GOTRUE_JWT_ISSUER: ${API_EXTERNAL_URL}
+
+      GOTRUE_EXTERNAL_EMAIL_ENABLED: ${ENABLE_EMAIL_SIGNUP}
+      GOTRUE_EXTERNAL_ANONYMOUS_USERS_ENABLED: ${ENABLE_ANONYMOUS_USERS}
+      GOTRUE_MAILER_AUTOCONFIRM: ${ENABLE_EMAIL_AUTOCONFIRM}
+
+      GOTRUE_SMTP_ADMIN_EMAIL: ${SMTP_ADMIN_EMAIL}
+      GOTRUE_SMTP_HOST: ${SMTP_HOST}
+      GOTRUE_SMTP_PORT: ${SMTP_PORT}
+      GOTRUE_SMTP_USER: ${SMTP_USER}
+      GOTRUE_SMTP_PASS: ${SMTP_PASS}
+      GOTRUE_SMTP_SENDER_NAME: ${SMTP_SENDER_NAME}
+      GOTRUE_MAILER_URLPATHS_INVITE: ${MAILER_URLPATHS_INVITE}
+      GOTRUE_MAILER_URLPATHS_CONFIRMATION: ${MAILER_URLPATHS_CONFIRMATION}
+      GOTRUE_MAILER_URLPATHS_RECOVERY: ${MAILER_URLPATHS_RECOVERY}
+      GOTRUE_MAILER_URLPATHS_EMAIL_CHANGE: ${MAILER_URLPATHS_EMAIL_CHANGE}
+
+      GOTRUE_EXTERNAL_PHONE_ENABLED: ${ENABLE_PHONE_SIGNUP}
+      GOTRUE_SMS_AUTOCONFIRM: ${ENABLE_PHONE_AUTOCONFIRM}
+
+      # OAuth providers, SMS, MFA, SAML and auth hooks are all omitted here.
+      # If you ever need one, copy its block from the upstream file.
+
+  rest:
+    image: postgrest/postgrest:v14.17
+    restart: unless-stopped
+    mem_limit: 128m       # originally was 256m
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "postgrest", "--ready" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    environment:
+      # PostgREST logs in as "authenticator", then switches to the role the
+      # request's key maps to: anon for the publishable key, service_role for
+      # the secret key. That switch is what makes RLS apply to visitors.
+      PGRST_DB_URI: postgres://authenticator:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+      PGRST_DB_SCHEMAS: ${PGRST_DB_SCHEMAS}
+      PGRST_DB_MAX_ROWS: ${PGRST_DB_MAX_ROWS:-1000}
+      PGRST_DB_EXTRA_SEARCH_PATH: ${PGRST_DB_EXTRA_SEARCH_PATH:-public}
+      PGRST_DB_ANON_ROLE: anon
+
+      PGRST_ADMIN_SERVER_PORT: 3001
+      PGRST_ADMIN_SERVER_HOST: localhost
+
+      # PostgREST accepts a plain-text symmetric secret, a single JWK, or a JWKS.
+      # For Podman, use either PGRST_JWT_SECRET: ${JWT_SECRET} or
+      # PGRST_JWT_SECRET: ${JWT_JWKS}
+      PGRST_JWT_SECRET: ${JWT_JWKS:-${JWT_SECRET}}
+
+      PGRST_DB_USE_LEGACY_GUCS: "false"
+      PGRST_APP_SETTINGS_JWT_EXP: ${JWT_EXPIRY}
+    command:
+      [
+        "postgrest"
+      ]
+
+  meta:
+    image: supabase/postgres-meta:v0.99.0
+    restart: unless-stopped
+    mem_limit: 256m
+    depends_on:
+      db:
+        condition: service_healthy
+    # Added: upstream declares no healthcheck for meta. postgres-meta answers
+    # GET /health; the image ships node, so node's fetch() does the request.
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "node -e \"fetch('http://localhost:8080/health').then((r) => {if (r.status !== 200) throw new Error(r.status)})\""
+        ]
+      timeout: 5s
+      interval: 10s
+      retries: 3
+      start_period: 10s
+    environment:
+      PG_META_PORT: 8080
+      PG_META_DB_HOST: ${POSTGRES_HOST}
+      PG_META_DB_PORT: ${POSTGRES_PORT}
+      PG_META_DB_NAME: ${POSTGRES_DB}
+      PG_META_DB_USER: postgres
+      PG_META_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      CRYPTO_KEY: ${PG_META_CRYPTO_KEY}
+
+  db:
+    # To upgrade an existing Postgres 15 database in place, see utils/upgrade-pg17.sh.
+    image: supabase/postgres:17.6.1.136
+    restart: unless-stopped
+    mem_limit: 1g
+    ports:
+      # Added. 127.0.0.1 only -- reach it through an SSH tunnel, never directly.
+      # A 5432 open to the internet is how small agencies lose databases.
+      - "127.0.0.1:${DB_HOST_PORT:-5432}:${POSTGRES_PORT}"
+    volumes:
+      # Must be superuser to create event trigger
+      - ./volumes/db/webhooks.sql:/docker-entrypoint-initdb.d/init-scripts/98-webhooks.sql:Z
+      # Must be superuser to alter reserved role
+      - ./volumes/db/roles.sql:/docker-entrypoint-initdb.d/init-scripts/99-roles.sql:Z
+      # Initialize the database settings with JWT_EXP
+      - ./volumes/db/jwt.sql:/docker-entrypoint-initdb.d/init-scripts/99-jwt.sql:Z
+      # PGDATA directory is persisted between restarts. Each environment has
+      # its own folder, so staging and production never share data.
+      - ./volumes/db/data:/var/lib/postgresql/data:Z
+      # Named volume (prefixed with the project name) keeps the pgsodium key
+      # between restarts.
+      - db-config:/etc/postgresql-custom
+    healthcheck:
+      test:
+        [
+        "CMD",
+        "pg_isready",
+        "-U",
+        "postgres",
+        "-h",
+        "localhost"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    environment:
+      POSTGRES_HOST: /var/run/postgresql
+      PGPORT: ${POSTGRES_PORT}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATABASE: ${POSTGRES_DB}
+      POSTGRES_DB: ${POSTGRES_DB}
+      JWT_EXP: ${JWT_EXPIRY}
+    command:
+      [
+        "postgres",
+        "-c",
+        "config_file=/etc/postgresql/postgresql.conf",
+        "-c",
+        "log_min_messages=fatal"
+      ]
+
+volumes:
+  db-config:
