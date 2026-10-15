@@ -1,0 +1,39 @@
+{
+	# Let's Encrypt account email: expiry and problem notices go here.
+	# Placeholder - the server's copy has the real address.
+	email you@example.com
+
+	# STAGING CA - uncomment while setting up or changing hostnames.
+	# Why: Let's Encrypt allows only 5 identical certificates per week; 
+	# staging has high limits but its certificates are not trusted (issuer "(STAGING)").
+	# When every name has a staging certificate (check with openssl s_client),
+	# comment it out again and recreate: docker compose up -d --force-recreate caddy
+	# A plain "caddy reload" keeps serving the cached staging certificates.
+	# acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+
+# No blocks for northline-stage or northline: the sites live on Hostinger web hosting.
+
+northline-api-stage.<your-domain> {
+	@api path /rest/v1/* /auth/v1/*
+	handle @api {
+		reverse_proxy 127.0.0.1:8000
+	}
+	handle {
+		respond "Not found" 404
+	}
+}
+
+northline-api.<your-domain> {
+	@api path /rest/v1/* /auth/v1/*
+	handle @api {
+		reverse_proxy 127.0.0.1:8100
+	}
+	handle {
+		respond "Not found" 404
+	}
+}
+
+analytics.<your-domain> {
+	reverse_proxy 127.0.0.1:3100
+}

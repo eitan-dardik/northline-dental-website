@@ -1,0 +1,42 @@
+/*This holds every color and font family as a CSS variable*/
+
+:root {
+  /* brand-driven — applyBrand.js overwrites these from config.json */
+  --color-primary: #1b5e8c;
+  --color-accent: #4fa8a0;
+  --color-text: #6b6560;
+
+  /* derived from brand */
+  --color-primary-light: color-mix(in srgb, var(--color-primary), white 19%);
+  --color-primary-dark: color-mix(in srgb, var(--color-primary), black 20%);
+  --color-primary-darkest: color-mix(in srgb, var(--color-primary), black 37%);
+  --color-accent-light: color-mix(in srgb, var(--color-accent), white 18%);
+  --color-accent-lightest: color-mix(in srgb, var(--color-accent), white 45%);
+  --color-accent-dark: color-mix(in srgb, var(--color-accent), black 18%);
+  --color-primary-tint: color-mix(in srgb, white, var(--color-primary) 10%);
+  --color-primary-tint-strong: color-mix(in srgb, white, var(--color-primary) 16%);
+  --color-primary-tint-border: color-mix(in srgb, white, var(--color-primary) 26%);
+  --color-text-on-dark-muted:  color-mix(in srgb, white, var(--color-primary) 18%);
+  --color-text-on-dark-subtle: color-mix(in srgb, white, var(--color-primary) 35%);
+
+  /* fixed — same for every client */
+  --color-surface: #ffffff;      /* raised panels: page-wrap, header */
+  --color-surface-tint: #f2f6f7; /* boxes background*/
+  --color-page: #e4e1dd;         /* body background color (under the gradient - shows if gradient fails)*/
+  --color-page-top: #edebe8;   /* body gradient top */
+  --color-page-bottom: #d7d4d0;    /* body gradient bottom */
+  --color-text-on-dark: #ffffff;
+  --color-text-muted: #9a948e;
+  --color-highlight: #ffffff;
+  --color-border:#d7e2e6;
+  --color-error: #a32d2d;
+  --color-notice-banner: #b3261e;
+  --color-notice-text: #ffe9e7;
+
+  --font-body: 'Inter', Arial, Helvetica, sans-serif;
+  --font-heading: 'Fraunces', Georgia, 'Times New Roman', serif;
+  
+  
+  
+
+}
