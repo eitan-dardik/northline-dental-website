@@ -5,6 +5,36 @@ Add an entry every time something surprises you.
 
 ---
 
+## Shared hosting or a VPS?
+
+**Shared hosting** is the right choice when a client only needs a website:
+pages, photos and a contact form. The hosting company (Hostinger) owns and
+runs the computer (server) the site lives on, keeps it secure and installs its
+updates, so there is nothing for us to maintain there. Every time we publish
+a change, the site updates itself automatically, and HTTPS is
+included. It is the cheapest option, about $17/month, and one plan can hold
+several websites. The trade-off: the server is shared with other
+customers. On a busy day, the hosting company's limits can make the site
+slower, and we can only use the features it offers. We cannot run programs
+of our own on it, such as the database that stores Northline's enquiries.
+Northline's website itself lives here.
+
+**A VPS** (a private server) is needed when a client wants more than a
+website: somewhere to store enquiries, visitor statistics, or other programs
+of their own. That is why Northline has one: its database and analytics run
+there, because shared hosting cannot run them. The client gets full control,
+and their data stays on a server we manage instead of on someone else's
+service. In return, we take over the jobs the hosting company did before:
+security updates, backups, checking the backups really work, and watching
+that everything stays up. The server costs about $17/month, plus about
+2 hours a month of our time, which is part of the monthly retainer. Other
+customers cannot slow it down, but it has a fixed size. If too much runs at
+once, it can run out of memory, so we cap how much each part may use and
+keep an eye on it. Today Northline uses about two thirds of it.
+
+---
+---
+
 ## Entry: The contact form stopped saving enquiries
 
 ### Symptoms
@@ -85,3 +115,4 @@ Stop as soon as one step explains it.
 ### Resolve
 ### Rollback
 ### Escalate
+
