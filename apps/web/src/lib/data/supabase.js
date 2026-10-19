@@ -1,13 +1,11 @@
-//creates the client from the two settings in .env.local for interacting with database
-import { createClient } from '@supabase/supabase-js'
+//No crash before React starts, so no white page (throw) while the page is loading
+import { createClient } from '@supabase/supabase-js';
+import { env } from '../config/env.js';
 
-const url = import.meta.env.VITE_SUPABASE_URL;
-const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-
-if (!url || !key) {
-  throw new Error('Missing VITE_SUPABASE_URL or VITE_SUPABASE_PUBLISHABLE_KEY — see .env.example');
+let client = null;
+//this creates a client for supabase if it can't it returns null
+export function getSupabase() {
+  if (!env.supabaseUrl || !env.supabasePublishableKey) return null;   // missing setting: the caller shows the failure
+  if (!client) client = createClient(env.supabaseUrl, env.supabasePublishableKey);
+  return client;
 }
-
-const supabase = createClient(url, key);
-
-export { supabase };
