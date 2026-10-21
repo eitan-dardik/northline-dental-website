@@ -97,3 +97,9 @@ in order to use it in code to communicate with the supabase API.
 without the PK there could be no way to authenticated with the API
 which mean that supabase and the db itself are unlinked from the project.
 without SK- if i work locally like now it not much of a difference because in studio I authenticate as postgres which is the superuser. but later we will move supabase to a VPS and we'll need to authenticated as admin via the APIand for that we need SK 
+
+## 9. Why does anon read the content tables but only insert into leads?
+content tables such as **locations, location_hours, team_members, team_member_locations, site_notice and services**
+are all meant to be displayed to the site's visitor (who is using the anon role) as part of the site's content.
+On the other hand, the site's visitor is allowed to fill in a form (or use the API directly) which is in fact an insert rule for the leads table
+but they are prohibited from reading anything inside it because it contains other people's private data as well.
