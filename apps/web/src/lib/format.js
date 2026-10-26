@@ -1,5 +1,5 @@
-//  Used anywhere config-driven lists (like active locations) get stitched
-//  into a sentence, so adding/removing an item in config never needs a code change. 
+// Used wherever a list of names (locations, occurrences) becomes text.
+// Joins items into a sentence: "A", "A and B", "A, B, and C". , so adding/removing an item never needs a code change. 
 export const formatList = (items) => {
     if (!items || items.length === 0) return '';
     if (items.length === 1) return items[0];
@@ -7,23 +7,31 @@ export const formatList = (items) => {
     return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
 };
 
- // Turns a display phone number into a valid `tel:` by stripping everything except digits and leading "+". 
- // Keeps the punctuated version for display and the raw version for the link, without needing two copies in config.json.
+// Turns a display phone number into a valid `tel:` by stripping everything except digits and leading "+". 
+// Keeps the punctuated version for display and the raw version for the link, without needing two copies in config.json.
 export const telHref = (phone) => `tel:${String(phone || '').replace(/[^\d+]/g, '')}`;
 
 /**
- * Parses a "DD/MM/YYYY" string into a Date, or null if it's empty,
- * malformed, or an impossible date (e.g. "31/02/2026"). Not using
- * `new Date(string)` — that misreads day/month for this format.
+ * Parses the DB's `date` of "YYYY-MM-DD" string into local midnight, or null if it's empty or malformed.
+ * local midnight means each visitor will show the notice until the end of the day in their own timezone
  */
-export const parseDMY = (value) => {
-	const match = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(String(value || '').trim());
+export const parseISODate = (value) => {
+	const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value || '').trim());
 	if (!match) return null;
-
-	const [day, month, year] = match.slice(1).map(Number);
-	const date = new Date(year, month - 1, day);
-
-	// Date() silently rolls invalid dates over (31/02 -> 3 March) — reject those.
-	const isValid = date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
-	return isValid ? date : null;
+	const [year, month, day] = match.slice(1).map(Number);
+	return new Date(year, month - 1, day);
 };
+
+// Postgres time "08:00:00" → "8:00" (no seconds, no leading zero).
+export const shortTime = (time) => String(time || '').slice(0, 5).replace(/^0/, '');
+
+const ORDINALS = { 1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth' };
+// 3 → "third"
+export const ordinal = (n) => ORDINALS[n] ?? String(n);
+
+const DAY_NAMES = {
+	Mon: 'Monday', Tue: 'Tuesday', Wed: 'Wednesday', Thu: 'Thursday',
+	Fri: 'Friday', Sat: 'Saturday', Sun: 'Sunday',
+};
+// "Sat" → "Saturday" (anything else, like "Mon-Thu", is returned as is)
+export const dayName = (abbr) => DAY_NAMES[abbr] ?? abbr;
