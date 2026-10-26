@@ -13,7 +13,10 @@ export default function ServicesPage() {
 		<>
 			<Helmet>
 				<title>Our Services — {config.customer.name}</title>
-				<meta name="description" content={services.map((s) => s.name.toLowerCase()).join(', ')} />
+				<meta
+					name="description"
+					content={`Family and cosmetic dentistry at every ${config.customer.name} location: checkups, cleanings, fillings, crowns, whitening and more.`}
+				/>
 			</Helmet>
 
 			<div className="content">

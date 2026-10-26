@@ -205,19 +205,14 @@ function processPageFile(filePath, routes) {
 async function main() {
 	const src = path.join(process.cwd(), 'src');
 
-	// Load the same data the pages use, so their <Helmet> expressions can be evaluated.
+	// Load the config the pages use, so their <Helmet> expressions can be evaluated.
+	// Content from the database (services, locations…) is not available here, so page
+	// meta descriptions must only use config values.
 	try {
 		const { config } = await import(pathToFileURL(path.join(src, 'lib', 'config', 'index.js')).href);
 		scope.config = config;
-		scope.services = config.services || []; // ServicesPage: const services = config.services || [];
 	} catch (error) {
 		console.warn(`⚠️  Could not load config (${error.message})`);
-	}
-	try {
-		const { ACTIVE_LOCATIONS } = await import(pathToFileURL(path.join(src, 'lib', 'locations.js')).href);
-		scope.locationCount = ACTIVE_LOCATIONS.length; // AboutPage: const locationCount = ACTIVE_LOCATIONS.length;
-	} catch (error) {
-		console.warn(`⚠️  Could not load locations (${error.message})`);
 	}
 
 	const pagesDir = path.join(src, 'pages');

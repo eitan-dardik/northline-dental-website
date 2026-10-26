@@ -21,7 +21,7 @@ export default function AboutPage() {
 				<title>About Us — {config.customer.name}</title>
 				<meta
 					name="description"
-					content={`Founded in ${config.customer.established}, ${config.customer.name} is a ${config.customer.staffSize}-person team providing family and cosmetic dentistry across ${ready ? `${locationCount} ` : ''}${config.customer.city}-area locations.`}
+					content={`Founded in ${config.customer.established}, ${config.customer.name} is a ${config.customer.staffSize}-person team providing family and cosmetic dentistry across the ${config.customer.city} area.`}
 				/>
 			</Helmet>
 
