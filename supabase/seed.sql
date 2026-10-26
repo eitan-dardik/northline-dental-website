@@ -21,7 +21,7 @@ insert into location_hours (location_id, days, opens, closes, occurrences, sort_
   ('grandon',           'Mon-Thu',        '09:00',    '16:00',     null,     1);
 
 insert into team_members (id, name, role, image_key, sort_order, bio) values
-  ('patel',  'Dr. Anjali Patel, DDS', 'Practice Principal', 'aboutPatel',  1, 'Dr. Patel earned her Doctor of Dental Surgery degree from The Ohio State University in 2007 and founded Northline Dental Group in 2011. She has a special interest in restorative and cosmetic work, and sees patients at our Maple Ridge and Fairview offices.'),
+  ('patel',  'Dr. Anjali Patel, DDS', 'Practice Principal', 'aboutPatel',  1, 'Dr. Patel earned her Doctor of Dental Surgery degree from The Ohio State University in 2007 and founded Northline Dental Group in 2011. She has a special interest in restorative and cosmetic work.'),
   ('feld',   'Dr. Marcus Feld, DDS',  'General Dentist',    'aboutFeld',   2, 'A vital part of our team since 2019, Dr. Marcus is a 2016 Case Western graduate who provides comprehensive general and family dentistry. He also leads most of our children''s dental work. If you or your little ones get a bit anxious about dental visits, you are in the best hands.'),
   ('denise', 'Denise Kowalczyk',       'Office Manager',    'aboutDenise', 3, 'Denise has been with Northline since our first year and runs the front desk — scheduling, insurance questions, billing, and just about everything adjacent to it. If you''ve ever called one of our offices, there''s a good chance you''ve already talked to her.');
 
