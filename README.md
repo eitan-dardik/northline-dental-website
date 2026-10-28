@@ -66,4 +66,10 @@ Studio is also where you can browse the other tables, view and edit rows, and ru
 > Changes you make in Studio are *not* saved as migrations either, so they are lost on reset too. To change the database structure, add a migration.
  
 When you're done, stop Supabase with `npx supabase stop`.
+
+## Code checks
+
+`npx knip` finds unused files, exports and dependencies. A clean run prints nothing.
+
+`knip.json` tells knip to ignore the `supabase` devDependency. That package is the Supabase CLI, which this README runs with `npx supabase …`. Nothing imports it, so knip can't tell it's in use.
  
