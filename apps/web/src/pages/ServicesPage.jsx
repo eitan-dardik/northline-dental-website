@@ -2,15 +2,21 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import FramedPhoto from '../components/FramedPhoto';
 import { config } from '../lib/config/index.js';
+import { useContent } from '../contexts/ContentProvider.jsx';
+import ContentStatus from '../components/ContentStatus.jsx';
 
 export default function ServicesPage() {
-	const services = config.services || [];
+	const state = useContent();
+	const services = state.status === 'ready' ? state.content.services : [];
 
 	return (
 		<>
 			<Helmet>
 				<title>Our Services — {config.customer.name}</title>
-				<meta name="description" content={services.map((s) => s.name.toLowerCase()).join(', ')} />
+				<meta
+					name="description"
+					content={`Family and cosmetic dentistry at every ${config.customer.name} location: checkups, cleanings, fillings, crowns, whitening and more.`}
+				/>
 			</Helmet>
 
 			<div className="content">
@@ -33,15 +39,18 @@ export default function ServicesPage() {
 						<FramedPhoto imageConfig={config.images?.treatmentRoom} fallbackAlt="Treatment room" />
 					</div>
 				</div>
-
-				<div className="box-grid">
-					{services.map((service) => (
-						<div className="info-box" key={service.id || service.name}>
-							<h3>{service.name}</h3>
-							<p>{service.description}</p>
-						</div>
-					))}
-				</div>
+				{state.status === 'ready' ? (
+					<div className="box-grid">
+						{services.map((service) => (
+							<div className="info-box" key={service.id}>
+								<h3>{service.name}</h3>
+								<p>{service.description}</p>
+							</div>
+						))}
+					</div>
+				) : (
+					<ContentStatus status={state.status} />
+				)}
 			</div>
 		</>
 	);

@@ -17,7 +17,7 @@ export default function SiteLayout() {
 
     return (
         <>
-            <NoticeBanner notice={config.notice} />
+            <NoticeBanner />
             <div className="page-wrap">
                 <header className="site-header">
                     <Link to="/" className="logo">

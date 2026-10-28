@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { ACTIVE_LOCATIONS } from '../lib/locations';
 import { telHref } from '../lib/format';
 import { config } from '../lib/config/index.js';
-import { submitLead } from'../lib/data/leads';
+import { submitLead } from '../lib/data/leads';
+import { useContent } from '../contexts/ContentProvider.jsx';
+import ContentStatus from './ContentStatus.jsx';
 
 const EMPTY_FORM = { name: '', phone: '', email: '', location: '', message: '' };
 
@@ -44,6 +45,7 @@ export default function ContactForm() {
 	const [form, setForm] = useState(EMPTY_FORM);
 	const [status, setStatus] = useState('idle'); // idle | submitting | success | error
 	const [errors, setErrors] = useState({});
+	const content = useContent();                 // the locations for the dropdown
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -92,6 +94,13 @@ export default function ContactForm() {
 		);
 	}
 
+	// The dropdown needs the locations, and with the database down the form
+	// couldn't save anyway: show the loading / failure state with the phone instead.
+	if (content.status !== 'ready') {
+		return <ContentStatus status={content.status} />;
+	}
+	const locations = content.content.locations;
+
 	return (
 		<form onSubmit={handleSubmit} className="contact-form" noValidate>
 			<div className="form-row">
@@ -115,7 +124,7 @@ export default function ContactForm() {
 				<label htmlFor="location">Preferred location</label>
 				<select id="location" name="location" value={form.location} onChange={handleChange}>
 					<option value="">Select a location</option>
-					{ACTIVE_LOCATIONS.map((loc) => (
+					{locations.map((loc) => (
 						<option key={loc.id} value={loc.name}>{loc.name}</option>
 					))}
 				</select>
