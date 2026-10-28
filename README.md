@@ -61,9 +61,15 @@ The new Northline Dental Group website: a React + Vite + Tailwind CSS project lo
 2. Open **Supabase Studio** at http://127.0.0.1:54323, go to **Table Editor** → `leads`, and check that your message appears as a new row.
 Studio is also where you can browse the other tables, view and edit rows, and run SQL queries against your local database.
  
-> **Note:** `npx supabase db reset` rebuilds the local database from the migrations in `supabase/migrations/` and deletes all data, including leads submitted through the contact form. Only data from a seed file (`supabase/seed.sql`) is added back, and the project doesn't have one yet, so the tables start empty.
+> **Note:** `npx supabase db reset` rebuilds the local database from the migrations in `supabase/migrations/` and deletes all data, including leads submitted through the contact form. Only the data in the seed file (`supabase/seed.sql`) is added back: the site content (locations, hours, team, services and the notice). Leads aren't in the seed, so that table starts empty.
 >
 > Changes you make in Studio are *not* saved as migrations either, so they are lost on reset too. To change the database structure, add a migration.
  
 When you're done, stop Supabase with `npx supabase stop`.
+
+## Code checks
+
+`npx knip` finds unused files, exports and dependencies. A clean run prints nothing.
+
+`knip.json` tells knip to ignore the `supabase` devDependency. That package is the Supabase CLI, which this README runs with `npx supabase …`. Nothing imports it, so knip can't tell it's in use.
  
