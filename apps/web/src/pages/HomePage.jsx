@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import FramedPhoto from '../components/FramedPhoto';
 import { config } from '../lib/config/index.js';
+import { track } from '../lib/analytics/umami.js';
 
 export default function HomePage() {
 	return (
@@ -28,8 +29,16 @@ export default function HomePage() {
 					<Link className="btn" to="/services">
 						Our Services
 					</Link>
-					<Link className="btn btn-alt" to="/about">
+					<Link className="btn" to="/about">
 						Meet the Team
+					</Link>
+					<Link
+					className="btn btn-alt"
+					to="/contact"
+					// a React Router Link: track() in onClick, because Umami's attribute would reload the page
+					onClick={() => track('cta_click', { location: 'banner', label: 'book' })}
+					>
+					Book an appointment
 					</Link>
 				</p>
 			</div>
