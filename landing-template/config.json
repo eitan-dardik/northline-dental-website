@@ -52,7 +52,7 @@
       "alt": "Denise Kowalczyk"
     }
   },
-  "contact": { "fallback_phone": "+1-440-555-0140"},
+  "contact": { "fallback_phone": "+1-440-555-0140", "whatsapp": "+1-440-555-0140"},
   "social-media": [
   {"id": "facebook", "name": "Facebook", "link": "https://www.facebook.com/NorthlineDentalGroup"}
 ]
