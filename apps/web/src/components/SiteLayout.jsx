@@ -14,6 +14,8 @@ const NAV_ITEMS = [
 export default function SiteLayout() {
     const facebook = config['social-media']?.find((s) => s.id === 'facebook');
     const facebookUrl = facebook ? facebook.link : '#';
+    const whatsapp = config.contact?.whatsapp;
+    const whatsappHref = whatsapp ? `https://wa.me/${whatsapp.replace(/\D/g, '')}` : null;
 
     return (
         <>
@@ -66,6 +68,20 @@ export default function SiteLayout() {
                     <a href={facebookUrl} target="_blank" rel="noopener noreferrer">
                         Find us on Facebook
                     </a>
+                    {whatsappHref && (
+                        <>
+                            {' · '}
+                            <a
+                                href={whatsappHref}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-umami-event="whatsapp_click"
+                                data-umami-event-location="footer"
+                            >
+                                WhatsApp us
+                            </a>
+                        </>
+                    )}
                 </div>
             </div>
         </>
