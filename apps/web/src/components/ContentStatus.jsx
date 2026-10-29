@@ -21,7 +21,13 @@ export default function ContentStatus({ status }) {
     <p className="form-error" role="alert">
       We're sorry, this information couldn't be loaded right now.
       Please call us at{' '}
-      <a href={telHref(phone)}>{phone}</a>.
+      <a 
+        href={telHref(phone)}
+        data-umami-event="call_click"
+        data-umami-event-location="failure_message"
+      >
+        {phone}
+      </a>.
     </p>
   );
 }

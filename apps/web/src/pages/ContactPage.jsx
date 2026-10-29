@@ -6,6 +6,7 @@ import ContactForm from '../components/ContactForm';
 import { config } from '../lib/config/index.js';
 import { useContent } from '../contexts/ContentProvider.jsx';
 import ContentStatus from '../components/ContentStatus.jsx';
+import { toProp } from '../lib/analytics/umami.js';
 
 const facebook = config['social-media']?.find((s) => s.id === 'facebook');
 const facebookUrl = facebook ? facebook.link : '#';
@@ -47,7 +48,13 @@ export default function ContactPage() {
 								<p>{loc.address}</p>
 								<p>
 									<strong>
-										<a href={telHref(loc.phone)}>{loc.phone}</a>
+										<a href={telHref(loc.phone)}
+										data-umami-event='call_click'
+										data-umami-event-location='office_card'
+										data-umami-event-office={toProp(loc.id)}
+										>
+										{loc.phone}
+										</a>
 									</strong>
 								</p>
 								<p>{loc.hours}</p>

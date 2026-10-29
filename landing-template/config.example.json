@@ -52,7 +52,7 @@
       "alt": "Full Name, Title"
     }
   },
-  "contact": { "fallback_phone": "+1-XXX-XXX-XXXX" },
+  "contact": { "fallback_phone": "+1-XXX-XXX-XXXX", "whatsapp": "+1-XXX-XXX-XXXX" },
    "social-media": [
     { "id": "facebook", "name": "Facebook", "link": "https://www.facebook.com/LINKTOPAGE" }
   ]
