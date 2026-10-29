@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { telHref } from '../lib/format';
 import { config } from '../lib/config/index.js';
 import { submitLead } from '../lib/data/leads';
 import { useContent } from '../contexts/ContentProvider.jsx';
 import ContentStatus from './ContentStatus.jsx';
+import { track, toProp } from '../lib/analytics/umami.js';
 
 const EMPTY_FORM = { name: '', phone: '', email: '', location: '', message: '' };
 
@@ -46,8 +47,13 @@ export default function ContactForm() {
 	const [status, setStatus] = useState('idle'); // idle | submitting | success | error
 	const [errors, setErrors] = useState({});
 	const content = useContent();                 // the locations for the dropdown
+	const started = useRef(false);                // form_start sent yet? remembered between renders, no re-render
 
 	const handleChange = (e) => {
+		if (!started.current) {                   // first input in this form view
+			started.current = true;
+			track('form_start', { form: 'contact' });
+		}
 		const { name, value } = e.target;
 		setForm((prev) => ({ ...prev, [name]: value }));
 		setErrors((prev) => {
@@ -64,7 +70,13 @@ export default function ContactForm() {
 
 		const validationErrors = validate(form);
 		setErrors(validationErrors);
-		if (Object.keys(validationErrors).length > 0) return;
+		if (Object.keys(validationErrors).length > 0) {
+			// one event per failed field, so no field hides another
+			for (const field of Object.keys(validationErrors)) {
+				track('form_error', { form: 'contact', reason: 'validation', field });
+			}
+			return;
+		}
 
 		setStatus('submitting');
 
@@ -78,10 +90,16 @@ export default function ContactForm() {
 		});
 
 		if (error) {
+			// an error with a code (e.g. 42501) = the API refused it (rejected); no code = no answer at all (network)
+			track('form_error', { form: 'contact', reason: error.code ? 'rejected' : 'network' });
 			setStatus('error');
 			return;
 		}
 
+		// the dropdown's value is the office name; the event needs its id
+		// locations is declared further down; that's fine, because handleSubmit only runs after the form has rendered
+		const office = locations.find((loc) => loc.name === form.location)?.id;
+		track('form_submit', { form: 'contact', office: toProp(office) });
 		setStatus('success');
 		setForm(EMPTY_FORM);
 	};
@@ -143,7 +161,13 @@ export default function ContactForm() {
 			{status === 'error' && (
 				<p className="form-error">
 					We're sorry — something went wrong and we couldn't save your message. Please call us at{' '}
-					<a href={telHref(config.contact?.fallback_phone)}>{config.contact?.fallback_phone}</a>{' '}
+					<a
+						href={telHref(config.contact?.fallback_phone)}
+						data-umami-event="call_click"
+						data-umami-event-location="failure_message"
+					>
+						{config.contact?.fallback_phone}
+					</a>{' '}
 					instead.
 				</p>
 			)}

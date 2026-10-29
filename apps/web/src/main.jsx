@@ -12,8 +12,10 @@ import '@fontsource/fraunces/500.css';
 import '@fontsource/fraunces/500-italic.css';
 import { applyBrand } from '@/lib/config/applyBrand.js';
 import { ContentProvider } from './contexts/ContentProvider.jsx';
+import { loadUmami } from './lib/analytics/umami.js';
 
 applyBrand();
+loadUmami();
 // no StrictMode = see each request once in the network tab
 ReactDOM.createRoot(document.getElementById('root')).render(
 // wraps the app in the provider, so the load starts once when the site opens, and every page inside can read the state
