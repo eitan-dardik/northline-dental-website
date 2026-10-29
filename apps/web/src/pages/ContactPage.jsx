@@ -1,14 +1,19 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { LOCATIONS } from '../lib/locations';
+import { formatLocations } from '../lib/locations';
 import { telHref } from '../lib/format';
 import ContactForm from '../components/ContactForm';
 import { config } from '../lib/config/index.js';
+import { useContent } from '../contexts/ContentProvider.jsx';
+import ContentStatus from '../components/ContentStatus.jsx';
 
 const facebook = config['social-media']?.find((s) => s.id === 'facebook');
 const facebookUrl = facebook ? facebook.link : '#';
 
 export default function ContactPage() {
+	const state = useContent();
+	const locations = state.status === 'ready' ? formatLocations(state.content.locations) : [];
+	
 	return (
 		<>
 			<Helmet>
@@ -34,21 +39,24 @@ export default function ContactPage() {
                     Our phones are answered during business hours-<br></br>
                     if you reach our voicemail, leave a message and we&rsquo;ll call you back as soon as possible.
                 </p>
-				<div className="box-row">
-					{LOCATIONS.map((loc) => (
-						<div className="info-box" key={loc.id || loc.name}>
-							<h3>{loc.name}</h3>
-							<p>{loc.address}</p>
-							<p>
-								<strong>
-									<a href={telHref(loc.phone)}>{loc.phone}</a>
-								</strong>
-							</p>
-							<p>{loc.hours}</p>
-						</div>
-					))}
-				</div>
-
+				{state.status === 'ready' ? (
+					<div className="box-row">
+						{locations.map((loc) => (
+							<div className="info-box" key={loc.id}>
+								<h3>{loc.name}</h3>
+								<p>{loc.address}</p>
+								<p>
+									<strong>
+										<a href={telHref(loc.phone)}>{loc.phone}</a>
+									</strong>
+								</p>
+								<p>{loc.hours}</p>
+							</div>
+						))}
+					</div>
+				) : (
+					<ContentStatus status={state.status} />
+				)}
 				<h2>Find Us on Facebook</h2>
 				<p>
 					Follow{' '}

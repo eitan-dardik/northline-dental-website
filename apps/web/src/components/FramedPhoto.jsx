@@ -1,5 +1,6 @@
 import React from 'react';
 import { resolveImageCaption } from '../lib/locations';
+import { useContent } from '../contexts/ContentProvider.jsx';
 
 /**
  * Renders a config-driven photo: the framed <img> plus its caption, if it
@@ -13,7 +14,9 @@ import { resolveImageCaption } from '../lib/locations';
  * Usage: <FramedPhoto imageConfig={config.images?.homeOffice} fallbackAlt="Our main office" />
  */
 export default function FramedPhoto({ imageConfig, fallbackAlt = '', maxWidth }) {
-	const caption = resolveImageCaption(imageConfig);
+	const state = useContent();
+	const locations = state.status === 'ready' ? state.content.locations : [];
+	const caption = resolveImageCaption(imageConfig, locations);
 
 	return (
 		<>
