@@ -4,7 +4,7 @@ The new Northline Dental Group website: a React + Vite + Tailwind CSS project lo
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/) 20.10 or newer
+- [Node.js](https://nodejs.org/) 24 (LTS), the version the Hostinger sites and the mailer image run. `nvm use` picks it up from `.nvmrc`.
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/), running, for the local Supabase database
 
 ## Getting started
