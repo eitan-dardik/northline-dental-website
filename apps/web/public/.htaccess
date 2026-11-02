@@ -1,0 +1,21 @@
+# Single-page app: React Router handles the URLs, not the server.
+# Without this, refreshing /services asks the server for a file called "services" -> 404.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # index.html itself: serve it, stop here
+  RewriteRule ^index\.html$ - [L]
+
+  # Real files (assets, llms.txt) and folders: serve them as they are
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # A missing file under /assets/ stays a real 404 (no HTML in place of an image)
+  RewriteRule ^assets/ - [L]
+
+  # Everything else: hand it to the app
+  RewriteRule ^ /index.html [L]
+</IfModule>
