@@ -16,8 +16,9 @@
 #      studio   the admin web screen. NEVER public: reach it via an SSH tunnel
 #      mailer   (Week 4) emails each new lead once: reads leads through api-gw,
 #               records each one in lead_emails. Built from services/mailer in
-#               the repo clone on the server; its settings and secrets are in
-#               mailer.env next to this file (not in .env)
+#               a clone of this repo at ~/northline/repo (see HOW TO USE IT,
+#               step 5); its settings and secrets are in mailer.env next to
+#               this file (not in .env)
 #
 #    Removed, with every depends_on and setting that pointed at them:
 #      realtime, storage, imgproxy, functions (edge runtime), supavisor (pooler).
@@ -97,8 +98,21 @@
 #       STORAGE_TENANT_ID, IMGPROXY_*, FUNCTIONS_VERIFY_JWT, ...) are simply
 #       unused. You may delete them; leaving them changes nothing.
 #
-#    5. The mailer (Week 4): create mailer.env next to this file from the
-#       template in the repo, and fill it in. It holds secrets: chmod 600.
+#    5. The mailer (Week 4). It is built from a clone of this repo, and the
+#       mailer service finds it by RELATIVE paths (../../repo), so the clone
+#       must sit next to the stacks, in exactly this layout:
+#
+#         ~/northline/repo/              the clone of this repo
+#         ~/northline/stage/supabase/    this file, for staging
+#         ~/northline/prod/supabase/     this file, for production
+#
+#       From either stack folder, ../../repo is then ~/northline/repo.
+#       Clone it once (later updates: cd ~/northline/repo && git pull):
+#
+#         git clone https://github.com/eitan-dardik/northline-dental-website.git ~/northline/repo
+#
+#       Then create mailer.env next to this file from the template, and fill
+#       it in. It holds secrets: chmod 600.
 #
 #         cp ~/northline/repo/services/mailer/mailer.env.example mailer.env
 #         chmod 600 mailer.env
@@ -423,16 +437,19 @@ services:
 
   # Emails each new lead once (see services/mailer in the repo).
   mailer:
-    # The repo clone on the server (~/northline/repo); compose needs the path absolute.
-    build: /path/to/northline/repo/services/mailer
+    # Relative paths are resolved from THIS FILE's folder, not from where you run
+    # docker compose. From ~/northline/<stage|prod>/supabase, ../../repo is the
+    # repo clone at ~/northline/repo (layout: HOW TO USE IT, step 5).
+    build: ../../repo/services/mailer
     restart: unless-stopped
     mem_limit: 256m
     depends_on:
       api-gw:
         condition: service_healthy
     volumes:
-      # The website's config.json, read-only: the clinic's name, phone and colors.
-      - /path/to/northline/repo/landing-template/config.json:/app/config.json:ro
+      # The website's config.json from the same clone, read-only (:ro):
+      # the clinic's name, phone and colors, so they live in one place.
+      - ../../repo/landing-template/config.json:/app/config.json:ro
     healthcheck:
       # Healthy if the heartbeat was written in the last 60 seconds (one round = 15 s).
       # $$ is compose's way of writing a literal $ for the shell.
@@ -446,3 +463,4 @@ services:
 
 volumes:
   db-config:
+  
