@@ -72,7 +72,14 @@
   margin: 0 0 10px;
 }
 .banner p { color: var(--color-text-on-dark-muted); font-size: 15px; margin: 0 auto 18px; max-width: 640px; }
-.banner-actions { margin: 0; }
+/* The banner's buttons: a row that wraps, with even spacing in both directions */
+.banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.banner-actions .btn { margin: 0; } /* gap does the spacing here, not the margin */
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -244,12 +251,16 @@ hr.sep {
     padding: 0;
   }
   .main-nav a {
-    padding: 10px 14px;
+    padding: 10px 10px;
     font-size: 13px;
   }
 
   .banner { padding: 30px 20px 26px; }
   .banner h1 { font-size: 24px; }
+
+  /* Phones: Book first and full width; the other two share the row below */
+  .banner-actions .btn { flex: 1 1 0; }
+  .banner-actions .btn-alt { flex-basis: 100%; }
 
   .content { padding: 20px 18px 26px; }
 
