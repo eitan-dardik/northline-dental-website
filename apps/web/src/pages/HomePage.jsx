@@ -33,12 +33,12 @@ export default function HomePage() {
 						Meet the Team
 					</Link>
 					<Link
-					className="btn btn-alt"
-					to="/contact"
-					// a React Router Link: track() in onClick, because Umami's attribute would reload the page
-					onClick={() => track('cta_click', { location: 'banner', label: 'book' })}
+						className="btn btn-alt"
+						to="/contact"
+						// a React Router Link: track() in onClick, because Umami's attribute would reload the page
+						onClick={() => track('cta_click', { location: 'banner', label: 'book' })}
 					>
-					Book an appointment
+						Book an appointment
 					</Link>
 				</p>
 			</div>
