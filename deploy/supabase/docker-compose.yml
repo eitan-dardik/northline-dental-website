@@ -4,7 +4,7 @@
 #
 #  WHAT THIS IS
 #    The official Supabase self-hosting compose file with everything Northline
-#    does not use taken out. Six services stay:
+#    does not use taken out, plus Northline's mailer. Seven services:
 #
 #      db       PostgreSQL 17 with Supabase's roles and extensions
 #      api-gw   the API gateway (Envoy). The one door into the stack: it checks
@@ -14,6 +14,10 @@
 #               because the gateway and Studio expect it
 #      meta     postgres-meta -- the API Studio uses to read tables and policies
 #      studio   the admin web screen. NEVER public: reach it via an SSH tunnel
+#      mailer   (Week 4) emails each new lead once: reads leads through api-gw,
+#               records each one in lead_emails. Built from services/mailer in
+#               the repo clone on the server; its settings and secrets are in
+#               mailer.env next to this file (not in .env)
 #
 #    Removed, with every depends_on and setting that pointed at them:
 #      realtime, storage, imgproxy, functions (edge runtime), supavisor (pooler).
@@ -93,11 +97,25 @@
 #       STORAGE_TENANT_ID, IMGPROXY_*, FUNCTIONS_VERIFY_JWT, ...) are simply
 #       unused. You may delete them; leaving them changes nothing.
 #
-#    5. Check, then start:
+#    5. The mailer (Week 4): create mailer.env next to this file from the
+#       template in the repo, and fill it in. It holds secrets: chmod 600.
+#
+#         cp ~/northline/repo/services/mailer/mailer.env.example mailer.env
+#         chmod 600 mailer.env
+#
+#    6. Check, then start:
 #
 #         docker compose config -q          # prints nothing when the file is valid
 #         docker compose up -d
 #         docker compose ps                 # wait until every service is (healthy)
+#
+#  UPDATING THIS FILE
+#    The repo copy (deploy/supabase/docker-compose.yml) is the source. Edit it
+#    there, commit, then on the server:
+#
+#         cd ~/northline/repo && git pull
+#         diff deploy/supabase/docker-compose.yml ~/northline/stage/supabase/docker-compose.yml
+#         cp deploy/supabase/docker-compose.yml ~/northline/stage/supabase/docker-compose.yml
 #
 #  THE GATEWAY CONFIG (volumes/api/envoy/)
 #    Its route and cluster files still mention realtime, storage and functions.
@@ -111,8 +129,8 @@
 #    switched the default to Envoy and has marked the Kong override deprecated,
 #    so this file uses Envoy. The job is the same.
 #
-#  NOTHING IN HERE IS A SECRET. Every secret lives in .env, which stays on the
-#  server and is never committed.
+#  NOTHING IN HERE IS A SECRET. Every secret lives in .env and mailer.env, which
+#  stay on the server and are never committed.
 # =============================================================================
 
 name: ${COMPOSE_PROJECT_NAME:?set COMPOSE_PROJECT_NAME in .env, e.g. northline-stage}
@@ -402,6 +420,29 @@ services:
         "-c",
         "log_min_messages=fatal"
       ]
+
+  # Emails each new lead once (see services/mailer in the repo).
+  mailer:
+    # The repo clone on the server (~/northline/repo); compose needs the path absolute.
+    build: /path/to/northline/repo/services/mailer
+    restart: unless-stopped
+    mem_limit: 256m
+    depends_on:
+      api-gw:
+        condition: service_healthy
+    volumes:
+      # The website's config.json, read-only: the clinic's name, phone and colors.
+      - /path/to/northline/repo/landing-template/config.json:/app/config.json:ro
+    healthcheck:
+      # Healthy if the heartbeat was written in the last 60 seconds (one round = 15 s).
+      # $$ is compose's way of writing a literal $ for the shell.
+      test: ["CMD-SHELL", "[ $$(( $$(date +%s) - $$(cat /tmp/heartbeat) / 1000 )) -lt 60 ]"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    # Only the mailer's settings and secrets, never the stack's .env (least privilege).
+    env_file: mailer.env
 
 volumes:
   db-config:
