@@ -1,0 +1,23 @@
+name: ci
+on:
+  pull_request:
+    branches: [dev, main]
+permissions:
+  contents: read                 # only what the job needs
+concurrency:                     # For each pull request, only test the newest push, and stop testing anything older.
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  ci:                            # this name is the check you will require
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # The format is uses: <owner>/<repo>@<version>
+      # actions/checkout downloads my repository’s code onto the runner because it starts empty
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1   # v7.0.1
+      # actions/setup-node installs Node.js and npm on the runner
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
+        with: { node-version: 24, cache: npm }
+      - run: npm ci         # clean install: exactly the versions in package-lock.json; fails if it doesn't match package.json
+      - run: npm run lint   # No output= No problem
+      - run: npm run build
