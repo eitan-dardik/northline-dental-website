@@ -35,3 +35,6 @@ const DAY_NAMES = {
 };
 // "Sat" → "Saturday" (anything else, like "Mon-Thu", is returned as is)
 export const dayName = (abbr) => DAY_NAMES[abbr] ?? abbr;
+
+// testing - meant to fail lint ci check
+export const brokenOnPurpose = () => notDefinedAnywhere;
