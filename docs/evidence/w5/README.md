@@ -7,7 +7,7 @@
 | 3 | Signed commit and CODEOWNERS | [Signed commit output](#row-3-signed-commit); CODEOWNERS on [main](https://github.com/eitan-dardik/northline-dental-website/blob/main/.github/CODEOWNERS) and [dev](https://github.com/eitan-dardik/northline-dental-website/blob/dev/.github/CODEOWNERS) |CODEOWNERS) |
 | 4 | CI: workflow, a passing run, a blocked failing run, the staging build | [ci.yml](https://github.com/eitan-dardik/northline-dental-website/blob/dev/.github/workflows/ci.yml); [passing run](https://github.com/eitan-dardik/northline-dental-website/actions/runs/41830732177) on [PR #99](https://github.com/eitan-dardik/northline-dental-website/pull/99); failing run: task 19; staging build: [see below](#row-4-ci) |
 | 5 | Release v0.5.0 | pull request link; tag link; img/21-deployments.png |
-| 6 | RELEASE.md | link |
+| 6 | RELEASE.md | [RELEASE.md on dev](https://github.com/eitan-dardik/northline-dental-website/blob/dev/RELEASE.md), merged in PR #102 |
 | 7 | Incident 1 comment and Incident 2 times | comment link; rollback.md |
 | 8 | Umami backup, upgrade and rollback | umami.md; logs/ |
 | 9 | Decision brief, board, multiplier, retrospective | decision.md; img/23-board.png |
