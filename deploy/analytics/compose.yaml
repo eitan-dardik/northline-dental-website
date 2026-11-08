@@ -2,7 +2,7 @@ name: analytics
 
 services:                                   
   umami:
-    image: ghcr.io/umami-software/umami:3.4.0   #used a fully pinned version
+    image: ghcr.io/umami-software/umami:3.4.0@sha256:85909afc45bdcda1917394594a087421fdbb05610fded0fa9f6fb861abb2f367   # 3.4.0, pinned by digest   #used a fully pinned version
     restart: unless-stopped                   #comes back after a crash or a reboot but not if closed manually.
     mem_limit: 512m
     depends_on: 
