@@ -68,4 +68,39 @@ The database container (`analytics-db-1`) was never restarted ("Up 3 weeks" thro
 
 Going back to the old image was a real rollback. The upgrade changed only the Umami container, not the data: the 3.4.1 release notes list "Migrations: None" (task 7), and the count of events before the backup time stayed 339 after the upgrade and after the rollback. Rolling back brought back the 3.4.0 code, by its digest, and the data stayed unchanged, so Umami was exactly as before. If a future release changes the schema, starting the old image on the new schema may not work, so swapping the image back would not be a real rollback. Then only restoring the backup taken before the upgrade would take us back, and anything written after the backup would be lost.
 
-**Bonus (not done):** log rotation, image prune, disk limit, Trivy scan.
+## Task 27 bonus: vulnerability scan
+
+The task asks for a scan of the Umami image, so I first scanned **3.4.0**, the version running after the rollback. It had 5 critical findings, so I decided to scan **3.4.1** too, to check whether the upgrade patches them. It does: **0 critical** in 3.4.1.
+
+Both scanned with **Trivy 0.76.2**, by digest, from a `docker save` copy of each image (`--scanners vuln --severity CRITICAL`):
+
+| | **3.4.0** (running after the rollback) | **3.4.1** |
+|---|---|---|
+| Image | `umami@sha256:85909afc…` | `umami@sha256:e69d1a79…` |
+| Base OS | Alpine 3.24.1 | Alpine 3.24.3 |
+| Next.js | 16.3.4 | 16.4.2 |
+| **CRITICAL findings** | **5** | **0** |
+
+**3.4.0's critical findings** (not fixed, as the task says):
+
+| Package | Vulnerability | Installed | Fixed in | What it is |
+|---|---|---|---|---|
+| `brotli-libs` (OS) | CVE-2026-111497 | 1.2.0-r1 | 1.2.1-r0 | Out-of-bounds write in the Brotli decoder |
+| `next` | GHSA-2464-fhr4-w9xw | 16.3.4 | 16.4.1 | Unauthenticated remote code execution (image optimization, SVG) |
+| `next` | GHSA-673q-mjm6-r5xr | 16.3.4 | 16.4.1 | Unauthenticated remote code execution (`use cache`) |
+| `next` | GHSA-vcvr-r3jv-pc5j | 16.3.4 | 16.3.6 | Remote code execution (`next/og`) |
+| `shell-quote` | CVE-2026-102422 | 1.10.0 | 1.11.0 | Arbitrary command execution |
+
+The 3.4.1 scan confirms its release notes: Next.js 16.4.2 and the newer base image fix all five. Umami is publicly reachable through Caddy, so I reported this to the CEO with a proposal to upgrade to 3.4.1. Waiting for his OK; I didn't change production on my own.
+
+**Secret scan.** Trivy's docs say vulnerability **and secret** scanning are both on by default. A secret found in the image would be printed into the report, and the reports go into this public repo. So I ran the scans separately:
+1. the vulnerability scan with `--scanners vuln` only, for `trivy.txt`;
+2. the secret scan with `--scanners secret`, into its own file, kept on the server until I had read it.
+
+The secret scan found **0 secrets** (no `(secrets)` section; every target is clean or not scanned). Only after checking that did I copy [trivy-secrets.txt](logs/trivy-secrets.txt) here.
+
+Trivy also warned about six large files in `root/.cache/pnpm/` (~210 MB of package-manager cache left in the 3.4.0 image), which may be part of why 3.4.0 is larger than 3.4.1 (1.47 GB vs 1.36 GB).
+
+Reports: [trivy.txt](logs/trivy.txt) (3.4.0), [trivy-341.txt](logs/trivy-341.txt) (3.4.1).
+
+**Bonus not done yet:** log rotation (planned together with the 3.4.1 upgrade, so Umami restarts once), image prune, disk limit in RELEASE.md.
