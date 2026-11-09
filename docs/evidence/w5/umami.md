@@ -119,4 +119,15 @@ The image copies made for the scans (`docker save` → `umami-image.tar` for 3.4
 
 Log: [disk-cleanup.log](logs/disk-cleanup.log).
 
-**Bonus not done yet:** log rotation (planned together with the 3.4.1 upgrade, so Umami restarts once), disk limit in RELEASE.md.
+## Task 27 bonus: log rotation
+
+**Already on for every container**, through the server's Docker default. Checked, not assumed:
+- `docker info --format '{{.LoggingDriver}}'` → `json-file`
+- `/etc/docker/daemon.json` → `"log-opts": {"max-size": "10m", "max-file": "3"}`
+- `docker inspect analytics-umami-1` → `json-file {"max-file":"3","max-size":"10m"}`
+
+So every container's log is limited to 3 × 10 MB. To keep the setting in the repo, so it doesn't depend on the server's config, I added the same `logging:` block to Umami's service in `compose.yaml`, in [PR #111](https://github.com/eitan-dardik/northline-dental-website/pull/111), together with the 3.4.1 upgrade. Only Umami gets it, because it restarts for the upgrade anyway; adding it to the database would recreate the database container for no change.
+
+**Waiting for the CEO's OK** before merging #111 and applying it on the server. I'll do both together, so the repo and the server stay in sync.
+
+**Bonus not done yet:** disk limit in RELEASE.md.
