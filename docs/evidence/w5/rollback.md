@@ -14,6 +14,8 @@ The change: a harmless HTML comment `<!-- revert drill W5 -->` in `apps/web/inde
 | 6 | `curl` no longer finds the marker | 16:20:41 |
 | | **Total (1 → 6)** | **4 min 58 s** |
 
+Drill: there was no "told" moment, so the clock starts when the change was live on staging (step 1). The 4 min 58 s covers the Revert until staging was fixed, not detecting the problem.
+
 Step 5: the hPanel header says 1 min 9 s (→ 16:20:44), but `curl` already saw the new page at 16:20:41, so I used the build log's 1 min 2 s (→ 16:20:37), which fits between the two `curl` checks (16:20:26 old page, 16:20:41 new page).
 
 Check commands (`STAGING_URL` = the staging site's address):
