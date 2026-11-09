@@ -34,7 +34,7 @@ The counts match, so the backup restores. The temporary container was deleted wi
 
 ## Task 27: upgrade and rollback
 
-**Fresh backup** before the upgrade: `~/backups/FILL.dump`, at **FILL UTC**. Events before that time: **339**.
+**Fresh backup** before the upgrade: `~/backups/umami-2026-11-09-0747.dump` (85K), at about **2026-11-09 07:47:15 UTC** (09:47 Israel), 3 minutes before the upgrade. Events before that time: **339**.
 
 **Digests**
 
@@ -45,7 +45,7 @@ The counts match, so the backup restores. The temporary container was deleted wi
 
 3.4.1 was pulled **before** the upgrade, while 3.4.0 kept running, so the download caused no downtime. Before the upgrade I kept a copy of the 3.4.0 compose file (`compose.yaml.340`); the rollback was copying it back and running `docker compose up -d`.
 
-**Downtime**, measured from my laptop with a poll about every 0.95 s (each `curl` took ~0.45 s, plus `sleep 0.5`, so ±1 s):
+**Downtime**, measured from my laptop with a poll about every 0.95 s (each `curl` took ~0.45 s, plus `sleep 0.5`, so ±1 s). Times are **Israel time**, from my laptop:
 
 | Change | Last 200 | First failure | First 200 again | Downtime |
 |---|---|---|---|---|
@@ -109,9 +109,11 @@ Reports: [trivy.txt](logs/trivy.txt) (3.4.0), [trivy-341.txt](logs/trivy-341.txt
 
 So I removed only what I had added this week, **by exact name**, after checking that no container used it: `aquasec/trivy:0.76.2`, `postgres:18.6` and the `trivy-cache` volume. I kept Umami 3.4.1, and never touched the other volumes.
 
+The image copies made for the scans (`docker save` → `umami-image.tar` for 3.4.0, `umami-341.tar` for 3.4.1) were still on the disk during the cleanup log; I deleted them right after it. The final `df -h /` is at the end of the log.
+
 | | Before | After |
 |---|---|---|
-| Disk used (96 G) | 16 G (16 %) | 13 G (14 %) |
+| Disk used (96 G) | 16 G (16 %) | 13 G (14 %); **13 %** after deleting the two scan copies |
 | Docker images | 14, 8.553 GB | 12, 7.651 GB (1.344 GB reclaimable = 3.4.1, kept) |
 | Docker volumes | 6, 1.766 GB | 5, 68 MB |
 

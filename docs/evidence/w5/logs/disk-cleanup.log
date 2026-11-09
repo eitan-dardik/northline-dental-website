@@ -37,3 +37,7 @@ Local Volumes   5         5         68.24MB   0B (0%)
 Build Cache     11        0         287.5MB   0B
 Filesystem      Size  Used Avail Use% Mounted on
 /dev/sda1        96G   13G   84G  14% /
+
+=== 2026-11-09 10:55:48 UTC AFTER deleting the umami-image.tar and umami-341.tar scan copies ===
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        96G   13G   84G  13% /
