@@ -48,8 +48,7 @@ Author: Eitan <278788152+eitan-dardik@users.noreply.github.com>
 Date:   Tue Nov 3 13:29:49 2026 +0200
 ```
 
-Unsigned commits on dev but not on main (`git rev-list --count origin/main..origin/dev`): **0**
-
+Commits on dev not yet on main (`git rev-list --count origin/main..origin/dev`): **0**, so no commit, signed or unsigned, was waiting for the release. This count doesn't check signatures; that is checked in [refusals.md](refusals.md), test 3 (`verification.verified`).
 
 ## Row 4: CI
 
