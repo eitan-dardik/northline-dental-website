@@ -130,4 +130,17 @@ So every container's log is limited to 3 × 10 MB. To keep the setting in the re
 
 **Waiting for the CEO's OK** before merging #111 and applying it on the server. I'll do both together, so the repo and the server stay in sync.
 
-**Bonus not done yet:** disk limit in RELEASE.md.
+## Task 27 bonus: disk limit
+
+**Written as a RUNBOOK entry.** It's a server routine, not a release step, so it belongs in the RUNBOOK. See the entry "The VPS disk is filling up" ([PR #112](https://github.com/eitan-dardik/northline-dental-website/pull/112)):
+- at what disk use I act
+- what I may clean myself
+- when the CEO is told
+
+RELEASE.md checks the disk before a release and links to the entry.
+
+**One disk covers everything.** Checked, not assumed:
+- `docker info --format '{{.DockerRootDir}}'` → `/var/lib/docker`
+- `df -h / /var/lib/docker` → both on `/dev/sda1`: 96 G, 13 % used (9 Nov 2026)
+
+So `df -h /` covers every container, image and volume.
