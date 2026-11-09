@@ -229,6 +229,51 @@ exit code, OOM flag and stop time are gone, and those are what explain the cause
 
 ---
 
+## Entry: The VPS disk is filling up
+
+### Symptoms
+
+- `df -h /` shows **70 % or more**. Check it once a week, and before every release or upgrade.
+  Baseline: 96 G disk, 13 % used (9 Nov 2026).
+  Docker's data (`/var/lib/docker`) is on the same disk (`/dev/sda1`), so `df -h /` covers every container and volume.
+- A container stopped and `df -h` shows 100 % (see the 502 entry, step 4).
+
+### Investigate
+1. **How full:** `df -h /`
+2. **What grew:**
+```bash
+   docker ps -s             # SIZE = what each container wrote itself
+   docker system df -v      # images, containers, volumes, build cache, each with its size
+   du -sh ~/backups         # database dumps
+```
+   Logs aren't the cause: every container's logs are capped at 3 × 10 MB (json-file, in `/etc/docker/daemon.json`).
+
+### Resolve
+
+| Disk use | Clean up myself? | Tell the CEO | Release / upgrade? |
+|---|---|---|---|
+| **under 70 %** | Not needed | No | Yes |
+| **70–85 %** | Yes, the safe steps | When I'm done | Yes |
+| **85–95 %** | Yes, the safe steps | The same day | No, not until below 70 % |
+| **95 % or more** | Yes, the safe steps | Straight away, then clean | No |
+
+**The safe steps:**
+- `docker image prune`: removes dangling images only (old layers with no name).
+- Remove images or backups I added and no longer need, **by exact name**, after checking that nothing uses them.
+
+Check `df -h /` again afterwards.
+
+### Rollback
+- A delete can't be undone. That's why I remove things only by exact name, and keep the old image a rollback needs.
+- Before I delete a backup, a newer one must exist and must have been restored once (W5 task 25).
+
+### Escalate
+- **Never without asking the CEO, at any disk use:** `docker image prune -a`, `docker system prune`, `docker volume prune`, or deleting anything inside a volume. They can remove the old image a rollback needs, or a database.
+- **The safe steps didn't bring it below 70 %:** ask the CEO what else may be removed.
+- **Anything already stopped:** straight away. At 100 % the database and the site stop.
+
+---
+
 ## Entry: (add the next one here)
  
 ### Symptoms
