@@ -10,9 +10,11 @@ The change: a harmless HTML comment `<!-- revert drill W5 -->` in `apps/web/inde
 | 2 | Revert PR #109 opened | 16:18:31 |
 | 3 | `ci` passed on #109 (16 s) | 16:19:02 |
 | 4 | #109 merged into dev | 16:19:28 |
-| 5 | Hostinger staging build (started 16:19:35 in hPanel) completed | before 16:20:41 |
+| 5 | Hostinger staging build completed (started 16:19:35; build log: "Deployment completed in 1m 2s") | 16:20:37 |
 | 6 | `curl` no longer finds the marker | 16:20:41 |
 | | **Total (1 → 6)** | **4 min 58 s** |
+
+Step 5: the hPanel header says 1 min 9 s (→ 16:20:44), but `curl` already saw the new page at 16:20:41, so I used the build log's 1 min 2 s (→ 16:20:37), which fits between the two `curl` checks (16:20:26 old page, 16:20:41 new page).
 
 Check commands (`STAGING_URL` = the staging site's address):
 
