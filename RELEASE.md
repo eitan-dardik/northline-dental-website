@@ -2,6 +2,10 @@
 
 ## Part 1: Release (dev → main)
 
+**Before you start: check the server disk.** On the VPS, run `df -h /` and read `Use%`:
+- **under 70 %:** continue to step 1.
+- **70 % or more:** follow [RUNBOOK.md → The VPS disk is filling up](RUNBOOK.md#entry-the-vps-disk-is-filling-up) first. Over 85 %, don't release until it's below 70 %.
+
 1. Open a pull request from `dev` into `main`, titled `release: vX.Y.Z`. Request the CEO's review. Note the time 🕝.
 2. Wait for `ci` to pass ✅ and for the CEO's approval (code owner). Note the time 🕝.
 3. Merge with **Create a merge commit**.
