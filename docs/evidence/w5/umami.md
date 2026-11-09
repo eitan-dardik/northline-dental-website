@@ -103,4 +103,18 @@ Trivy also warned about six large files in `root/.cache/pnpm/` (~210 MB of packa
 
 Reports: [trivy.txt](logs/trivy.txt) (3.4.0), [trivy-341.txt](logs/trivy-341.txt) (3.4.1).
 
-**Bonus not done yet:** log rotation (planned together with the 3.4.1 upgrade, so Umami restarts once), image prune, disk limit in RELEASE.md.
+## Task 27 bonus: disk cleanup
+
+`docker system df` → `docker image prune` → `docker system df`, as the task asks. The prune freed **0 B**: there were no dangling (unnamed) images. The 2.246 GB "reclaimable" were **named** images that no container used (`aquasec/trivy:0.76.2`, `postgres:18.6` from the restore test, and Umami 3.4.1), plus the `trivy-cache` volume (1.698 GB, 0 links). Plain `prune` never removes named images; `prune -a` would have removed all of them, including 3.4.1, which I need for the upgrade.
+
+So I removed only what I had added this week, **by exact name**, after checking that no container used it: `aquasec/trivy:0.76.2`, `postgres:18.6` and the `trivy-cache` volume. I kept Umami 3.4.1, and never touched the other volumes.
+
+| | Before | After |
+|---|---|---|
+| Disk used (96 G) | 16 G (16 %) | 13 G (14 %) |
+| Docker images | 14, 8.553 GB | 12, 7.651 GB (1.344 GB reclaimable = 3.4.1, kept) |
+| Docker volumes | 6, 1.766 GB | 5, 68 MB |
+
+Log: [disk-cleanup.log](logs/disk-cleanup.log).
+
+**Bonus not done yet:** log rotation (planned together with the 3.4.1 upgrade, so Umami restarts once), disk limit in RELEASE.md.

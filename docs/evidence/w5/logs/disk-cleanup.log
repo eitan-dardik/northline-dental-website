@@ -1,0 +1,39 @@
+=== 2026-11-09 10:49:08 UTC BEFORE ===
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        96G   16G   81G  16% /
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          14        11        8.553GB   2.246GB (26%)
+Containers      17        17        434.2kB   0B (0%)
+Local Volumes   6         5         1.766GB   1.698GB (96%)
+Build Cache     11        0         287.5MB   0B
+
+=== docker image prune (dangling only) ===
+Total reclaimed space: 0B
+
+=== unused images and volumes, checked before removing ===
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+VOLUME NAME                   LINKS     SIZE
+analytics_umami-db-data       1         68.16MB
+caddy_data                    1         35.95kB
+northline-edge_caddy_config   1         1.471kB
+northline-prod_db-config      1         17.82kB
+northline-stage_db-config     1         17.82kB
+trivy-cache                   0         1.698GB
+
+
+=== remove by exact name ===
+Untagged: aquasec/trivy:0.76.2
+Deleted: sha256:8f6bb947dbc528902e11f2f5be52f7b519f6a39d5d148f41166f2040499768fb
+Untagged: postgres:18.6
+Deleted: sha256:e3d24f6906d0760bf4da0dae872415391ededefad23fd471c47dc53b0ddf3c42
+trivy-cache
+
+=== 2026-11-09 10:49:12 UTC AFTER ===
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          12        11        7.651GB   1.344GB (17%)
+Containers      17        17        434.2kB   0B (0%)
+Local Volumes   5         5         68.24MB   0B (0%)
+Build Cache     11        0         287.5MB   0B
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        96G   13G   84G  14% /
