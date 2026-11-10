@@ -26,7 +26,7 @@ The Revert itself is fast (5 min). The waiting is the cost: on `main`, the same 
 
 Option A now: release to `main` only between 16:00 and 22:00 Israel, as written in [RELEASE.md](https://github.com/eitan-dardik/northline-dental-website/blob/dev/RELEASE.md). Plan option B if Northline needs fixes outside that window.
 
-**Decided (CEO, 9 Nov, #107):** for a critical fault outside the release window, I proposed three ways to get approval: an emergency phone call, a break-glass account, or a second approver ([my answer to review item 6](https://github.com/eitan-dardik/northline-dental-website/pull/107#issuecomment-6737608914)). The CEO chose **the emergency phone call**: I phone him, even outside his hours, for critical faults only; no bypass, no break-glass account. The list of critical faults and the steps until he approves are in RELEASE.md ([#113](https://github.com/eitan-dardik/northline-dental-website/pull/113)).
+**Decided (CEO, 9 Nov, #107):** for a critical fault outside the release window, I proposed three ways to get approval: an emergency phone call, a break-glass account, or a second approver ([my answer to review item 6](https://github.com/eitan-dardik/northline-dental-website/pull/107#issuecomment-6737608914)). The CEO chose **the emergency phone call**: I phone him, even outside his hours, for critical faults only; no bypass, no break-glass account. The list of critical faults and the steps until he approves are in [RELEASE.md](https://github.com/eitan-dardik/northline-dental-website/blob/dev/RELEASE.md#when-a-fix-to-production-waits-for-approval) ([#113](https://github.com/eitan-dardik/northline-dental-website/pull/113)).
 
 ## What I need from you
 
