@@ -91,7 +91,7 @@ Both scanned with **Trivy 0.76.2**, by digest, from a `docker save` copy of each
 | `next` | GHSA-vcvr-r3jv-pc5j | 16.3.4 | 16.3.6 | Remote code execution (`next/og`) |
 | `shell-quote` | CVE-2026-102422 | 1.10.0 | 1.11.0 | Arbitrary command execution |
 
-The 3.4.1 scan confirms its release notes: Next.js 16.4.2 and the newer base image fix all five. Umami is publicly reachable through Caddy, so I reported this to the CEO with a proposal to upgrade to 3.4.1. Waiting for his OK; I didn't change production on my own.
+The 3.4.1 scan confirms its release notes: Next.js 16.4.2 and the newer base image fix all five. Umami is publicly reachable through Caddy, so I reported this to the CEO with a proposal to upgrade to 3.4.1, and didn't change production on my own. He approved it on #111, and it was applied on 10 Nov (see Log rotation below). Umami now runs 3.4.1, with 0 critical findings.
 
 **Secret scan.** Trivy's docs say vulnerability **and secret** scanning are both on by default. A secret found in the image would be printed into the report, and the reports go into this public repo. So I ran the scans separately:
 1. the vulnerability scan with `--scanners vuln` only, for `trivy.txt`;
@@ -128,7 +128,14 @@ Log: [disk-cleanup.log](logs/disk-cleanup.log).
 
 So every container's log is limited to 3 × 10 MB. To keep the setting in the repo, so it doesn't depend on the server's config, I added the same `logging:` block to Umami's service in `compose.yaml`, in [PR #111](https://github.com/eitan-dardik/northline-dental-website/pull/111), together with the 3.4.1 upgrade. Only Umami gets it, because it restarts for the upgrade anyway; adding it to the database would recreate the database container for no change.
 
-**Waiting for the CEO's OK** before merging #111 and applying it on the server. I'll do both together, so the repo and the server stay in sync.
+**Applied on Tue 10 Nov, 16:06 Israel (14:06:32 UTC)**, inside the change window, after the CEO's OK on #111:
+- Fresh backup first: `~/backups/umami-2026-11-10-1403.dump` (86K).
+- The server's `compose.yaml` taken from `origin/dev`; `diff --strip-trailing-cr` showed only the image line and the `logging:` block.
+- `docker compose up -d`: only Umami was recreated; the database stayed up ("Up 3 weeks").
+- `docker inspect analytics-umami-1` → image `ghcr.io/umami-software/umami:3.4.1@sha256:e69d1a79…`, logs `json-file {"max-file":"3","max-size":"10m"}`.
+- Heartbeat: `200`.
+
+The repo (dev) and the server now match. Main gets it with the next release.
 
 ## Task 27 bonus: disk limit
 
