@@ -2,8 +2,13 @@ name: analytics
 
 services:                                   
   umami:
-    image: ghcr.io/umami-software/umami:3.4.0@sha256:85909afc45bdcda1917394594a087421fdbb05610fded0fa9f6fb861abb2f367   # 3.4.0, pinned by digest   #used a fully pinned version
+    image: ghcr.io/umami-software/umami:3.4.1@sha256:e69d1a7932e9dab0fc523edc7be1f3a53f3c261f57856fc2167ae74a8fc022e8   # 3.4.1, pinned by digest   #used a fully pinned version
     restart: unless-stopped                   #comes back after a crash or a reboot but not if closed manually.
+    logging:              # log rotation = limiting the size of log files. settings are the same as the server default in /etc/docker/daemon.json, kept here so it doesn't depend on the server
+      driver: json-file
+      options:
+        max-size: "10m"    # start a new log file at 10 MB
+        max-file: "3"      # keep at most 3 files (30 MB in total)
     mem_limit: 512m
     depends_on: 
       db: 
