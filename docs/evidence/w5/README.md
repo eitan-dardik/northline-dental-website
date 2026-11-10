@@ -11,7 +11,7 @@
 | 7 | Incident 1 comment and Incident 2 times | Incident 1: [line comment](https://github.com/eitan-dardik/northline-dental-website/pull/100#discussion_r4469729593) and [signature comment](https://github.com/eitan-dardik/northline-dental-website/pull/100#issuecomment-6635211886) on [PR #100](https://github.com/eitan-dardik/northline-dental-website/pull/100); Incident 2: [rollback.md](rollback.md) (drill, 4 min 58 s) |
 | 8 | Umami backup, upgrade and rollback | [umami.md](umami.md): backup restored (339 = 339); upgrade 3.4.0 → 3.4.1 down ~17 s, rollback down ~15 s, count 339 at every step; logs: [upgrade poll](logs/umami-upgrade-poll.log), [rollback poll](logs/umami-rollback-poll.log) |
 | 9 | Decision brief, board, multiplier, retrospective | [decision.md](decision.md) (board, multiplier 0.40, retrospective inside) |
-| 10 | Knowledge gate | W3Schools Git quiz: **96%** (24 of 25), [see below](#row-10-knowledge-gate); GitHub courses (Hello GitHub Actions, Test with Actions): not done yet, new date Tue 10 Nov, 12:00 Israel |
+| 10 | Knowledge gate | W3Schools Git quiz: **96%** (24 of 25), [see below](#row-10-knowledge-gate); GitHub courses: [Hello GitHub Actions](https://github.com/eitan-dardik/skills-hello-github-actions/issues/1#issuecomment-6762709761) · [Test with Actions](https://github.com/eitan-dardik/skills-test-with-actions/issues/1#issuecomment-6763576680) |
 
 ## Row 1: rulesets
 
@@ -75,4 +75,6 @@ Commits on dev not yet on main (`git rev-list --count origin/main..origin/dev`):
 
 ![W3Schools result](img/28-w3schools.png)
 
-**GitHub courses** (Hello GitHub Actions, Test with Actions): not done yet. New date: Tue 10 Nov, 12:00 Israel. The course repository links will be added here.
+**GitHub courses**, both finished on 10 Nov, before the new date (12:00 Israel):
+- Hello GitHub Actions: [course repo](https://github.com/eitan-dardik/skills-hello-github-actions), [finished](https://github.com/eitan-dardik/skills-hello-github-actions/issues/1#issuecomment-6762709761)
+- Test with Actions: [course repo](https://github.com/eitan-dardik/skills-test-with-actions), [finished](https://github.com/eitan-dardik/skills-test-with-actions/issues/1#issuecomment-6763576680)
