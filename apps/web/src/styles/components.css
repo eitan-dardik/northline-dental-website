@@ -84,6 +84,7 @@
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-block;
+  text-decoration: none;
   background: linear-gradient(to bottom,  var(--color-accent-light) 0%, var(--color-accent) 100%);
   color: var(--color-text-on-dark) !important;
   font-weight: bold;
@@ -204,7 +205,7 @@ hr.sep {
   padding: 10px 16px;
   font-size: 12px;
 }
-.footer-bottom a { color: var(--color-accent-lightest); }
+.footer-bottom a { color: var(--color-accent-lightest); text-decoration: underline; text-underline-offset: 2px; }
 
 /* ---------- Notice banner ---------- */
 /* Deliberately NOT nested inside .page-wrap's fixed-width layout (see
