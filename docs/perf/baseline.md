@@ -35,6 +35,18 @@ The fix goes to dev first, so staging before → staging after shows the effect 
 2. **Links look like plain text.** "on Facebook" in the contact text and "Find us on Facebook" / "WhatsApp us" in the footer differ from the text around them only by a very similar color (1.02:1 and 1.35:1) and have no underline.
 3. **Headings skip a level** ("Northline Dental Group" on Contact, "General dentistry" on Services), which confuses screen-reader users who move through a page by its headings.
 
+## Staging, after the contrast fix (#142)
+
+- **Date:** Wed 11 Nov 2026, 15:30–15:32 Israel, same method
+- **Commit:** 4bd50bb (#142 merged)
+
+| Page | Performance | Accessibility | LCP | CLS | Total Blocking Time | Before → after (Accessibility) |
+|---|---|---|---|---|---|---|
+| Home `/` | **91** (runs 87, 91, 91) | **100** | 3.1 s | 0 | 110 ms | 90 → **100** |
+| Contact `/contact` | **91** (runs 91, 91, 91) | **98** | 3.2 s | 0 | 40 ms | 90 → **98** |
+
+`color-contrast` and `link-in-text-block` now pass on both pages. Contact's remaining failure is `heading-order` (follow-up).
+
 ## Notes
 
 - **Network noise:** some runs had ~450–490 ms network round-trips from my connection. Lighthouse's simulated throttling scales that up, so those runs are much slower: production home runs 1–3 (61, 58, 90; replaced by runs 4–6), production contact 63 and 60, staging services 54. Production contact's middle (63) is one of them; its Accessibility result is the same as in the steady runs.
