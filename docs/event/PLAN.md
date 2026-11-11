@@ -37,6 +37,8 @@
 | Wed 25 Nov | Follow-ups, funnel report, debrief | report committed, debrief held |
 | Thu 26 Nov | Close registration, export, archive, runbook, retro | everything closed; evidence/w8 open |
 
+**Week 7 estimate:** 12.93 h for the 24 Week 7 steps (the workbook's time for each × 0.8, my factor from the Week 5 decision.md). The workbook's own figure is about 15 h; if my factor is too low, Week 7 is tight.
+
 ## Risks (top 5)
 
 | Risk | Likelihood | What I do about it |
@@ -55,7 +57,7 @@
 
 ## Open questions for Denise
 
-All asked on #114 (the needs list D1–D9, dates in her time). No answer yet on Wed 11 Nov, 16:00 Israel.
+All asked on #114 (the needs list D1–D9, dates in her time). No answer yet on Wed 11 Nov, 18:18 Israel.
 
 - ❓ D1 Her OK on the goal and the targets (by Thu 12 Nov)
 - ❓ D2 The invite list (CSV): due Wed 11 Nov 09:00 her time, not received; asked again on #114
