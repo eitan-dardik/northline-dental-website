@@ -18,7 +18,7 @@
 1. Gets the invitation email (Thu 19 Nov), or sees the poster QR or the banner on Northline's site
 2. Opens the event page
 3. Registers (as few fields as possible, see CAPTURE.md)
-4. Confirms the email address with one press of the link
+4. Confirms the email address with one press of the link (their place is kept either way; one reminder to confirm after 24 h)
 5. Gets a reminder (Mon 23 Nov)
 6. Comes to the clinic and is checked in at the desk (Tue 24 Nov)
 7. Gets a thank-you with a short survey and the booking offer (Wed 25 Nov); guests who registered but didn't come get "sorry we missed you"
@@ -42,6 +42,23 @@
 | Thu 26 Nov | Close registration, export, archive, runbook, retro | everything closed; evidence/w8 open |
 
 **Week 7 estimate:** 12.93 h for the 24 Week 7 steps (the workbook's time for each × 0.8, my factor from the Week 5 decision.md). The workbook's own figure is about 15 h; if my factor is too low, Week 7 is tight. Week 7 also now holds the invite-list check (task 16, Tue 17) and the W4 evidence pack (task 18, Thu 19).
+
+## Release plan
+
+Tags start with `event-` so they don't clash with the site's own tags (`v0.3.0` …), as agreed on #95.
+Staging releases can happen any time. Production releases only inside the change window, **16:00–22:00 Israel**, with the CEO's approval.
+
+| Version | Day | Contains | Where | How I check it |
+|---|---|---|---|---|
+| `event-v0.1.0` | Mon 16 Nov | the kit configured (brand, event details, privacy line from CAPTURE.md), its own staging subdomain, CI green, `registration: 'soon'` | staging | the page opens on my phone and laptop with "Registration opens soon", no sideways scroll; CI green; Northline's main site still on its previous deploy |
+| `event-v0.2.0` | Tue 17 Nov | the `registrations` table by migration (insert-only for visitors), the form connected, the confirmation email with the token confirm link, the reminder to confirm | staging | a registration from my phone is read back on the server with its time and `utm_source`; a second one with the same email makes no new row; with airplane mode on, registering shows a clear error with Northline's phone number, never a blank page or a thank-you; the confirmation arrives within 60 s and its link sets `verified_at` |
+| `event-v0.3.0` | Wed 18 Nov | Umami events, the four UTM links, the poster QR, the check-in page with the desk code | staging | each event fired once on laptop and phone and counted in Umami, with no names or emails in it; the QR opens the page with the poster tags; two test guests checked in in under 30 s each, the count matches the database; Denise approves the screenshots |
+| `event-v1.0.0` | Thu 19 Nov | all of the above, approved by Denise | production | backup taken and restored first (task 43); after the release, one test registration from my phone on production, read back, and its confirmation arrives; then the invitations go out |
+| `event-v1.0.1` | Mon 23 Nov, 16:30–17:00, only if the go/no-go allows it | fixes from the phone test only | production | the link or step that failed now works on my phone; nothing else changed in the diff |
+| — | Mon 23 Nov 17:00 → Tue 24 Nov 19:00 | **freeze:** nothing changes except a revert | | |
+| `event-v1.1.0` | Thu 26 Nov | registration closed (`registration: 'closed'`), the page archived or redirected | production | a new registration is refused on my phone; the old address shows the "event has taken place" page or the redirect |
+
+**Undo for every release:** revert the release commit and deploy, as in RELEASE.md. Each release's notes say what it contains, how I checked it and how to undo it.
 
 ## Risks (top 5)
 
