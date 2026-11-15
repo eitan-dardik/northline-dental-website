@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Book your visit · Open Morning</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../assets/brand.css">
+<link rel="stylesheet" href="../assets/kit.css">
+<script src="../config.js"></script>
+<script src="../assets/kit.js"></script>
+<script src="../assets/analytics.js" data-website-id="from-config"></script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="org" href="../"><img class="logo" data-kit-logo alt="" hidden><span data-kit="event.organizer">Northline Dental Group</span></a>
+  <a class="tel" data-kit-tel="header"></a>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Book your visit</h1>
+    <p class="lead" data-kit="event.offer"></p>
+    <p>Book <span data-kit="booking.deadlineText"></span> to keep your priority place.</p>
+  </section>
+
+  <div class="actions">
+    <a class="btn" id="call-btn" data-kit-tel="book">Call us</a>
+    <a class="btn secondary" id="book-online" href="#" rel="noopener" hidden>Book online</a>
+  </div>
+
+  <h2>Or we call you</h2>
+  <form id="book-form" novalidate>
+    <div class="field">
+      <label for="name">Your name <span class="opt">(optional)</span></label>
+      <input id="name" name="name" autocomplete="name" maxlength="120" aria-describedby="name-error">
+      <p class="err" id="name-error" hidden></p>
+    </div>
+    <div class="field">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required aria-describedby="email-error">
+      <p class="err" id="email-error" hidden></p>
+    </div>
+    <div class="field">
+      <label for="phone">Phone <span class="opt">(optional, so we can call)</span></label>
+      <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" aria-describedby="phone-error">
+      <p class="err" id="phone-error" hidden></p>
+    </div>
+    <div class="field">
+      <label for="is-patient">Are you a Northline patient today?</label>
+      <select id="is-patient" name="is_patient">
+        <option value="unknown">Not sure</option>
+        <option value="yes">Yes</option>
+        <option value="no">No, I would be a new patient</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="patients">How many people need a visit, children included?</label>
+      <select id="patients" name="patients">
+        <option value="1">1 person</option>
+        <option value="2">2 people</option>
+        <option value="3">3 people</option>
+        <option value="4">4 people</option>
+        <option value="5">5 people</option>
+        <option value="6">6 people</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="children">How many of them are children?</label>
+      <select id="children" name="children">
+        <option value="0">None</option>
+        <option value="1">1 child</option>
+        <option value="2">2 children</option>
+        <option value="3">3 children</option>
+        <option value="4">4 children</option>
+        <option value="5">5 children</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="office">Which office?</label>
+      <select id="office" name="office"><option value="any">Any office</option></select>
+    </div>
+    <div class="field">
+      <label for="doctor">Which dentist?</label>
+      <select id="doctor" name="doctor"><option value="any">No preference</option></select>
+    </div>
+    <div class="field">
+      <label for="slot">When suits you best?</label>
+      <select id="slot" name="preferred">
+        <option value="any">Any time</option>
+        <option value="morning">Mornings</option>
+        <option value="afternoon">Afternoons</option>
+        <option value="evening">Evenings</option>
+      </select>
+    </div>
+    <div class="hp" aria-hidden="true"><label for="website">Leave this empty</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+    <p class="privacy" data-kit="event.privacy"></p>
+    <button class="btn" id="book-btn" type="submit">Please call me to book</button>
+    <p class="formerr" id="book-form-error" role="alert" hidden></p>
+  </form>
+  <p class="box ok" id="book-ok" tabindex="-1" hidden><span class="okmsg">Thank you.</span> We will call or email you within two working days to find a time.</p>
+  <p class="box warn" id="book-unavailable" hidden>The form is not available right now. Please call us to book.</p>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <p><span data-kit="event.organizer"></span> · <span data-kit="event.address"></span> · <a data-kit-tel="footer"></a></p>
+</div></footer>
+<script>EventKit.start('book')</script>
+</body>
+</html>
