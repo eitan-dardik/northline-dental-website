@@ -1,0 +1,38 @@
+Full headers of the internal alert (staging lead, Mon 2 Nov 2026, 15:17 UTC), from Gmail's 'Show original'.
+Redacted: my test inbox, the sending domain, the VPS hostname and IP. Nothing else is changed.
+
+Delivered-To: <gmail-test-inbox>
+Received: by 2002:aa6:c8cd:0:b0:34e:3ada:450e with SMTP id q13csp414216lkr; Mon, 2 Nov 2026 07:17:19 -0800 (PST)
+X-Received: by 2002:a05:6a00:ac0c:b0:881:750f:b142 with SMTP id d2e1a72fcca58-8a9bddbe651mr9500822b3a.55.1793632639222; Mon, 02 Nov 2026 07:17:19 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793632639; cv=none; d=google.com; s=arc-20260327; b=rQsY9bxSSNeezBF0Ktzrn3wsB2RfQvKLUzdzev6gikjQvh8plMJN9taSlCE9UXTsI5 yoi6MLAq4de8pZCbdK869JOdtFZU5Io8R6a7xrBczvTT/14fMszPTkgaWm2WqhYyRsmF ckmEGmfdeLpTQYhC5Fo+qafgDlsxTTSKBpWZ67Y/Qe5mXBWoKLuKOjLWAatMRkVN4/6t 5OG52RdrNk6f2Gmc+fF0TzSeFgPN2PvqcgUQag/6NXu1XGgppVLaJ7aP6+JsE6lLAmTJ Cftz6tA0syB/69v1Hgqh3Xcm2SMVcvmh1V944f2BiDNYnG6yhYiKSqvqiASRbX3mHU9u ypyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327; h=date:mime-version:message-id:subject:to:from:dkim-signature; bh=DpFrGJAfrj21kLDUYFGr2Y3er55RGdz/kQfKyRMUqhc=; fh=HfsVN6EK72PEJEUqBcnMPPXFTNEy96y+T3uHxOEz8CE=; b=ctp5b3wcMiaeHySsZdvRpEYGyqauZL9IzxZNJj7nJohYZbauIoy6qgvV2DHRKDL+Va Ga79cMDhJMCCfMf45mv/n9jcB71ELk2LKa2qzE3YDe2VvfL+1+8pkCW5PIl083XJvegZ bfeNkLgm8FYj6GnC0r9bDzk4K6GCGv8rLsKwvh90SFYLbriLXSgU//UT/ARJphN1XsRS 6SH0bArRLerogiB0h+fl2OW+P48frnF+IqDPaxEY4t3M/7Iom+G8k2FKYclgIfdgyXjm bi7Vh+sw5Vt4fBI81E2gyQtwnMiQAvulzDgMio67/rIKM4GweaidOUVjEO7jLTibeDvn 49dA==; dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com; dkim=pass header.i=@<domain> header.s=hostingermail-a header.b=LUKg3lsu; spf=pass (google.com: domain of hello@<domain> designates 23.83.212.18 as permitted sender) smtp.mailfrom=hello@<domain>; dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=<domain>
+Return-Path: <hello@<domain>>
+Received: from bisque.elm.relay.mailchannels.net (bisque.elm.relay.mailchannels.net. [23.83.212.18]) by mx.google.com with ESMTPS id d2e1a72fcca58-8aadb17672esi14141692b3a.92.2026.11.02.07.17.18 for <gmail-test-inbox> (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256); Mon, 02 Nov 2026 07:17:19 -0800 (PST)
+Received-SPF: pass (google.com: domain of hello@<domain> designates 23.83.212.18 as permitted sender) client-ip=23.83.212.18;
+Authentication-Results: mx.google.com; dkim=pass header.i=@<domain> header.s=hostingermail-a header.b=LUKg3lsu; spf=pass (google.com: domain of hello@<domain> designates 23.83.212.18 as permitted sender) smtp.mailfrom=hello@<domain>; dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=<domain>
+X-Sender-Id: hostingeremail|x-authuser|hello@<domain>
+Received: from relay.mailchannels.net (localhost [127.0.0.1]) by relay.mailchannels.net (Postfix) with ESMTP id 6C1CE3826A0 for <gmail-test-inbox>; Mon, 02 Nov 2026 15:17:18 +0000 (UTC)
+Received: from fr-int-smtpout24.hostinger.io (100-99-198-86.trex-nlb.outbound.svc.cluster.local [100.99.198.86]) (Authenticated sender: hostingeremail) by relay.mailchannels.net (Postfix) with ESMTPA id 7253F38213B for <gmail-test-inbox>; Mon, 02 Nov 2026 15:17:16 +0000 (UTC)
+X-Sender-Id: hostingeremail|x-authuser|hello@<domain>
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: hostingeremail|x-authuser|hello@<domain>
+X-MailChannels-Auth-Id: hostingeremail
+X-Quick-Inform: 192060771c06d286_1793632637005_3622570416
+X-MC-Loop-Signature: 1793632637005:1830073265
+X-MC-Ingress-Time: 1793632637005
+Received: from fr-int-smtpout24.hostinger.io (fr-int-smtpout24.hostinger.io [148.222.54.15]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384) by 100.99.198.86 (trex/8.0.2); Mon, 02 Nov 2026 15:17:17 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=<domain>; s=hostingermail-a; t=1793632634; h=from:from:reply-to:subject:subject:date:date:message-id:message-id: to:to:cc:mime-version:mime-version:content-type:content-type; bh=DpFrGJAfrj21kLDUYFGr2Y3er55RGdz/kQfKyRMUqhc=; b=LUKg3lsu0qPF/Qoz9eY1gA9ODLMO4bhK9rxqzGGxUMcT9R4n0yPbh3giNTd1MMGiiEefsP 0Hw/MZshLUXVkpGtvVC35emkuj93vZ6OuEC7d3DudnrH5qWLmaEZNiDdM9bdpxLeEgaYUO 3bklRZU5LMgvY5LyJpiLVCyTrajJOGuP3mEkZENpFe5Ua3D6E8Np5tXeKkxvH1sMOdVd7n S+D46phlJ4vfjzfSfU0DChHPBHWFRKRmKSV6oE3I+x2Zq+fmVWxxOoyjuIjujtaIMR92Lc 8qUPahYIrkIku7A0Lo39fW7wee6XNdpxuIU5WOvDJd0TZBgzMXPLDJNzsMguZw==
+Received: from [127.0.0.1] (<vps-hostname> [<vps-ip>]) (Authenticated sender: hello@<domain>) by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4jJFgF6vm3z1xvf for <gmail-test-inbox>; Mon,
+  2 Nov 2026 15:17:13 +0000 (UTC)
+From: Northline Dental Group website <hello@<domain>>
+To: <gmail-test-inbox>
+Subject: =?UTF-8?Q?New_inquiry_=E2=80=94_Maple_Ridge?=
+Message-ID: <55f0ee71-10c6-61f0-a7fd-0fe75b4b93aa@<domain>>
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="--_NmP-d17664dece0616b0-Part_1"
+Date: Mon,
+  2 Nov 2026 15:17:13 +0000 (UTC)
+X-CM-Envelope: MS4xfCp39Rz6pUmjX53jmKRHWAOvvYpOva+u0sksQYh4srn7KTRRcHdm8tvNrpGomSPvtTUxyAhhSI1K/T73VezjoLauqlunv9bNgGkFQBZxwJdXBASKqIOg r0v37vvHGByOI0Y58KrLqjx2OSzKZ1ggGz7I4rHrYQl9mmUXIICAsl+CIiySbhnaA+Tk0LY4qhbsLw==
+X-CM-Analysis: v=2.4 cv=P6tohTAu c=1 sm=1 tr=0 ts=6ae8a97a a=U2qiqovuTGcuw0CamqhuSQ==:117 a=U2qiqovuTGcuw0CamqhuSQ==:17 a=MKtGQD3n3ToA:10 a=1oJP67jkp3AA:10 a=5KLPUuaC_9wA:10 a=olIGb7aFASBpGwr1LbUA:9 a=QEXdDO2ut3YA:10 a=6zwjU_3YEFvgjkovXHIA:9 a=lqcHg5cX4UMA:10 a=UzISIztuOb4A:10 a=ebazaJyHZztYPPGAGFoH:22 a=wY7kBdGQPmJb3Aq-wzzR:22 a=NWVoK91CQySWRX1oVYDe:22
+X-AuthUser: hello@<domain>

@@ -1,0 +1,68 @@
+Full headers of the patient confirmation (same staging lead, Mon 2 Nov 2026, 15:17 UTC), from Outlook's message source.
+Redacted: my test inbox, the sending domain, the VPS hostname and IP, my last logon time; one long encoded anti-spam value is shortened. Nothing else is changed.
+
+Received: from PH9PR07MB621024.namprd07.prod.outlook.com (::1) by DS5PR07MB11885.namprd07.prod.outlook.com with HTTPS; Mon, 2 Nov 2026 15:17:24 +0000
+Received: from AM0PR02CA0139.eurprd02.prod.outlook.com (2603:10a6:20b:28d::6) by PH9PR07MB621024.namprd07.prod.outlook.com (2603:10b6:510:3e3::12) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov 2026 15:17:23 +0000
+Received: from DB1PEPF000509F8.eurprd02.prod.outlook.com (2603:10a6:20b:28d:cafe::80) by AM0PR02CA0139.outlook.office365.com (2603:10a6:20b:28d::6) with Microsoft SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2 Nov 2026 15:17:22 +0000
+Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP is 23.83.222.40) smtp.mailfrom=<domain>; dkim=pass (signature was verified) header.d=<domain>;dmarc=pass action=none header.from=<domain>;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of <domain> designates 23.83.222.40 as permitted sender) receiver=protection.outlook.com; client-ip=23.83.222.40; helo=cornsilk.ash.relay.mailchannels.net; pr=C
+Received: from cornsilk.ash.relay.mailchannels.net (23.83.222.40) by DB1PEPF000509F8.mail.protection.outlook.com (10.167.242.154) with Microsoft SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 15:17:21 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:172A98FDAD90E754E1C3A299BCBA58FE077FC6F1F967A4D2E898415456DD29AD;UpperCasedChecksum:9B95F1D7037B33346F0408A0D4EFC62DEE77ED8045E61E35AA89D5577E4EFF7A;SizeAsReceived:2908;Count:23
+X-Sender-Id: hostingeremail|x-authuser|hello@<domain>
+Received: from relay.mailchannels.net (localhost [127.0.0.1]) by relay.mailchannels.net (Postfix) with ESMTP id 6C8B24C0A37 for <outlook-test-inbox>; Mon, 02 Nov 2026 15:17:18 +0000 (UTC)
+Received: from de-fra-smtpout4.hostinger.io (100-99-189-159.trex-nlb.outbound.svc.cluster.local [100.99.189.159]) (Authenticated sender: hostingeremail) by relay.mailchannels.net (Postfix) with ESMTPA id 128544C221E for <outlook-test-inbox>; Mon, 02 Nov 2026 15:17:16 +0000 (UTC)
+X-Sender-Id: hostingeremail|x-authuser|hello@<domain>
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: hostingeremail|x-authuser|hello@<domain>
+X-MailChannels-Auth-Id: hostingeremail
+X-Tank-Wipe: 1e7f99b4450f2a37_1793632637444_2880102586
+X-MC-Loop-Signature: 1793632637444:2588293370
+X-MC-Ingress-Time: 1793632637444
+Received: from de-fra-smtpout4.hostinger.io (de-fra-smtpout4.hostinger.io [148.222.55.14]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384) by 100.99.189.159 (trex/8.0.2); Mon, 02 Nov 2026 15:17:17 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=<domain>; s=hostingermail-a; t=1793632635; h=from:from:reply-to:subject:subject:date:date:message-id:message-id: to:to:cc:mime-version:mime-version:content-type:content-type; bh=FcDeghHQ8WXKV/LLmYYP26yAdTm6ynA+PE4u5CmYg+E=; b=JCUFj3tirAgg/43ya4TU/KEnlLxAk7UzwjRTnem3m2+3R1xK2/aRm+e5mzqmMIAuylV02c vf3w2nhWoKasjMpHzP1OJpvxpqmLp7YMUJosmY4PARYC5w0gWtrKAH95AK1ZSMnSF3DTU+ 73hRiOTvU0vmTYv7BDj6dW7Boki2PQOSb1ju0kCYruANFkcmjIPDy4g05/ycSrIeU9b4Xy 0U8dDu/Ji675gCFNnnnzaOqB80oRhNVAbDjZo4KS/gDSRmtNDN2h4fOclv4dSAoEVWsElP J5YGT2Sm0OB2EL0aKvdfUntX557Zq0if4MTZnZny8aNs1I5ij+mLnRJQYFGWZA==
+Received: from [127.0.0.1] (<vps-hostname> [<vps-ip>]) (Authenticated sender: hello@<domain>) by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4jJFgH0Qmrz443L for <outlook-test-inbox>; Mon, 2 Nov 2026 15:17:15 +0000 (UTC)
+From: Northline Dental Group <hello@<domain>>
+To: <outlook-test-inbox>
+Subject: We received your message
+Message-ID: <7e4f8cd5-a473-7458-77d2-9ab2e9176c33@<domain>>
+Content-Type: multipart/alternative; boundary="--_NmP-1dee971c440057a8-Part_1"
+Date: Mon, 2 Nov 2026 15:17:15 +0000 (UTC)
+X-CM-Analysis: v=2.4 cv=fOFr3oae c=1 sm=1 tr=0 ts=6ae8a97b a=U2qiqovuTGcuw0CamqhuSQ==:117 a=U2qiqovuTGcuw0CamqhuSQ==:17 a=MKtGQD3n3ToA:10 a=1oJP67jkp3AA:10 a=OZR9L0EVYeQOVxrS9-MA:9 a=QEXdDO2ut3YA:10 a=UzISIztuOb4A:10 a=tuqDJg1sq4l560B1cC8A:9 a=lqcHg5cX4UMA:10 a=wY7kBdGQPmJb3Aq-wzzR:22 a=NWVoK91CQySWRX1oVYDe:22
+X-CM-Envelope: MS4xfANYQmD1tP8ecQvNu8oxDKwi1H+/3sykiubZvhG7HWxqDJ4l6jBTbIxdx9XvmNulg1vemMU6hhq/xeityJzTykHzFEctnDpN3w48Fw8+JV8NIb0/fG3v R60K8y9Q/MClb/LPG9s6vaEAaYOBs7nN8RH/dlWt4iyoayDcYsggfBToB5YbFQRpM0R+OOJ9M51o8Q==
+X-AuthUser: hello@<domain>
+X-IncomingHeaderCount: 23
+Return-Path: hello@<domain>
+X-MS-Exchange-Organization-ExpirationStartTime: 02 Nov 2026 15:17:21.9582 (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: ad87773a-2138-431f-11c3-08df38f46486
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509F8:EE_|PH9PR07MB621024:EE_|DS5PR07MB11885:EE_
+X-MS-Exchange-Organization-AuthSource: DB1PEPF000509F8.eurprd02.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: <removed>
+X-MS-Office365-Filtering-Correlation-Id: ad87773a-2138-431f-11c3-08df38f46486
+X-Sender-IP: 23.83.222.40
+X-MS-Exchange-EOPDirect: true
+X-SID-PRA: HELLO@<domain>
+X-SID-Result: PASS
+X-MS-Exchange-Organization-SCL: 5
+X-Microsoft-Antispam: BCL:0;ARA:1444111002|2700799033|9800799015|970799063|13020799009|87000799021|33080799006|51300799024|30140799009|119000799009|260826003000599003|46080799009|69000799021|58200799025|29090799004|56000799018|22090799003|21090799003|260928210016899003|42200799015|84100799006|30041999003|1380799030|1360799030|3412199025|440099028|1370799030;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 15:17:21.1405 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad87773a-2138-431f-11c3-08df38f46486
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: DB1PEPF000509F8.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH9PR07MB621024
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:03.7106947
+X-MS-Exchange-Processed-By-BccFoldering: 15.21.0569.002
+X-Microsoft-Antispam-Mailbox-Delivery: ucf:0;jmr:0;ex:0;auth:1;dest:J;OFR:SpamFilterAuthJ;ENG:(5062000311)(920221119095)(90000117)(920221120095)(90005022)(91005020)(91035115)(9050020)(9100341)(944500132)(2008001181)(2008121020)(4810010)(4910033)(9610028)(9560006)(10180024)(9320005)(9245025)(120001);RF:JunkEmail;
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MjtHRD0xO1NDTD02
+X-Microsoft-Antispam-Message-Info: [long encoded value, removed for length]
+MIME-Version: 1.0
