@@ -234,7 +234,13 @@ $ git show 38ac3a6 | grep -n "sb_secret_" | sed -E 's/(sb_secret_.{0,12}).*/\1â€
 53:+# Secret key (sb_secret_...) - BYPASâ€¦
 ```
 
-Both matches are **comments** that name the key's format (`sb_secret_...`) to explain where a setting comes from. No key value follows the prefix in either commit, so no secret key is in the history. The real keys live only in the server's `.env` files, which were never committed (check 3).
+Both matches are **comments** that name the key's format (`sb_secret_...`) to explain where a setting comes from. No key value follows the prefix in either commit, so no secret key is in the history. The real keys live only on the server, in `.env` and `mailer.env`, and neither was ever committed: check 3 covers `.env` and `.env.local`, and this covers the mailer's file:
+
+```
+$ git log --all --name-only --format="" | grep -E "(^|/)mailer\.env$"
+```
+
+It prints nothing.
 
 ## Row 13: what I got wrong
 
