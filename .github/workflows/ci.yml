@@ -1,0 +1,26 @@
+name: ci
+
+on:
+  push:
+    branches: [event, event-main]
+  pull_request:
+    branches: [event, event-main]
+
+permissions: read-all
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1   # v7.0.1
+      - name: The kit's scripts parse
+        run: |
+          node --check config.js
+          node --check assets/kit.js
+          node --check assets/analytics.js
+      - name: No secret key in config.js
+        run: |
+          if grep -nE "sb_secret_|service_role_key" config.js; then
+            echo "A secret key is in config.js"; exit 1
+          fi
+          echo "No secret key in config.js"

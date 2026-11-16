@@ -1,0 +1,6 @@
+{
+  "name": "northline-event",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Open Morning event page: static files, no build. Hostinger's Git deployment needs this file to start."
+}

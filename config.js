@@ -135,11 +135,11 @@ window.EVENT_KIT_CONFIG = {
   // supabaseUrl: your API hostname (the one Caddy serves), https, no trailing slash.
   // umamiScriptUrl: https://<your analytics host>/script.js · umamiWebsiteId: that environment's website id.
   environments: {
-    'REPLACE-event-stage.example.com': {
+    'event-stage.holistech.tech': {
       label: 'staging',
-      supabaseUrl: 'https://REPLACE-api-stage.example.com',
-      publishableKey: 'REPLACE-staging-publishable-key',
-      umamiScriptUrl: 'https://REPLACE-analytics.example.com/script.js',
+      supabaseUrl: 'https://northline-api-stage.holistech.tech',
+      publishableKey: 'sb_publishable_YO2heWSVlg6v-7_wZgHMf8_jrV-EoYz',
+      umamiScriptUrl: 'https://analytics.holistech.tech/script.js',
       umamiWebsiteId: 'REPLACE-staging-website-id'
     },
     'REPLACE-event.example.com': {
