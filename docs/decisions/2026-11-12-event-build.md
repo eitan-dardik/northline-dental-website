@@ -2,6 +2,8 @@
 
 **Date:** Thu 12 Nov 2026 · **Status:** proposed (for the CEO's review in the evidence/w6 pull request)
 
+**Event branch:** `event` (staging) → `event-main` (production)
+
 ## The question
 
 The event kit is a ready-made static page (no build step). Three things are mine to decide, inside the CEO's fixed rules: the kit lives in the Northline repository on its own branch and its own subdomain; a failed event deploy must never block or break Northline's main site; production changes only 16:00–22:00 Israel, by pull request, CI green, the CEO's approval as code owner.
