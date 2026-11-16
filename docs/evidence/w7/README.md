@@ -5,8 +5,8 @@
 | 1 | Incident review | To do: incident-review.md; the agenda message: [see below](#row-1-incident-review) (sent Sun 15 Nov, 21:30) |
 | 2 | Board and week-start comment | To do: img/23-board.png; link to the comment on #114 |
 | 3 | Ops log | To do: [#140](https://github.com/eitan-dardik/northline-dental-website/issues/140), one comment for each day Mon–Thu |
-| 4 | Kit configured, staging, CI | Kit as it came: [PR #150](https://github.com/eitan-dardik/northline-dental-website/pull/150); configured: [22b66db](https://github.com/eitan-dardik/northline-dental-website/commit/22b66db) ([#152](https://github.com/eitan-dardik/northline-dental-website/issues/152)), [diff against the kit](https://github.com/eitan-dardik/northline-dental-website/compare/5b699eb...22b66db); details: [see below](#row-4-kit-configured-staging-ci). To do: the decision record line, the staging pull request, a green CI run, the main site's deploy |
-| 5 | Releases v0.1.0, v0.2.0, v0.3.0, v1.0.0 | To do: links to the four GitHub releases (`event-v…`) |
+| 4 | Kit configured, staging, CI | Kit as it came: [PR #150](https://github.com/eitan-dardik/northline-dental-website/pull/150); configured: [22b66db](https://github.com/eitan-dardik/northline-dental-website/commit/22b66db) ([#152](https://github.com/eitan-dardik/northline-dental-website/issues/152)), [diff against the kit](https://github.com/eitan-dardik/northline-dental-website/compare/5b699eb...22b66db); decision record line: [PR #153](https://github.com/eitan-dardik/northline-dental-website/pull/153); staging and CI: [PR #155](https://github.com/eitan-dardik/northline-dental-website/pull/155), [green CI run on `event`](https://github.com/eitan-dardik/northline-dental-website/actions/runs/43943229108); the main site's deploy unchanged; details: [see below](#row-4-kit-configured-staging-ci) |
+| 5 | Releases v0.1.0, v0.2.0, v0.3.0, v1.0.0 | [event-v0.1.0](https://github.com/eitan-dardik/northline-dental-website/releases/tag/event-v0.1.0) (Mon 16 Nov, on `76af798`). To do: event-v0.2.0, event-v0.3.0, event-v1.0.0 |
 | 6 | Migration, rules proof, phone read-back | To do: link to the migration; the 201 / 401 proof; the row (time, utm_source) |
 | 7 | Confirmation, confirm link and deliverability | To do: email-check.md; the `verified_at` time of `+og003`; the `+og006` reminder to confirm (time sent) |
 | 8 | Umami events, UTM links, QR | To do: Umami screenshots; img/34-qr.png |
@@ -51,3 +51,19 @@
 **Checked:** with `npx serve .` on my laptop, desktop and mobile view.
 
 **Open on [#152](https://github.com/eitan-dardik/northline-dental-website/issues/152):** two CSS lines for the mobile layout, and whether to ask guests for their office on the registration form.
+
+**Decision record:** the line `Event branch: event` (asked on feedback #8), merged in [PR #153](https://github.com/eitan-dardik/northline-dental-website/pull/153) with CI green.
+
+**Staging (task 30):** [PR #155](https://github.com/eitan-dardik/northline-dental-website/pull/155) into `event`: the staging block in `config.js` (the existing staging API and publishable key, as in the decision record), a CI job for `event` and `event-main`, and a minimal `package.json`, because Hostinger's Git deployment stopped without one (first try, 21:31). `event` → `event-stage` by Hostinger's Git deployment, with no build: `76af798` Completed at 21:49.
+
+| Check | Result |
+|---|---|
+| The event on my phone | over 4G, 21:51–21:53: the event, the timetable, the offer and "Registration opens soon"; HTTPS valid; no sideways scroll |
+| CI green on `event` | on PR #155 and on [the push to `event`](https://github.com/eitan-dardik/northline-dental-website/actions/runs/43943229108) (`76af798`) |
+| The main site's deploy unchanged | production still on `e18483f` (8 Nov, 10:54); northline-stage only deployed `dev` merges (#153 at 17:25, #154 at 18:18), all before the event work |
+
+**The main site's deploys** (hPanel, Mon 16 Nov, after the event deploy): production's newest is still `e18483f1` from 8 Nov; northline-stage's newest are the `dev` merges of #154 and #153.
+
+<img width="400" alt="production deployments" src="img/30-main-prod-deploys.png" /> <img width="400" alt="northline-stage deployments" src="img/30-main-stage-deploys.png" />
+
+<img width="250" alt="phone: the top of the event page" src="img/30-staging-phone-top.jpg" /> <img width="250" alt="phone: Registration opens soon" src="img/30-staging-phone-soon.jpg" />
