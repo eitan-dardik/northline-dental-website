@@ -3,19 +3,24 @@
    Keep the names on the left; change only the values on the right.
    Check contrast after a change: text on --brand-primary must stay readable (4.5 : 1 or more). */
 :root {
-  --brand-primary: #0f5c6e;        /* buttons, links, headings accent */
+  --brand-primary: #1b5e8c;        /* buttons, links, headings accent */
   --brand-primary-text: #ffffff;   /* text on a --brand-primary button */
-  --brand-accent: #f2b544;         /* small highlights (the timetable times) */
-  --brand-ink: #1d2a30;            /* body text */
-  --brand-muted: #55666e;          /* secondary text */
+  --brand-accent: #4fa8a0;         /* small highlights (the timetable times) */
+  --brand-ink: #2b2724;            /* body text; darker than the site's #6b6560: the event-day notice (ink on the accent) failed at 2.03 : 1 in Lighthouse */
+  --brand-muted: #76706a;          /* secondary text */
   --brand-surface: #ffffff;        /* page background */
-  --brand-soft: #eef5f6;           /* boxes and the timetable background */
-  --brand-line: #d5e2e5;           /* borders */
+  --brand-soft: #f2f6f7;           /* boxes and the timetable background */
+  --brand-line: #d7e2e6;           /* borders */
   --brand-ok: #1f7a4d;             /* "you are registered", "checked in" */
-  --brand-error: #b42318;          /* error messages */
+  --brand-error: #a32d2d;          /* error messages */
   --brand-radius: 12px;            /* corner rounding */
-  --brand-font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;  /* your body font, then fallbacks */
-  --brand-font-heading: var(--brand-font);  /* your heading font, if different */
+  --brand-font: 'Inter', Arial, Helvetica, sans-serif;  /* your body font, then fallbacks */
+  --brand-font-heading: 'Fraunces', Georgia, 'Times New Roman', serif;  /* your heading font, if different */
 }
-/* If your site loads its fonts from files in its own repository, copy the @font-face lines here
-   and the font files into assets/fonts/. Never load fonts from another company's server. */
+/* Inter and Fraunces, the same files the Northline site uses (@fontsource, SIL Open Font License),
+copied into assets/fonts/ so the page never loads fonts from another company's server. */
+@font-face { font-family: 'Inter';    font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/inter-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Inter';    font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/inter-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Inter';    font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/inter-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 500; font-display: swap; src: url('fonts/fraunces-latin-500-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/fraunces-latin-700-normal.woff2') format('woff2'); }

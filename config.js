@@ -10,9 +10,9 @@ window.EVENT_KIT_CONFIG = {
     id: '2026-11-open-morning',           // stored on every row; must match the desk code row (README step 5)
     name: 'Northline Open Morning',
     organizer: 'Northline Dental Group',
-    logoUrl: 'https://northline.holistech.tech/assets/logo.svg',   // shown in the header; leave '' for the name only
+    logoUrl: '',   // shown in the header; leave '' for the name only
     siteUrl: 'https://northline.holistech.tech',                   // the header links back to the main site
-    heroImageUrl: '',                      // optional: a photo beside the title; leave '' for none
+    heroImageUrl: 'https://northline.holistech.tech/assets/logo.svg',                      // optional: a photo beside the title; leave '' for none
     tagline: 'Free 10-minute smile checks, a short talk on caring for children\'s teeth, and a chance to meet the team.',
     forWhom: 'For our patients and neighbors, and especially families with children.',
     dateText: 'Tuesday 24 November 2026',
@@ -21,7 +21,7 @@ window.EVENT_KIT_CONFIG = {
     endsAt: '2026-11-24T12:00:00-05:00',
     address: '1847 Maple Ridge Road, Suite 200',
     mapUrl: '',                            // optional: a map link for the address; leave '' for none
-    phone: '+14405550140',                 // REPLACE with Northline's real phone (digits, with +1)
+    phone: '+14405550140',                 // Northline's phone (digits, with +1)
     phoneText: '(440) 555-0140',           // the same number, as people read it
     timetable: [
       { time: '10:00', what: 'Doors open, and free smile checks (10-minute slots)' },
@@ -32,6 +32,7 @@ window.EVENT_KIT_CONFIG = {
     offer: 'Everyone who comes gets a free check-up in the first two weeks of December.',
     // What guests read on the page. Change the words freely; Denise approves them.
     beforeYouCome: [                       // shown only after a guest confirms their email
+      'You don\'t need to bring anything.',
       'Come at 10:00 if you can: the smile checks are first come, first served.',
       'Write down any questions you have about your teeth or your children\'s teeth.',
       'Bringing the family? Tell the front desk how many of you there are when you arrive.'
@@ -51,14 +52,14 @@ window.EVENT_KIT_CONFIG = {
       { q: 'Do I have to be a patient?', a: 'No. Our patients and our neighbors are all welcome.' },
       { q: 'Can I bring my children?', a: 'Please do. The morning is planned with families in mind.' },
       { q: 'Do I need to sign up?', a: 'Please do, so we can plan the smile checks. If you decide on the day, come anyway.' },
+      { q: 'Do I need to bring anything?', a: 'No, nothing at all.' },
       { q: 'What if I can no longer come?', a: 'Call the number at the top of this page, and we will free your place.' }
     ],
     // The page changes by itself at startsAt and endsAt (see the README).
     liveText: 'Happening now, until 12:00. You can still come, no need to sign up.',
     afterText: 'The Open Morning has ended. Thank you to everyone who came.',
-    registration: 'open',                  // 'soon' = shows "Registration opens soon"; 'open'; 'closed' = after the event
-    privacy: 'We use your name and email only to confirm your place, remind you the day before, and follow up after the Open Morning (with a short survey). We never share them.'
-  },
+    registration: 'soon',                  // 'soon' = shows "Registration opens soon"; 'open'; 'closed' = after the event
+    privacy: 'We keep your name, email, phone number (if you give it) and your answers only for the Open Morning: to confirm your place, remind you the day before, and send one email the day after with our offer and a short survey. We never share them or use them for anything else.'  },
 
   // ---- The form (from your CAPTURE.md) ---------------------------------------------------------
   form: {
