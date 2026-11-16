@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Your place is saved · Open Morning</title>
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<link rel="stylesheet" href="../assets/brand.css">
+<link rel="stylesheet" href="../assets/kit.css">
+<script src="../config.js"></script>
+<script src="../assets/kit.js"></script>
+<script src="../assets/analytics.js" data-website-id="from-config"></script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="org" href="../"><img class="logo" data-kit-logo alt="" hidden><span data-kit="event.organizer">Northline Dental Group</span></a>
+  <a class="tel" data-kit-tel="header"></a>
+</div></header>
+
+<main class="wrap">
+  <div role="status" aria-live="polite">
+    <p class="box" id="verify-wait" tabindex="-1" hidden>Confirming your email…</p>
+    <p class="box ok" id="verify-ok" tabindex="-1" hidden><span class="okmsg">Your email is confirmed.</span> Thank you.</p>
+    <p class="box ok" id="verify-already" tabindex="-1" hidden><span class="okmsg">Already confirmed.</span> Your email was confirmed earlier. Your place is saved.</p>
+    <p class="box warn" id="verify-invalid" tabindex="-1" hidden><strong>We could not confirm this link.</strong> It may be incomplete. Please call <a data-kit-tel="verify"></a> and we will check your place.</p>
+    <p class="box warn" id="verify-error" tabindex="-1" hidden><strong>We could not confirm your email just now.</strong> Please open the link in the email again in a few minutes, or call <a data-kit-tel="verify"></a>.</p>
+  </div>
+
+  <section class="hero">
+    <h1>Your place is saved</h1>
+    <p class="lead">Thank you for registering for the <span data-kit="event.name"></span>.</p>
+    <p class="when"><span data-kit="event.dateText"></span>, <span data-kit="event.timeText"></span></p>
+    <p class="where"><span data-kit="event.address"></span><span data-kit-map></span></p>
+  </section>
+
+  <div class="actions">
+    <button class="btn secondary" id="calendar-btn" type="button">Add to my calendar</button>
+  </div>
+
+  <section class="guest-pass" id="guest-pass" aria-labelledby="pass-title" hidden>
+    <h2 id="pass-title">Get ready for the morning</h2>
+    <p data-kit="questionnaire.intro"></p>
+
+    <form id="questionnaire-form" novalidate>
+      <fieldset><legend data-kit="questionnaire.patientQuestion"></legend><div id="q-patient"></div></fieldset>
+      <fieldset><legend data-kit="questionnaire.childrenQuestion"></legend><div id="q-children"></div></fieldset>
+      <button class="btn" id="questionnaire-btn" type="submit">Send my answers</button>
+      <p class="formerr" id="questionnaire-form-error" role="alert" hidden></p>
+    </form>
+    <p class="box ok" id="questionnaire-ok" tabindex="-1" hidden><span class="okmsg" data-kit="questionnaire.done"></span></p>
+
+    <h3>Before you come</h3>
+    <ul class="checks" id="before-you-come"></ul>
+  </section>
+
+  <h2>The morning</h2>
+  <ul class="timetable" id="timetable"></ul>
+  <p class="box" data-kit="event.offer"></p>
+
+  <h2>Can't come after all?</h2>
+  <p>Call <a data-kit-tel="cancel"></a>, or reply to your confirmation email, and we will give your place to someone else.</p>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <p><span data-kit="event.organizer"></span> · <span data-kit="event.address"></span> · <a data-kit-tel="footer"></a></p>
+</div></footer>
+<script>EventKit.start('confirm')</script>
+</body>
+</html>

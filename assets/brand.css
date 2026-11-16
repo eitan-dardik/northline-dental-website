@@ -1,0 +1,21 @@
+/* Northline's brand for the event pages. The ONLY style file you edit.
+   Copy the values from your own brand tokens (styles/tokens.css in your Northline site).
+   Keep the names on the left; change only the values on the right.
+   Check contrast after a change: text on --brand-primary must stay readable (4.5 : 1 or more). */
+:root {
+  --brand-primary: #0f5c6e;        /* buttons, links, headings accent */
+  --brand-primary-text: #ffffff;   /* text on a --brand-primary button */
+  --brand-accent: #f2b544;         /* small highlights (the timetable times) */
+  --brand-ink: #1d2a30;            /* body text */
+  --brand-muted: #55666e;          /* secondary text */
+  --brand-surface: #ffffff;        /* page background */
+  --brand-soft: #eef5f6;           /* boxes and the timetable background */
+  --brand-line: #d5e2e5;           /* borders */
+  --brand-ok: #1f7a4d;             /* "you are registered", "checked in" */
+  --brand-error: #b42318;          /* error messages */
+  --brand-radius: 12px;            /* corner rounding */
+  --brand-font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;  /* your body font, then fallbacks */
+  --brand-font-heading: var(--brand-font);  /* your heading font, if different */
+}
+/* If your site loads its fonts from files in its own repository, copy the @font-face lines here
+   and the font files into assets/fonts/. Never load fonts from another company's server. */

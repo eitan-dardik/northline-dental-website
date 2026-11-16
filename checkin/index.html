@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Check-in desk · Open Morning</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="../assets/brand.css">
+<link rel="stylesheet" href="../assets/kit.css">
+<script src="../config.js"></script>
+<script src="../assets/kit.js"></script>
+<script src="../assets/analytics.js" data-website-id="from-config"></script>
+</head>
+<body class="desk">
+<header class="top"><div class="wrap">
+  <span class="org" data-kit="event.organizer">Northline Dental Group</span>
+  <span class="small">Front desk only</span>
+</div></header>
+
+<main class="wrap">
+  <h1>Check-in desk</h1>
+  <p class="small">For the team at the front desk. Guests never need this page.</p>
+
+  <div class="box warn" id="desk-unavailable" hidden><p><strong>The check-in page is not connected here.</strong> Use the printed list: tick each guest who arrives, and write walk-ups at the bottom.</p></div>
+
+  <div class="field">
+    <label for="desk-code">Desk code</label>
+    <input id="desk-code" type="password" autocomplete="off" aria-describedby="desk-code-error">
+    <p class="err" id="desk-code-error" hidden></p>
+    <p class="small">The code is kept only in this browser tab, until you close it.</p>
+  </div>
+
+  <p class="box ok" id="checkin-ok" role="status" hidden></p>
+
+  <h2>A guest on the list</h2>
+  <form id="checkin-form" novalidate>
+    <div class="field">
+      <label for="email">The guest's email (from the printed list)</label>
+      <input id="email" name="email" type="email" inputmode="email" autocomplete="off" required aria-describedby="email-error">
+      <p class="err" id="email-error" hidden></p>
+    </div>
+    <button class="btn" id="checkin-btn" type="submit">Check in</button>
+    <p class="formerr" id="checkin-form-error" role="alert" hidden></p>
+  </form>
+
+  <h2>A walk-up (not on the list)</h2>
+  <form id="walkup-form" novalidate>
+    <div class="field">
+      <label for="walkup-name">Name</label>
+      <input id="walkup-name" name="name" autocomplete="off" maxlength="120" required aria-describedby="walkup-name-error">
+      <p class="err" id="walkup-name-error" hidden></p>
+    </div>
+    <div class="field">
+      <label for="walkup-email">Email <span class="opt">(optional, for the thank-you email)</span></label>
+      <input id="walkup-email" name="email" type="email" inputmode="email" autocomplete="off" aria-describedby="walkup-email-error">
+      <p class="err" id="walkup-email-error" hidden></p>
+    </div>
+    <div class="field">
+      <label for="walkup-phone">Phone <span class="opt">(optional)</span></label>
+      <input id="walkup-phone" name="phone" type="tel" inputmode="tel" autocomplete="off" aria-describedby="walkup-phone-error">
+      <p class="err" id="walkup-phone-error" hidden></p>
+    </div>
+    <div class="field">
+      <label for="walkup-patient">New or existing patient?</label>
+      <select id="walkup-patient" name="is_patient" required aria-describedby="walkup-patient-error">
+        <option value="">Ask the guest</option>
+        <option value="no">New patient</option>
+        <option value="yes">Existing patient</option>
+        <option value="unknown">Did not say</option>
+      </select>
+      <p class="err" id="walkup-patient-error" hidden></p>
+    </div>
+    <div class="field">
+      <label for="guests">People in the group</label>
+      <select id="guests" name="guests"><option value="1">1 person</option></select>
+    </div>
+    <p class="privacy" data-kit="event.privacy"></p>
+    <button class="btn" id="walkup-btn" type="submit">Check in a walk-up</button>
+    <p class="formerr" id="walkup-form-error" role="alert" hidden></p>
+  </form>
+
+  <h2>Arrived so far</h2>
+  <p><span class="count" id="arrived-count">–</span> <span class="small" id="count-detail">Enter the desk code to see the count.</span></p>
+  <button class="btn secondary" id="count-btn" type="button">Refresh the count</button>
+
+  <p class="box small"><strong>If this page stops working:</strong> keep going on the printed list (tick arrivals, write walk-ups at the bottom), and tell the person running the event. The list is entered later; no guest waits.</p>
+</main>
+<script>EventKit.start('checkin')</script>
+</body>
+</html>

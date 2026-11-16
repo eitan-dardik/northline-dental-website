@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Open Morning · Tuesday 24 November</title>
+<meta name="description" content="Free smile checks, a short talk on children's teeth, and meet the team.">
+<link rel="stylesheet" href="assets/brand.css">
+<link rel="stylesheet" href="assets/kit.css">
+<script src="config.js"></script>
+<script src="assets/kit.js"></script>
+<script src="assets/analytics.js" data-website-id="from-config"></script>
+</head>
+<body>
+<header class="top"><div class="wrap wide">
+  <a class="org" data-kit-site><img class="logo" data-kit-logo alt="" hidden><span data-kit="event.organizer">Northline Dental Group</span></a>
+  <a class="tel" data-kit-tel="header"></a>
+</div></header>
+
+<section class="band"><div class="wrap wide band-grid">
+  <div>
+    <p class="notice" id="phase-notice" role="status" hidden></p>
+    <h1 data-kit="event.name">Open Morning</h1>
+    <p class="when"><span data-kit="event.dateText"></span>, <span data-kit="event.timeText"></span></p>
+    <p class="where"><span data-kit="event.address"></span><span data-kit-map></span></p>
+    <p class="lead" data-kit="event.tagline"></p>
+    <p data-kit="event.forWhom"></p>
+    <a class="btn" id="hero-cta" href="#register" data-kit-cta="register">Save my place</a>
+    <a class="btn" id="phase-book" href="book/" hidden>Book your visit</a>
+  </div>
+  <img class="band-img" data-kit-hero alt="" hidden>
+</div></section>
+
+<section class="wrap wide highlights" id="highlights" aria-label="What to expect"></section>
+
+<main class="wrap wide event-grid">
+  <div>
+    <h2>The morning</h2>
+    <ul class="timetable" id="timetable"></ul>
+    <p class="box offer" data-kit="event.offer"></p>
+
+    <h2>Who you will meet</h2>
+    <ul class="team" id="team"></ul>
+
+    <h2>Good to know</h2>
+    <div id="faq"></div>
+  </div>
+
+  <section id="register" class="register-card" aria-labelledby="register-title">
+    <h2 id="register-title">Save your place</h2>
+    <p>It takes under a minute. It is free.</p>
+
+    <form id="register-form" novalidate>
+      <div class="field">
+        <label for="name">Your name</label>
+        <input id="name" name="name" autocomplete="name" maxlength="120" required aria-describedby="name-error">
+        <p class="err" id="name-error" hidden></p>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required aria-describedby="email-error">
+        <p class="err" id="email-error" hidden></p>
+      </div>
+      <div class="field" data-kit-field="phone">
+        <label for="phone">Phone <span class="opt">(optional)</span></label>
+        <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" aria-describedby="phone-error">
+        <p class="err" id="phone-error" hidden></p>
+      </div>
+      <div class="field" data-kit-field="guests">
+        <label for="guests">How many people are coming, you included?</label>
+        <select id="guests" name="guests"><option value="1">1 person</option></select>
+      </div>
+      <div class="hp" aria-hidden="true"><label for="website">Leave this empty</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+      <p class="privacy" id="privacy" data-kit="event.privacy"></p>
+      <button class="btn" id="register-btn" type="submit">Save my place</button>
+      <p class="formerr" id="register-form-error" role="alert" hidden></p>
+    </form>
+
+    <div class="box ok" id="register-ok" tabindex="-1" hidden>
+      <p class="okmsg">You are registered. Thank you!</p>
+      <p>We have sent you an email. Please open it and press the link, so we know your email address is right. If it is not there in a few minutes, look in your spam folder.</p>
+      <div class="actions">
+        <button class="btn secondary" type="button" data-kit-calendar>Add to my calendar</button>
+      </div>
+      <p class="small">Can't come after all? Call <a data-kit-tel="registered"></a>.</p>
+    </div>
+
+    <div class="box warn" id="register-soon" hidden><p><strong>Registration opens soon.</strong> Come back in a day or two, or call <a data-kit-tel="soon"></a>.</p></div>
+    <div class="box warn" id="register-closed" hidden><p><strong>Registration is closed.</strong> Thank you to everyone who came. To book a visit, call <a data-kit-tel="closed"></a>.</p></div>
+    <div class="box warn" id="register-unavailable" hidden><p><strong>Online registration is not available right now.</strong> Please call <a data-kit-tel="unavailable"></a> and we will save your place.</p></div>
+  </section>
+</main>
+
+<footer class="foot"><div class="wrap wide">
+  <p><span data-kit="event.organizer"></span> · <span data-kit="event.address"></span> · <a data-kit-tel="footer"></a></p>
+</div></footer>
+<script>EventKit.start('event')</script>
+</body>
+</html>

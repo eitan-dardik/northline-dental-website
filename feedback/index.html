@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Tell us what you think · Open Morning</title>
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<link rel="stylesheet" href="../assets/brand.css">
+<link rel="stylesheet" href="../assets/kit.css">
+<script src="../config.js"></script>
+<script src="../assets/kit.js"></script>
+<script src="../assets/analytics.js" data-website-id="from-config"></script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="org" href="../"><img class="logo" data-kit-logo alt="" hidden><span data-kit="event.organizer">Northline Dental Group</span></a>
+  <a class="tel" data-kit-tel="header"></a>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Tell us what you think</h1>
+    <p class="lead">About the <span data-kit="event.name"></span>, <span data-kit="event.dateText"></span>.</p>
+    <p id="feedback-intro" data-kit="survey.intro"></p>
+  </section>
+
+  <form id="feedback-form" novalidate>
+    <fieldset class="field" data-kit-part="came" aria-describedby="rating-error">
+      <legend data-kit="survey.ratingQuestion">How was the Open Morning for you?</legend>
+      <div class="scale">
+        <div class="choice"><input type="radio" name="rating" id="rating-1" value="1"><label for="rating-1">1</label></div>
+        <div class="choice"><input type="radio" name="rating" id="rating-2" value="2"><label for="rating-2">2</label></div>
+        <div class="choice"><input type="radio" name="rating" id="rating-3" value="3"><label for="rating-3">3</label></div>
+        <div class="choice"><input type="radio" name="rating" id="rating-4" value="4"><label for="rating-4">4</label></div>
+        <div class="choice"><input type="radio" name="rating" id="rating-5" value="5"><label for="rating-5">5</label></div>
+      </div>
+      <p class="scale-ends small"><span>1 = <span data-kit="survey.ratingLow">Poor</span></span><span>5 = <span data-kit="survey.ratingHigh">Excellent</span></span></p>
+      <p class="err" id="rating-error" hidden></p>
+    </fieldset>
+
+    <fieldset class="field" data-kit-part="came">
+      <legend><span data-kit="survey.usefulQuestion">What was most useful?</span> <span class="opt">(optional)</span></legend>
+      <div id="useful-choices"></div>
+    </fieldset>
+
+    <fieldset class="field" data-kit-part="came">
+      <legend><span data-kit="survey.recommendQuestion">Would you recommend Northline to a friend?</span> <span class="opt">(optional)</span></legend>
+      <div class="choice"><input type="radio" name="recommend" id="recommend-yes" value="yes"><label for="recommend-yes" data-kit-recommend="yes">Yes</label></div>
+      <div class="choice"><input type="radio" name="recommend" id="recommend-maybe" value="maybe"><label for="recommend-maybe" data-kit-recommend="maybe">Maybe</label></div>
+      <div class="choice"><input type="radio" name="recommend" id="recommend-no" value="no"><label for="recommend-no" data-kit-recommend="no">No</label></div>
+    </fieldset>
+
+    <fieldset class="field" data-kit-part="missed" aria-describedby="kept-error">
+      <legend data-kit="survey.missedQuestion">What kept you away?</legend>
+      <div id="kept-choices"></div>
+      <p class="err" id="kept-error" hidden></p>
+    </fieldset>
+
+    <div class="field">
+      <label for="comment" data-kit="survey.commentQuestion">Anything else you would like to tell us?</label>
+      <textarea id="comment" name="comment" rows="4" maxlength="500" aria-describedby="comment-help"></textarea>
+      <p class="small" id="comment-help">Optional. Up to 500 characters.</p>
+    </div>
+
+    <div class="field choice">
+      <input type="checkbox" id="contact-me" name="contact_me">
+      <label for="contact-me" data-kit="survey.contactLabel">Please contact me about booking a visit</label>
+    </div>
+
+    <p class="privacy">We keep your answers without your name or email. If you tick the box above, our team calls or emails you.</p>
+    <button class="btn" id="feedback-btn" type="submit">Send my answers</button>
+    <p class="formerr" id="feedback-form-error" role="alert" hidden></p>
+  </form>
+
+  <div class="box ok" id="feedback-ok" tabindex="-1" hidden>
+    <p class="okmsg">Thank you! We have your answers.</p>
+    <p>To book a visit, call <a data-kit-tel="feedback"></a>.</p>
+  </div>
+  <div class="box ok" id="feedback-already" tabindex="-1" hidden>
+    <p class="okmsg">We already have your answers. Thank you!</p>
+    <p>Each link takes one set of answers. To tell us more, call <a data-kit-tel="feedback-again"></a>.</p>
+  </div>
+  <div class="box warn" id="feedback-invalid" hidden><p><strong>This survey link is not complete.</strong> Please open it again from the email, or call <a data-kit-tel="feedback-invalid"></a> and tell us what you think.</p></div>
+  <div class="box warn" id="feedback-unavailable" hidden><p><strong>The survey is not available right now.</strong> Please call <a data-kit-tel="feedback-unavailable"></a> and tell us what you think.</p></div>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <p><span data-kit="event.organizer"></span> · <span data-kit="event.address"></span> · <a data-kit-tel="footer"></a></p>
+</div></footer>
+<script>EventKit.start('feedback')</script>
+</body>
+</html>
