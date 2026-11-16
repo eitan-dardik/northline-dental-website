@@ -9,7 +9,7 @@
 | 5 | Invite list check | **moved**: the list arrives with the event kit; task 16 is due Tue 17 Nov (D2 in PLAN.md). No list in the repository |
 | 6 | Capture and the test lead | [docs/event/CAPTURE.md](https://github.com/eitan-dardik/northline-dental-website/blob/b9c1716/docs/event/CAPTURE.md) (b9c1716); test lead read back at 13:58:43 Israel |
 | 7 | Decision record and Week 7 task list | [docs/decisions/2026-11-12-event-build.md](https://github.com/eitan-dardik/northline-dental-website/blob/9c9bf80/docs/decisions/2026-11-12-event-build.md) (9c9bf80); [docs/event/WEEK-7.md](https://github.com/eitan-dardik/northline-dental-website/blob/380443b/docs/event/WEEK-7.md) (380443b) |
-| 8 | Ops log | [#140](https://github.com/eitan-dardik/northline-dental-website/issues/140), one comment per day |
+| 8 | Ops log | [#140](https://github.com/eitan-dardik/northline-dental-website/issues/140): Wed 11 and Thu 12 Nov. Mon 9 and Tue 10 have no entry: I started the log on Wed 11 |
 | 9 | On call | [on-call.md](on-call.md) (e38f5e6); shift log on [#129](https://github.com/eitan-dardik/northline-dental-website/issues/129) |
 | 10 | Email texts and the plan sent to Denise | [docs/event/EMAILS.md](https://github.com/eitan-dardik/northline-dental-website/blob/aa22ef4/docs/event/EMAILS.md) (aa22ef4); [status-email.md](status-email.md) (b973050), sent to Denise on [#114](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-6834781899) |
 
