@@ -6,7 +6,7 @@ Each shows when it is sent, its link, its subject and its text.
 
 **Denise:** please reply on the ticket with "OK" or with changes, by **Tue 17 Nov**.
 
-Anything in `<…>` is still open: the offer comes from you at the go/no-go call on Mon 23 Nov; the other gaps are questions for you.
+Anything in `<…>` is filled in when each email is sent (the guest's name, the links), except `<parking, from Denise>`: that one is a question for you, listed at the end.
 
 Sender for all: **Northline Dental Group**.
 
@@ -52,13 +52,13 @@ All times below are the clinic's (Eastern).
 >
 > **[Confirm my place]**
 >
-> What to bring: `<what to bring, from Denise — or "nothing at all">`
+> You don't need to bring anything.
 >
 > Can't come after all? Just call us at (440) 555-0140.
 >
 > Denise and the Northline team
 
-**Link:** `https://<event-page>/confirm/?t=<the guest's token>` with the same UTM tags as the link they registered from
+**Link:** `https://<event-page>/confirm/?t=<the guest's token>&utm_source=confirmation&utm_medium=email&utm_campaign=2026-11-open-morning`
 
 ---
 
@@ -79,7 +79,7 @@ All times below are the clinic's (Eastern).
 >
 > Denise and the Northline team
 
-**Link:** the same confirm link as email 2
+**Link:** `https://<event-page>/confirm/?t=<the guest's token>&utm_source=verify-reminder&utm_medium=email&utm_campaign=2026-11-open-morning`
 
 ---
 
@@ -119,7 +119,7 @@ All times below are the clinic's (Eastern).
 >
 > Thank you for coming to our Open Morning yesterday. It was lovely to meet you.
 >
-> As a thank-you: **`<the offer, from Denise at the go/no-go call>`**
+> As a thank-you: **everyone who came gets a free check-up in the first two weeks of December.**
 >
 > **[Book a visit]**
 >
@@ -128,8 +128,8 @@ All times below are the clinic's (Eastern).
 > Denise and the Northline team
 
 **Links:**
-- booking: `<booking link>`
-- survey: `https://<event-page>/feedback/?t=<the guest's token>`
+- booking: `https://<event-page>/book/` (the event's booking page; it asks which office and which dentist)
+- survey: `https://<event-page>/feedback/?t=<the guest's token>&utm_source=thank-you&utm_medium=email&utm_campaign=2026-11-open-morning`
 
 ---
 
@@ -144,7 +144,7 @@ All times below are the clinic's (Eastern).
 >
 > We're sorry we didn't see you at our Open Morning yesterday. We know plans change.
 >
-> The offer is still yours: **`<the offer, from Denise at the go/no-go call>`**
+> The offer is still yours: **a free check-up in the first two weeks of December.**
 >
 > **[Book a visit]**
 >
@@ -153,8 +153,8 @@ All times below are the clinic's (Eastern).
 > Denise and the Northline team
 
 **Links:**
-- booking: `<booking link>`
-- survey: `https://<event-page>/feedback/?t=<the guest's token>&k=missed`
+- booking: `https://<event-page>/book/` (the event's booking page; it asks which office and which dentist)
+- survey: `https://<event-page>/feedback/?t=<the guest's token>&k=missed&utm_source=missed-you&utm_medium=email&utm_campaign=2026-11-open-morning`
 
 **Note:** email 5 is on the "drop first" list in PLAN.md. It's written now, so it's ready if there is time to send it.
 
@@ -162,7 +162,8 @@ All times below are the clinic's (Eastern).
 
 ## Questions for Denise
 
-1. **What to bring** (email 2): anything, or nothing at all?
-2. **Parking** (email 3): where can guests park?
-3. **The booking link** (emails 4 and 5): Northline has no online booking (#1). Should "Book a visit" open the contact form on Northline's website, or should it say "call us at (440) 555-0140"?
-4. **The offer** (emails 4 and 5): at the go/no-go call on Mon 23 Nov, as agreed.
+1. **Parking** (email 3): where can guests park?
+2. **The booking link** (emails 4 and 5): "Book a visit" opens the event's booking page, which asks which office the guest usually goes to, as you asked. Is that right, or would you rather it say "call us at (440) 555-0140"?
+3. **Group size:** how many people may one guest register, including themselves? We've planned up to 7, to plan the smile-check slots and the chairs.
+
+Answered in your email of 15 Nov: what to bring (nothing) and the offer (a free check-up in the first two weeks of December).

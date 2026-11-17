@@ -1,21 +1,21 @@
 # Open Morning: what we measure
 
 What Umami counts at each step, the four links that tell us where a guest came from, and what never goes to Umami.
-The kit has its own event table (W7 task 37); on Sun 15 Nov I check its names against this file and write any difference here.
+The kit's real event names differ in a few places; every difference is in **What the kit does differently** below (checked Tue 17 Nov).
 
 ## Events, by funnel step
 
-The event names are the ones from Week 4 (AutonoMoose's standard, `object_action`, lower case). **Names are permanent:** I reuse them and never rename them; the property `form: 'open_morning'` keeps the event apart from Northline's contact form (`form: 'contact'`).
+**Names are permanent:** I reuse them and never rename them. The kit's `analytics.js` (not changed, as its README asks) sends them with a `form` property that keeps the event's forms apart from Northline's contact form (`form: 'contact'`): `event_registration`, `event_verification`, `event_questionnaire`, `event_checkin`, `visit_booking`, `event_feedback`.
 
 | Funnel step | What counts it | Event / source | Properties |
 |---|---|---|---|
-| Invited | the send log | `registration_emails`, `kind = invitation` | — |
+| Invited | the send log of task 46 | `invitations.md`: how many were sent, how many arrived (counts only; no table of invited people, so nobody who never signed up is stored) | — |
 | Opened the page | Umami page view, with the link's UTM tags | page view (automatic) | the UTM tags |
-| Started the form | Umami | `form_start` | `form: 'open_morning'` |
-| Registered | Umami, **only after the row is saved** | `form_submit` | `form: 'open_morning'` |
-| Registration failed | Umami (never together with `form_submit`) | `form_error` | `form: 'open_morning'` |
-| Called the clinic from the page | Umami | `call_click` | `location: 'event_page'` |
-| Confirmed | the database (Umami only sees the confirm page, without `t=`) | `registrations.verified_at` | — |
+| Started the form | Umami | `form_start` | `form: 'event_registration'` |
+| Registered | Umami, **only after the row is saved** | `form_submit` | `form: 'event_registration'` |
+| Registration failed | Umami (never together with `form_submit`) | `form_error` | `form: 'event_registration'` |
+| Called the clinic from the page | Umami | `cta_click` | `label: 'call'`, `location`: where the phone link sits (`header`, `footer`, …) |
+| Confirmed | the database; Umami counts it too, without the token | `registrations.verified_at`; `form_submit` with `form: 'event_verification'` | — |
 | Reminded | the send log | `registration_emails`, `kind = reminder` | — |
 | Attended | the database (the desk's check-in) | `registrations.checked_in_at` | — |
 | Answered the survey | the database (the kit's feedback page) | query 10 of the kit | — |
@@ -47,6 +47,17 @@ https://<event-page>/?utm_source=website&utm_medium=banner&utm_campaign=2026-11-
 - **Walk-ups** (no link at all) are counted at the desk, not in Umami.
 - **The website banner** is counted by its UTM tags when the visitor reaches the event page; no click event on Northline's main site (the banner PR stays one line).
 - The tags are also saved on the registration row (`utm_source`, `utm_medium`, `utm_campaign`, see CAPTURE.md), so the report counts **registrations** per source, not only visits.
+
+## What the kit does differently (checked Tue 17 Nov)
+
+| Planned here | In the kit | What I do |
+|---|---|---|
+| `form: 'open_morning'` | `form: 'event_registration'`, plus five more forms (above) | use the kit's names; `analytics.js` stays as it came |
+| `call_click` from the event page | `cta_click` with `label: 'call'` (also `calendar`, `register`, `book`, `book_online`) | use the kit's; the call button is one of its calls to action |
+| survey counted from the database only | also `feedback_submit` in Umami, with the rating only | both; the database is the real count |
+| invitations counted in `registration_emails` | that table only has rows for registered guests | invitations are counted in `invitations.md` (task 46), from the mailer's send log |
+| three UTM tags | the kit also stores `utm_content`, in lower case | allowed; my four links don't use it |
+| — | the confirm link carries `utm_source=confirmation`, the reminder to confirm `verify-reminder`, the survey links `thank-you` and `missed-you` | more sources in the report; the token is never sent to Umami (the page removes it before Umami loads) |
 
 ## Never sent to Umami
 

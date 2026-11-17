@@ -4,6 +4,8 @@
 
 **Event branch:** `event` (staging) → `event-main` (production)
 
+**Subdomains:** `event-stage.<domain>` (staging, deployed from `event`) and `event.<domain>` (production, deployed from `event-main`), both by Hostinger's Git deployment with no build. Staging is live since Mon 16 Nov (#155).
+
 ## The question
 
 The event kit is a ready-made static page (no build step). Three things are mine to decide, inside the CEO's fixed rules: the kit lives in the Northline repository on its own branch and its own subdomain; a failed event deploy must never block or break Northline's main site; production changes only 16:00–22:00 Israel, by pull request, CI green, the CEO's approval as code owner.

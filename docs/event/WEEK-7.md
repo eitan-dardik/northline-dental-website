@@ -54,3 +54,15 @@ I follow this list in order. Every step is 1 hour or less; times are the workboo
 | 36 | Thu 19 | Week 7 evidence PR, by **23:59** (task 48, 30 min) | — | the PR is open |
 
 **Rule from task 45:** if a production check fails and I can't fix it within 20 minutes, I revert the release and tell the CEO. After 22:00 nothing new goes to production; a revert is always allowed.
+
+
+## Changes
+
+| Date | Step | Planned | Now | Why |
+|---|---|---|---|---|
+| Mon 16 | 1, 4 | Sun 15 | Mon 16 (done) | the kit arrived Sun 15, 23:09 (the CEO's email), not during the day |
+| Mon 16 | 2 (kit differences into CAPTURE/MEASURE) | Sun 15 | Tue 17, 16:00 | the same; #178 |
+| Mon 16 | 3 (invite list, task 16) | Sun 15 | Tue 17, 23:59 | the list came with the kit; the CEO set Tue 17, 23:59 (email of 15 Nov) |
+| Sun 15 | 7 (agenda) | 20:00 | sent 21:30 | late; said on #149 |
+| Mon 16 | 10, 25 (contact form limits, task 14) | Mon 16 + Wed 18 | Wed 18 | moved by the CEO (W6 scorecard, 15 Nov) |
+| Mon 16, 21:19 | 11 (on-call review, task 26) | Mon 16, 17:15 | Tue 17, 17:15 | moved by the CEO (his message at 21:19); #149 |

@@ -1,7 +1,7 @@
 # Open Morning: what we capture
 
 What the registration form stores, why, where, and a test that a row really arrives.
-The real tables come with the event kit (W7 task 32); on Sun 15 Nov I check the kit's tables against this file and write any difference here.
+This is the design from Week 6. The event kit's real tables (`supabase/migration.sql`) differ in a few places; the kit is what gets built, and every difference is in **What the kit does differently** below (checked Tue 17 Nov).
 
 ## The fields
 
@@ -12,7 +12,7 @@ As few as possible. Nothing that the event doesn't need.
 | Full name | yes | the desk finds the guest on the printed list |
 | Email | yes | the confirmation link, the reminder and the thank-you |
 | Phone | optional | to reach a guest on the day if something changes |
-| How many will come for a check-up | yes, default 1, from 1 to 7 | to plan the 10-minute smile-check slots and the chairs; the cap stops typos |
+| How many will come for a check-up | yes, default 1, from 1 to 7 by this design. **Today the form stops at 6** (the kit's default `maxGuests` in `config.js`); it changes to 7 with task 33, when registration opens. The database allows up to 10 (the kit's outer limit, also used by the desk for walk-ups). Asked Denise to confirm the number (#114) | to plan the 10-minute smile-check slots and the chairs; the cap stops typos |
 
 **Not asked:** date of birth, address, insurance, health details. The event doesn't need them, and every extra field is personal data we would have to protect.
 
@@ -91,17 +91,36 @@ The confirm page sets `verified_at` only for the row whose `token` matches. The 
 
 **Note:** `missed_you` is on the drop list in PLAN.md. It stays in the design, but it's sent only if there is time to build and test it before Wed 25 Nov.
 
-**Confirming doesn't decide the place.** A guest who never presses the link keeps their place, still gets the reminder, and is checked in like anyone else on the day. Confirming only proves the email address is real; confirmed guests are counted as their own step in the funnel report (`verified_at` has a time). Registration stays open until Thu 26 Nov (W8 task 63), and the desk also counts walk-ups who never registered.
-On Sun 15 Nov I check that the kit's printed desk list (query 5) includes unconfirmed guests.
+**Confirming doesn't decide the place.** A guest who never presses the link keeps their place, still gets the reminder, and is checked in like anyone else on the day. Confirming only proves the email address is real; confirmed guests are counted as their own step in the funnel report (`verified_at` has a time). Online registration closes when the event starts (the kit does this itself, see **What the kit does differently**), and the desk also counts walk-ups who never registered.
+Checked Tue 17 Nov: the kit's printed desk list (query 5) includes unconfirmed guests; it leaves out only walk-ups.
 
 ### Not stored here
 
-- **Booked a visit:** Northline has no online booking (#1). Denise reports how many guests booked within 7 days, and that number goes in the funnel report.
-- **Survey answers:** stored by the kit's feedback page, reached through the guest's own `token` in the follow-up email. The report shows the answers and the response rate with no names.
+- **Booked a visit:** Northline has no online booking (#1). The kit's booking page stores a *request* (`visit_requests`: office, dentist, time of day, how many people and children); Denise reports how many guests really booked within 7 days. Both numbers go in the funnel report.
+- **Survey answers:** stored in the kit's `event_feedback` table, one answer per token, with no name or email. The report shows the answers and the response rate with no names.
+
+## What the kit does differently (checked Tue 17 Nov)
+
+The kit's `supabase/migration.sql` is what gets built. Its rules stay as they came (the kit README: "do not change the rules"); a change to what we capture needs the CEO's yes.
+
+| Designed here | In the kit | What it means |
+|---|---|---|
+| `party_size`, 1 to 7 | `guests`, 1 to 10 in the database; the form's limit is `maxGuests` in `config.js`, the kit's default 6 | set to 7 in task 33 (the PR that opens registration), so the form matches this design. If Denise names another number, that number instead. The database never refuses what the form allows |
+| `name` 1–100 characters | 1–120, not blank | the form stops at 120 too |
+| `email` required, unique | required for every sign-up from the page; empty only for a walk-up the desk adds. Unique per event, in lower case, so a second sign-up gets the same "you are registered" | the same idea, plus walk-ups |
+| `phone` up to 30 characters | 7 to 20 characters: digits, spaces, `+ ( ) . -` | the form checks the same pattern |
+| three UTM columns, up to 50 characters | four (`utm_content` too), up to 100, stored in lower case | my four links don't use `utm_content` |
+| — | `event_id`, `walk_up`, `is_patient` (asked by the desk for walk-ups) | one table holds sign-ups and walk-ups; the funnel counts them apart (query 3) |
+| `registration_emails` with `id`, `recipient`, `status` and an `invitation` kind | only `registration_id`, `kind`, `sent_at`; the primary key stops a second send; kinds: `confirmation`, `verify_reminder`, `reminder`, `thank_you`, `missed_you` | invitations are counted in `invitations.md` (task 46); a bounce isn't stored, so the mailer's log keeps the mail server's reply |
+| the two questions (patient? children?) not designed | `event_questionnaire`: one answer per token, no name or email, shown only after the guest confirms | covered by "your answers" in the privacy line |
+| check-in "with the desk code" | the code is stored only as a hash (`event_desk`); three desk functions check it; 20 wrong codes in 10 minutes lock them for 10 minutes | the code never goes in the repository |
+| visitors: insert only, a read returns nothing | insert only, on listed columns only (never `token`, `verified_at`, `checked_in_at`, `walk_up`); a read is refused with `401` | stricter than `leads`; proven in task 32 (insert `201`, read `401`) |
+| registration open until Thu 26 Nov | the page stops online sign-ups when the event starts (10:00 Eastern); the desk takes walk-ups. `registration: 'closed'` after the event is still my step | "registered" ends at the start; walk-ups are their own row |
+| — | the printed desk list (query 5) includes guests who never confirmed | as planned: confirming never decides the place |
 
 ## The privacy line (what the guest sees)
 
-> We keep your name, email and (if you give it) phone number only to manage the Open Morning and to send you the confirmation, a reminder and one promotional offer the day after; we never share your data or use it outside the event.
+> We keep your name, email, phone number (if you give it) and your answers only for the Open Morning: to confirm your place, remind you the day before, and send one email the day after with our offer and a short survey. We never share them or use them for anything else.
 
 ## Test: a lead from my phone, read back
 
