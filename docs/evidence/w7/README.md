@@ -2,12 +2,12 @@
 
 | # | Item | Proof |
 |---|---|---|
-| 1 | Incident review | To do: incident-review.md; the agenda message: [see below](#row-1-incident-review) (sent Sun 15 Nov, 21:30) |
-| 2 | Board and week-start comment | To do: img/23-board.png; link to the comment on #114 |
+| 1 | Incident review | [incident-review.md](incident-review.md) (the review of Tue 17 Nov; actions [#184](https://github.com/eitan-dardik/northline-dental-website/issues/184), [#182](https://github.com/eitan-dardik/northline-dental-website/issues/182), [#183](https://github.com/eitan-dardik/northline-dental-website/issues/183)); the agenda message: [see below](#row-1-incident-review) (sent Sun 15 Nov, 21:30) |
+| 2 | Board and week-start comment | [img/23-board.png](img/23-board.png) (task 27, Tue 17 Nov, before 16:00); [the comment on #114](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-6945254828) |
 | 3 | Ops log | To do: [#140](https://github.com/eitan-dardik/northline-dental-website/issues/140), one comment for each day Mon–Thu |
 | 4 | Kit configured, staging, CI | Kit as it came: [PR #150](https://github.com/eitan-dardik/northline-dental-website/pull/150); configured: [22b66db](https://github.com/eitan-dardik/northline-dental-website/commit/22b66db) ([#152](https://github.com/eitan-dardik/northline-dental-website/issues/152)), [diff against the kit](https://github.com/eitan-dardik/northline-dental-website/compare/5b699eb...22b66db); decision record line: [PR #153](https://github.com/eitan-dardik/northline-dental-website/pull/153); staging and CI: [PR #155](https://github.com/eitan-dardik/northline-dental-website/pull/155), [green CI run on `event`](https://github.com/eitan-dardik/northline-dental-website/actions/runs/43943229108); the main site's deploy unchanged; details: [see below](#row-4-kit-configured-staging-ci) |
 | 5 | Releases v0.1.0, v0.2.0, v0.3.0, v1.0.0 | [event-v0.1.0](https://github.com/eitan-dardik/northline-dental-website/releases/tag/event-v0.1.0) (Mon 16 Nov, on `76af798`). To do: event-v0.2.0, event-v0.3.0, event-v1.0.0 |
-| 6 | Migration, rules proof, phone read-back | To do: link to the migration; the 201 / 401 proof; the row (time, utm_source) |
+| 6 | Migration, rules proof, phone read-back | [the migration](https://github.com/eitan-dardik/northline-dental-website/blob/dev/supabase/migrations/20261117191400_event_registrations.sql) (PR [#185](https://github.com/eitan-dardik/northline-dental-website/pull/185)); insert `201` / read `401`; the row: 22:49:40 Israel, `utm_source invitation`; details: [see below](#row-6-migration-rules-proof-phone-read-back) |
 | 7 | Confirmation, confirm link and deliverability | To do: email-check.md; the `verified_at` time of `+og003`; the `+og006` reminder to confirm (time sent) |
 | 8 | Umami events, UTM links, QR | To do: Umami screenshots; img/34-qr.png |
 | 9 | Desk rehearsal | To do: times; the count against query 3; the two desk lines |
@@ -21,7 +21,7 @@
 
 | Task | Item | Proof |
 |---|---|---|
-| 16 | Invite list check | To do: link to LIST-CHECK.md (the counts, each problem row and what I do with it, the reachable contacts; no list in the repository); link to the reply on #114 |
+| 16 | Invite list check | [LIST-CHECK.md](https://github.com/eitan-dardik/northline-dental-website/blob/dev/docs/event/LIST-CHECK.md) (PR [#180](https://github.com/eitan-dardik/northline-dental-website/pull/180): the counts, each problem row and what I do with it, 103 reachable contacts; no list in the repository); [the reply on #114](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-6950048179) |
 | 14 | Contact form limits | To do: the PR into `dev` with each rule's refused insert and its error code; one refused insert repeated on staging; both names in other languages accepted; #35 and #36 closed with the proof |
 | 18 | Week 4 evidence pack | [PR #148](https://github.com/eitan-dardik/northline-dental-website/pull/148) |
 
@@ -50,7 +50,7 @@
 
 **Checked:** with `npx serve .` on my laptop, desktop and mobile view.
 
-**Open on [#152](https://github.com/eitan-dardik/northline-dental-website/issues/152):** two CSS lines for the mobile layout, and whether to ask guests for their office on the registration form.
+**Answered on [#152](https://github.com/eitan-dardik/northline-dental-website/issues/152) (Tue 17 Nov):** the two mobile CSS lines were a defect in the kit; the CEO fixed it on the kit side ([PR #181](https://github.com/eitan-dardik/northline-dental-website/pull/181), merged into `event`), so my diff against the kit stays `config.js` and `brand.css`. The office question: no; the booking page asks it after the event.
 
 **Decision record:** the line `Event branch: event` (asked on feedback #8), merged in [PR #153](https://github.com/eitan-dardik/northline-dental-website/pull/153) with CI green.
 
@@ -67,3 +67,72 @@
 <img width="400" alt="production deployments" src="img/30-main-prod-deploys.png" /> <img width="400" alt="northline-stage deployments" src="img/30-main-stage-deploys.png" />
 
 <img width="250" alt="phone: the top of the event page" src="img/30-staging-phone-top.jpg" /> <img width="250" alt="phone: Registration opens soon" src="img/30-staging-phone-soon.jpg" />
+
+## Row 6: migration, rules proof, phone read-back
+
+**The migration (task 32, [#163](https://github.com/eitan-dardik/northline-dental-website/issues/163)):** the kit's `supabase/migration.sql`, copied unchanged (`diff` against the kit prints nothing) as `20261117191400_event_registrations.sql`, by [PR #185](https://github.com/eitan-dardik/northline-dental-website/pull/185) into `dev`. Applied to staging from `dev` with the CLI, through the SSH tunnel, Tue 17 Nov. `dev` has every migration staging has (task 14's moved to Wed 18), so no merge into `event` was needed.
+
+```
+$ npx supabase migration list --db-url "$DB"
+   Local            | Remote           | Time (UTC)
+  ------------------|------------------|-----------------------
+   `20260928105035` | `20260928105035` | `2026-09-28 10:50:35`
+   `20260928105129` | `20260928105129` | `2026-09-28 10:51:29`
+   `20261020101326` | `20261020101326` | `2026-10-20 10:13:26`
+   `20261101092708` | `20261101092708` | `2026-11-01 09:27:08`
+   `20261117191400` | ` `              | `2026-11-17 19:14:00`
+
+$ npx supabase db push --db-url "$DB" --dry-run
+DRY RUN: migrations will *not* be pushed to the database.
+Would push these migrations:
+ • 20261117191400_event_registrations.sql
+
+$ npx supabase db push --db-url "$DB"
+Applying migration 20261117191400_event_registrations.sql...
+Finished supabase db push.
+
+$ npx supabase migration list --db-url "$DB"
+   Local            | Remote           | Time (UTC)
+  ------------------|------------------|-----------------------
+   `20260928105035` | `20260928105035` | `2026-09-28 10:50:35`
+   `20260928105129` | `20260928105129` | `2026-09-28 10:51:29`
+   `20261020101326` | `20261020101326` | `2026-10-20 10:13:26`
+   `20261101092708` | `20261101092708` | `2026-11-01 09:27:08`
+   `20261117191400` | `20261117191400` | `2026-11-17 19:14:00`
+```
+
+`$DB` is the tunnel address with `?sslmode=disable`: the connection is already encrypted by SSH, and the database behind it has no TLS of its own.
+
+**The rules, through the public API with the publishable key** (Tue 17 Nov, 21:52 Israel; the kit README's two `curl`s, without the `Authorization` header for an `sb_publishable_` key):
+
+```
+$ curl … -X POST "https://<staging API>/rest/v1/registrations" …   # insert
+201
+$ curl … "https://<staging API>/rest/v1/registrations?select=*"    # read
+{"code":"42501","details":null,"hint":"…","message":"permission denied for table registrations"}
+401
+```
+
+**Staging desk code:** set at 22:15 with query 1 of the kit's `queries.sql`, the code passed in a variable so it isn't in the server's history; stored only as a hash. The code is in my password manager, never in the repository.
+
+**The phone test (task 33, [#164](https://github.com/eitan-dardik/northline-dental-website/issues/164)):** after [PR #186](https://github.com/eitan-dardik/northline-dental-website/pull/186) (`registration: 'open'`, `maxGuests: 7`), on staging, Chrome private tab, mobile data, Tue 17 Nov.
+
+| Check | Result |
+|---|---|
+| Registered from the invitation link, as `…+og1711@…`, 2 people (`+og001` was used for the W6 lead test) | 22:49 on the phone; "You are registered" |
+| Read back (query 2) | stored **20:49:40 UTC = 22:49:40 Israel**, `guests 2`, `utm_source invitation`, `utm_medium email`, `utm_campaign 2026-11-open-morning`; `verified_at` empty (task 34) |
+| The same email again | the same "You are registered"; still one `+og1711` row |
+| Airplane mode, as `…+og171102@…`, 3 people, 22:59 | "We could not save this just now. Please call (440) 555-0140 and we will do it for you.", under the button; no row stored |
+| The CEO's kit fix [#181](https://github.com/eitan-dardik/northline-dental-website/pull/181) | the timetable time stays on one line; space between "Save my place" and the image |
+| Found | the phone's normal tab kept the old page ("Registration opens soon") from its cache; a private tab showed the new one |
+
+**The read-back after both tests** (23:21 Israel, 21:21:48 UTC, `date` on top): one `+og1711` row, stored at 20:49:40 UTC with `utm_source invitation`, and no `+og171102` row.
+
+<img width="700" alt="the server after both tests: one +og1711 row, no +og171102, email masked" src="img/33-readback.png" />
+
+**On the phone:**
+
+| 1. Registered (22:49) | 2. Airplane mode (22:59) | 3. #181: the time on one line | 4. #181: space above the image |
+|---|---|---|---|
+| <img width="200" alt="phone: You are registered" src="img/33-registered.jpg" /> | <img width="200" alt="phone: airplane mode, the message under the button" src="img/33-airplane.jpg" /> | <img width="200" alt="phone: the timetable after #181" src="img/33-phone-layout-time.jpg" /> | <img width="200" alt="phone: space above the image after #181" src="img/33-phone-layout-hero.jpg" /> |
+| "You are registered" for `…+og1711@…`, 2 people | "We could not save this just now…" with the phone number; no row stored | "10:00" no longer breaks onto two lines | space between "Save my place" and the logo |
