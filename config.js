@@ -58,14 +58,14 @@ window.EVENT_KIT_CONFIG = {
     // The page changes by itself at startsAt and endsAt (see the README).
     liveText: 'Happening now, until 12:00. You can still come, no need to sign up.',
     afterText: 'The Open Morning has ended. Thank you to everyone who came.',
-    registration: 'soon',                  // 'soon' = shows "Registration opens soon"; 'open'; 'closed' = after the event
+    registration: 'open',                  // 'soon' = shows "Registration opens soon"; 'open'; 'closed' = after the event
     privacy: 'We keep your name, email, phone number (if you give it) and your answers only for the Open Morning: to confirm your place, remind you the day before, and send one email the day after with our offer and a short survey. We never share them or use them for anything else.'  },
 
   // ---- The form (from your CAPTURE.md) ---------------------------------------------------------
   form: {
     askPhone: true,                        // show an optional phone field
     askGuests: true,                       // show "How many people are coming?"
-    maxGuests: 6
+    maxGuests: 7
   },
 
   // ---- The two quick questions, shown after a guest confirms their email (confirm/) ---------------
