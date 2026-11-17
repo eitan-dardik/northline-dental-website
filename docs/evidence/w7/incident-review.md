@@ -34,7 +34,7 @@ The checks depended only on me remembering to run them by hand, with no reminder
 
 | # | Action | Owner | By |
 |---|---|---|---|
-| 1 | A phone alarm for every check, set before the shift starts | Eitan | before the next on-call shift |
+| 1 | A phone alarm for every check, set before the shift starts | Eitan | Tue 24 Nov, before 17:00 (the event, task 57: a line every 15 min, 17:00–19:00) |
 | 2 | An automatic check (monitoring bot) on the VPS: the four sites, the containers and the backups every 5 minutes, a Telegram message when a check fails, and a morning status message ([#182](https://github.com/eitan-dardik/northline-dental-website/issues/182)). A time estimate on its card before any code | Eitan | Tue 24 Nov |
 | 3 | Restart the server for the waiting kernel update ("System restart required" since Sun 15 Nov), in the window the CEO set on [#140](https://github.com/eitan-dardik/northline-dental-website/issues/140): Wed 18 Nov, 08:00–10:00 Israel, after the nightly backup. Before: the start time on #140. After: all 17 containers up, the backup cron in place, the four sites answering 200, the end time on #140 | Eitan | Wed 18 Nov, 10:00 |
 
