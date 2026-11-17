@@ -4,10 +4,11 @@
 - **When:** Tue 24 Nov 2026, 10:00–12:00 clinic time (Eastern) = 17:00–19:00 Israel
 - **Where:** Northline's main office, Maple Ridge: 1847 Maple Ridge Road, Suite 200 (D3)
 - **Phone on the day:** (440) 555-0140, for guests who need the clinic (D3)
-- **For whom:** past patients and neighbors, especially families with children. Reachable contacts: ❓ after the list check; the list comes next week with the event kit (D2, task 16 due Tue 17 Nov)
+- **For whom:** past patients and neighbors, especially families with children. Reachable contacts: ❓ after the list check; the list arrived with the event kit on Sun 15 Nov (D2, task 16 due Tue 17 Nov, 23:59)
 - **Targets (approved by Denise, D1):** 30 registered · 20 attend · 8 book a visit within 7 days
 - **Timetable (D3):** 10:00 doors open and free smile checks (10-minute slots) · 10:30 a short talk on caring for children's teeth · 11:00 meet the team · 12:00 close
-- **Offer for guests who came:** given by Denise at the go/no-go call on Mon 23 Nov (D8); until then a placeholder in the email texts
+- **Offer for guests who came (D8):** everyone who comes gets a free check-up in the first two weeks of December (Denise's email, forwarded 15 Nov)
+- **What to bring:** nothing (the same email)
 - **Desk staff:** named by Denise at the go/no-go call on Mon 23 Nov (D7); I rehearse the desk myself on Wed 18 Nov
 - **Poster:** goes to print **Wed 18 Nov**; the QR code file must reach Denise by then (D6)
 - **Debrief:** Wed 25 Nov, 10:00 her time = 17:00 Israel (D9)
@@ -36,12 +37,12 @@
 | Tue 17 Nov | event-v0.2.0: registration stored, confirmation email; **invite list checked** | a registration from my phone is in the table and the email arrives; LIST-CHECK.md written |
 | Wed 18 Nov | event-v0.3.0: Umami, UTM, **QR to Denise before the poster prints**, check-in rehearsal; Denise approves | the QR file is with Denise; the events show in Umami; Denise approved the screenshots |
 | Thu 19 Nov | Restore drill, event-v1.0.0 on production, invitations | the restore is counted, production is live, the send log is complete |
-| Mon 23 Nov | Reminders, phone test, go/no-go (desk staff and offer from Denise), freeze | every link and the QR work on a phone; Denise said go |
+| Mon 23 Nov | Reminders, phone test, go/no-go (desk staff from Denise; the offer came on 15 Nov), freeze | every link and the QR work on a phone; Denise said go |
 | Tue 24 Nov | The Open Morning, note to Denise | check-ins counted, note sent |
 | Wed 25 Nov | Follow-ups, funnel report, debrief 17:00 Israel | report committed, debrief held |
 | Thu 26 Nov | Close registration, export, archive, runbook, retro | everything closed; evidence/w8 open |
 
-**Week 7 estimate:** 12.93 h for the 24 Week 7 steps (the workbook's time for each × 0.8, my factor from the Week 5 decision.md). The workbook's own figure is about 15 h; if my factor is too low, Week 7 is tight. Week 7 also now holds the invite-list check (task 16, Tue 17) and the W4 evidence pack (task 18, Thu 19).
+**Week 7 estimate:** about 22 h, see WEEK-7.md (its load line and its Changes table).
 
 ## Release plan
 
@@ -81,11 +82,11 @@ Also watched: hosting maintenance during the event week (as on 11 Nov, 00:00–0
 ## Denise's answers (#114, Wed 11 Nov)
 
 - ✅ D1 Goal and targets approved: 30 / 20 / 8
-- ⏳ D2 The invite list comes next week, with the event kit (task 16 moved to Tue 17 Nov)
+- ⏳ D2 The invite list arrived with the event kit (the CEO's email, Sun 15 Nov, 23:09; kept outside the repository); my check is due Tue 17 Nov, 23:59 (task 16)
 - ✅ D3 Page text from her first message; address and phone above
 - ✅ D4 Her OK on the email texts by Tue 17 Nov (we send them Thu 12 Nov)
 - ✅ D5 Her OK on the screenshots by Thu 19 Nov, 08:00
 - ✅ D6 The poster prints Wed 18 Nov; the QR file must reach her by then
 - ⏳ D7 Desk staff: at the go/no-go call, Mon 23 Nov
-- ⏳ D8 The offer: at the go/no-go call, Mon 23 Nov; a placeholder in the email texts until then
+- ✅ D8 The offer (her email, forwarded 15 Nov, earlier than planned): a free check-up in the first two weeks of December
 - ✅ D9 The debrief: Wed 25 Nov, 10:00 her time
