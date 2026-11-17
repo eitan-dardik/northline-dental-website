@@ -25,6 +25,7 @@ p { margin: 0 0 1rem; }
 .band .btn { background: var(--brand-primary-text); color: var(--brand-primary); }
 .band .btn:focus-visible { outline-color: var(--brand-primary-text); }
 .band-img { border-radius: var(--brand-radius); display: block; width: 100%; object-fit: cover; }
+@media (max-width: 59.99rem) { .band-img { margin-top: 1.5rem; } }  /* phone: space between the buttons and the image (the wide grid below puts it beside the title) */
 .register-card { background: var(--brand-soft); border-radius: var(--brand-radius); padding: 1.25rem; margin-top: 2rem; }
 .register-card h2 { margin-top: 0; }
 .notice { display: inline-block; background: var(--brand-accent); color: var(--brand-ink); font-weight: 700; padding: .35rem .85rem; border-radius: var(--brand-radius); margin: 0 0 1rem; }
@@ -73,7 +74,7 @@ summary:focus-visible { outline: 3px solid var(--brand-accent); outline-offset: 
 .timetable { list-style: none; margin: 0; padding: 0; background: var(--brand-soft); border-radius: var(--brand-radius); }
 .timetable li { display: flex; gap: 1rem; padding: .75rem 1rem; border-bottom: 1px solid var(--brand-line); }
 .timetable li:last-child { border-bottom: 0; }
-.timetable .t { font-weight: 700; min-width: 3.5rem; color: var(--brand-ink); border-left: 4px solid var(--brand-accent); padding-left: .5rem; }
+.timetable .t { font-weight: 700; min-width: 3.5rem; flex-shrink: 0; color: var(--brand-ink); border-left: 4px solid var(--brand-accent); padding-left: .5rem; }
 .box { background: var(--brand-soft); border-radius: var(--brand-radius); padding: 1rem; margin: 1rem 0; }
 .box.ok { border-left: 6px solid var(--brand-ok); }
 .box.warn { border-left: 6px solid var(--brand-accent); }
