@@ -6,10 +6,10 @@
 | 2 | Board and week-start comment | [img/23-board.png](img/23-board.png) (task 27, Tue 17 Nov, before 16:00); [the comment on #114](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-6945254828) |
 | 3 | Ops log | To do: [#140](https://github.com/eitan-dardik/northline-dental-website/issues/140), one comment for each day Mon–Thu |
 | 4 | Kit configured, staging, CI | Kit as it came: [PR #150](https://github.com/eitan-dardik/northline-dental-website/pull/150); configured: [22b66db](https://github.com/eitan-dardik/northline-dental-website/commit/22b66db) ([#152](https://github.com/eitan-dardik/northline-dental-website/issues/152)), [diff against the kit](https://github.com/eitan-dardik/northline-dental-website/compare/5b699eb...22b66db); decision record line: [PR #153](https://github.com/eitan-dardik/northline-dental-website/pull/153); staging and CI: [PR #155](https://github.com/eitan-dardik/northline-dental-website/pull/155), [green CI run on `event`](https://github.com/eitan-dardik/northline-dental-website/actions/runs/43943229108); the main site's deploy unchanged; details: [see below](#row-4-kit-configured-staging-ci) |
-| 5 | Releases v0.1.0, v0.2.0, v0.3.0, v1.0.0 | [event-v0.1.0](https://github.com/eitan-dardik/northline-dental-website/releases/tag/event-v0.1.0) (Mon 16 Nov, on `76af798`); [event-v0.2.0](https://github.com/eitan-dardik/northline-dental-website/releases/tag/event-v0.2.0) (Wed 18 Nov, on `b2ea3df`). To do: event-v0.3.0, event-v1.0.0 ||
+| 5 | Releases v0.1.0, v0.2.0, v0.3.0, v1.0.0 | [event-v0.1.0](https://github.com/eitan-dardik/northline-dental-website/releases/tag/event-v0.1.0) (Mon 16 Nov, on `76af798`); [event-v0.2.0](https://github.com/eitan-dardik/northline-dental-website/releases/tag/event-v0.2.0) (Wed 18 Nov, on `b2ea3df`). To do: event-v0.3.0, event-v1.0.0 |
 | 6 | Migration, rules proof, phone read-back | [the migration](https://github.com/eitan-dardik/northline-dental-website/blob/dev/supabase/migrations/20261117191400_event_registrations.sql) (PR [#185](https://github.com/eitan-dardik/northline-dental-website/pull/185)); insert `201` / read `401`; the row: 22:49:40 Israel, `utm_source invitation`; details: [see below](#row-6-migration-rules-proof-phone-read-back) |
-| 7 | Confirmation, confirm link and deliverability | the confirmation for `+og003`: accepted 12 s after registering, `verified_at` 10:16:00 Israel; details: [see below](#row-7-confirmation-confirm-link-and-deliverability). [email-check.md](email-check.md) (task 35: Gmail and Outlook, both Inbox, SPF/DKIM/DMARC pass); the `+og006` reminder to confirm (due after 00:05 Thu) |
-| 8 | Umami events, UTM links, QR | To do: Umami screenshots; img/34-qr.png |
+| 7 | Confirmation, confirm link and deliverability | the confirmation for `+og003`: accepted 12 s after registering, `verified_at` 10:16:00 Israel; details: [see below](#row-7-confirmation-confirm-link-and-deliverability). [email-check.md](email-check.md) (task 35: Gmail and Outlook, both Inbox, SPF/DKIM/DMARC pass);  To do: the `+og006` reminder to confirm (due after 00:05 Thu) |
+| 8 | Umami events, UTM links, QR | every event from laptop and phone, no token or personal data (0), the confirm view without `t=`; the poster QR to Denise at 12:53 ([#114](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-6976434725)), [img/34-qr.png](img/34-qr.png); details: [see below](#row-8-umami-events-utm-links-qr). To do: the `website` link (banner) |
 | 9 | Desk rehearsal | To do: times; the count against query 3; the two desk lines |
 | 10 | Screenshots and Denise's approval | To do: link to the ticket comment |
 | 11 | Run of show draft | To do: link to RUN-OF-SHOW.md |
@@ -167,3 +167,69 @@ sent: registration 602b54f3-… confirmation: 250 2.0.0 OK ids=546866b7… (acce
 | 1. The email (23:57) | 2. Confirmed (10:16) | 3. Pressed again (10:17) |
 |---|---|---|
 | <img width="250" alt="the confirmation email in Gmail" src="img/34-confirmation-email.png" /> | <img width="200" alt="phone: Your email is confirmed" src="img/34-confirmed.jpg" /> | <img width="200" alt="phone: Already confirmed" src="img/34-already-confirmed.jpg" /> |
+
+
+## Row 8: Umami events, UTM links, QR
+
+**Umami (task 37, [#161](https://github.com/eitan-dardik/northline-dental-website/issues/161)):** two new Umami websites, `Open Morning – staging` and `Open Morning – production`, so test visits never count in production; their ids in `config.js` by [PR #190](https://github.com/eitan-dardik/northline-dental-website/pull/190) (the rest of the production block stays `REPLACE` until the release PR on Thursday). Umami counts staging since Wed 18 Nov, 13:06 Israel.
+
+Everything Umami stored for staging from 13:00, read on the server from Umami's database (Israel time; `data` = the event's properties):
+
+```
+  israel  |    what     | url_path  |                          url_query                                       | device | browser |            data
+----------+-------------+-----------+--------------------------------------------------------------------------+--------+---------+-------------------------------------
+ 13:06:45 | view        | /         |                                                                          | laptop | chrome  |
+ 13:09:25 | view        | /         | utm_campaign=7309-51-rNCg-CnppSUi&utm_medium=IL&utm_source=aDqCFY        | mobile | chrome  |
+ 13:25:12 | view        | /         | utm_source=invitation&utm_medium=email&utm_campaign=2026-11-open-morning | laptop | chrome  |
+ 13:25:33 | view        | /         | utm_source=reminder&utm_medium=email&utm_campaign=2026-11-open-morning   | laptop | firefox |
+ 13:29:32 | view        | /         | utm_source=invitation&utm_medium=email&utm_campaign=2026-11-open-morning | mobile | chrome  |
+ 13:29:47 | form_start  | /         | utm_source=invitation&…                                                  | mobile | chrome  | form=event_registration
+ 13:30:19 | form_submit | /         | utm_source=invitation&…                                                  | mobile | chrome  | form=event_registration, channel=form
+ 13:46:45 | view        | /         | utm_source=poster&utm_medium=qr&utm_campaign=2026-11-open-morning        | mobile | chrome  |
+ 13:46:48 | cta_click   | /         | utm_source=poster&…                                                      | mobile | chrome  | location=hero, label=register
+ 13:47:02 | form_start  | /         | utm_source=poster&…                                                      | mobile | chrome  | form=event_registration
+ 13:47:02 | form_error  | /         | utm_source=poster&…                                                      | mobile | chrome  | form=event_registration, reason=validation
+ 13:48:08 | form_submit | /         | utm_source=poster&…                                                      | mobile | chrome  | form=event_registration, channel=form
+ 13:48:21 | cta_click   | /         | utm_source=poster&…                                                      | mobile | chrome  | location=event, label=calendar
+ 13:48:29 | cta_click   | /         | utm_source=poster&…                                                      | mobile | chrome  | location=registered, label=call
+ 14:05:45 | view        | /confirm/ | utm_source=confirmation&utm_medium=email&utm_campaign=2026-11-open-morning | laptop | firefox |
+ 14:05:45 | form_submit | /confirm/ | utm_source=confirmation&…                                                | laptop | firefox | form=event_verification
+```
+
+| Check (workbook task 37) | Result |
+|---|---|
+| Every event, from laptop and phone | the phone (13:46–13:48, from the poster QR): page view, `cta_click` (register, calendar, call), `form_start`, `form_error`, `form_submit`. The laptop: page views, `form_start` and `form_submit` (13:29–13:30, in the browser's phone view), the confirm page and `event_verification` (14:05) |
+| No personal data or token in any event | no name, email or phone in any column or property; views with `t=` or `@` in their address: **0** (all of staging's Umami data) |
+| The confirm link's page view shows no `t=` | the link I pressed had `confirm/?t=<token>&utm_source=confirmation…`; Umami stored `/confirm/` with `utm_source=confirmation&utm_medium=email&utm_campaign=…` only: the page removes the token before Umami loads |
+| `form_submit` count against the rows, from 13:00 | Umami **2**, `registrations` **4**. The 2 missing (`og005`, 13:10, and `og005b`, 13:41) came from my phone's Chrome while it still had an old `config.js` without the Umami id (see below). After clearing the phone's site data, `og005c` (13:48) arrived with every event. The database is the real count, as MEASURE.md says |
+
+```
+$ (Umami)  … where url_query ~ '(^|&)t=' or url_query ilike '%@%'
+ views_with_a_token
+--------------------
+                  0
+$ (Umami)  form_submit with form = event_registration, since 13:00     →  2
+$ (staging) registrations from the page since 13:00                    →  4
+```
+
+**Found:**
+
+- **Hostinger lets browsers keep the event files for 7 days** (`cache-control: public, max-age=604800` on `config.js`). A browser that opened the page before keeps the old `config.js`: on Tue 17 it showed "Registration opens soon"; on Wed 18 my phone's Chrome, and the Gmail app's own browser, still had a `config.js` from before Umami was connected. So `og005` and `og005b` registered (and `og005b` confirmed), but Umami got nothing from them, and neither confirm pressed in the Gmail app (13:43, 13:49) reached Umami. After clearing the phone's site data, everything arrived (13:46–13:48), and the confirm from a clean browser too (14:05). Raised with the CEO for Thursday ([#191](https://github.com/eitan-dardik/northline-dental-website/issues/191)).
+- **Google Lens adds a view of its own.** Scanning the QR with the phone's camera (Lens), Umami got one extra view at 13:09 that wasn't mine: from another city, 0 seconds, no events, with Google's own tags (`aDqCFY`, `IL`) instead of the poster's. Lens fetches a preview of the page on Google's side before it opens Chrome. So Umami's poster **views** can include such previews; the poster **registrations** in the database (query 4) are the exact count.
+
+**The links and the QR (task 38, [#162](https://github.com/eitan-dardik/northline-dental-website/issues/162)):** the four links from MEASURE.md, with the event's production address.
+
+- **The poster QR** (`poster-qr.png` / `.svg`, made with `npx qrcode -e H` from the poster link): sent to Denise on [#114](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-6976434725) at **12:53**, before her poster prints.
+- **The test:** a second QR from the same link with the staging address, scanned from about 1 m: the page opened with `utm_source=poster&utm_medium=qr`, and the registrations were stored under `poster`.
+- **In Umami:** `invitation`, `reminder` and `poster` (table above). `website`: to do, with the banner on the main site's staging.
+
+```
+$ query 4 (staging)
+   source   | registered | came
+------------+------------+------
+ invitation |          7 |    0
+ poster     |          3 |    0
+ (no tag)   |          1 |    0
+```
+
+<img width="250" alt="the poster QR sent to Denise" src="img/34-qr.png" />
