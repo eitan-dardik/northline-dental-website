@@ -23,6 +23,11 @@ The kit's real event names differ in a few places; every difference is in **What
 
 **Check (W7 task 37):** the staging `form_submit` count must match the number of `registrations` rows for the same time range.
 
+**Found in task 37 (Wed 18 Nov):** Umami can undercount, so the database stays the real count.
+
+- **Google Lens** opens a scanned QR in a preview first: one view with Google's own tags and no events. The registration is still stored under `poster`.
+- **A browser that kept an old `config.js`** sent nothing to Umami (2 of 4 test registrations missing). Fixed for Thursday by the kit's `.htaccess` (#193, #191).
+
 ## The four links
 
 Every link I hand out carries its own tags. A link without tags makes the funnel blind: the guest counts as "direct" and we can't tell what brought them.
@@ -45,7 +50,7 @@ https://<event-page>/?utm_source=website&utm_medium=banner&utm_campaign=2026-11-
 
 - **The poster QR** is made from the poster link exactly, then scanned and checked in Umami before the file goes to Denise (Wed 18 Nov).
 - **Walk-ups** (no link at all) are counted at the desk, not in Umami.
-- **The website banner** is counted by its UTM tags when the visitor reaches the event page; no click event on Northline's main site (the banner PR stays one line).
+- **The website banner** is counted by its UTM tags when the visitor reaches the event page; no click event on Northline's main site. It shows only when `VITE_EVENT_URL` is set for that site in hPanel, and disappears by itself when the event starts (#192).
 - The tags are also saved on the registration row (`utm_source`, `utm_medium`, `utm_campaign`, see CAPTURE.md), so the report counts **registrations** per source, not only visits.
 
 ## What the kit does differently (checked Tue 17 Nov)
