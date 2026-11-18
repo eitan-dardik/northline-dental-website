@@ -230,6 +230,25 @@ hr.sep {
   color: var(--color-notice-text);
 }
 
+/* ---------- Event banner (Open Morning) ---------- */
+/* Reuses .notice-banner's full-width layout and type (components/EventBanner.jsx),
+   but in calm brand colours instead of the warning red, and a white link. */
+.event-banner {
+  background: var(--color-primary-dark);
+  color: var(--color-text-on-dark);
+}
+.event-banner a,
+.event-banner a:hover {
+  color: var(--color-text-on-dark);
+  font-weight: bold;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.event-banner a:focus-visible {
+  outline: 2px solid var(--color-text-on-dark);
+  outline-offset: 2px;
+}
+
 /* ---------- Responsive (mobile) ---------- */
 @media (max-width: 700px) {
   .page-wrap {
