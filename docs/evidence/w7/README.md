@@ -8,7 +8,7 @@
 | 4 | Kit configured, staging, CI | Kit as it came: [PR #150](https://github.com/eitan-dardik/northline-dental-website/pull/150); configured: [22b66db](https://github.com/eitan-dardik/northline-dental-website/commit/22b66db) ([#152](https://github.com/eitan-dardik/northline-dental-website/issues/152)), [diff against the kit](https://github.com/eitan-dardik/northline-dental-website/compare/5b699eb...22b66db); decision record line: [PR #153](https://github.com/eitan-dardik/northline-dental-website/pull/153); staging and CI: [PR #155](https://github.com/eitan-dardik/northline-dental-website/pull/155), [green CI run on `event`](https://github.com/eitan-dardik/northline-dental-website/actions/runs/43943229108); the main site's deploy unchanged; details: [see below](#row-4-kit-configured-staging-ci) |
 | 5 | Releases v0.1.0, v0.2.0, v0.3.0, v1.0.0 | [event-v0.1.0](https://github.com/eitan-dardik/northline-dental-website/releases/tag/event-v0.1.0) (Mon 16 Nov, on `76af798`). To do: event-v0.2.0, event-v0.3.0, event-v1.0.0 |
 | 6 | Migration, rules proof, phone read-back | [the migration](https://github.com/eitan-dardik/northline-dental-website/blob/dev/supabase/migrations/20261117191400_event_registrations.sql) (PR [#185](https://github.com/eitan-dardik/northline-dental-website/pull/185)); insert `201` / read `401`; the row: 22:49:40 Israel, `utm_source invitation`; details: [see below](#row-6-migration-rules-proof-phone-read-back) |
-| 7 | Confirmation, confirm link and deliverability | the confirmation for `+og003`: accepted 12 s after registering, `verified_at` 10:16:00 Israel; details: [see below](#row-7-confirmation-confirm-link-and-deliverability). To do: email-check.md (task 35); the `+og006` reminder to confirm (due after 00:05 Thu) |
+| 7 | Confirmation, confirm link and deliverability | the confirmation for `+og003`: accepted 12 s after registering, `verified_at` 10:16:00 Israel; details: [see below](#row-7-confirmation-confirm-link-and-deliverability). [email-check.md](email-check.md) (task 35: Gmail and Outlook, both Inbox, SPF/DKIM/DMARC pass); the `+og006` reminder to confirm (due after 00:05 Thu) |
 | 8 | Umami events, UTM links, QR | To do: Umami screenshots; img/34-qr.png |
 | 9 | Desk rehearsal | To do: times; the count against query 3; the two desk lines |
 | 10 | Screenshots and Denise's approval | To do: link to the ticket comment |
@@ -154,7 +154,7 @@ sent: registration 602b54f3-… confirmation: 250 2.0.0 OK ids=546866b7… (acce
 |---|---|
 | Registered | 21:57:20 UTC (Tue 23:57:20 Israel) |
 | Confirmation accepted by the mail server (`sent_at`) | 21:57:32 UTC: **12 s** after registering; arrived in Gmail the same minute |
-| The email | Denise's approved text (EMAILS.md 2), the link as a button |
+| The email | Denise's approved text (the "Confirmation" email in [EMAILS.md](https://github.com/eitan-dardik/northline-dental-website/blob/dev/docs/event/EMAILS.md)), the link as a button |
 | Pressed "Confirm my place" | Wed 18 Nov, 10:16: "Your email is confirmed"; `verified_at` **08:16:00 UTC** |
 | The address after the page loaded | `https://<event staging>/confirm/?utm_source=confirmation&utm_medium=email&utm_campaign=2026-11-open-morning`: **no `t=`** |
 | Pressed it again | 10:17: "Already confirmed"; `verified_at` unchanged |
