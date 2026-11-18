@@ -70,3 +70,5 @@ I follow this list in order. Every step is 1 hour or less; times are the workboo
 | Tue 17, 21:57 | 16–20 (tasks 32–36) | Tue 22:00 / 23:59 | 32 at 22:15, 33 at 23:21; 34, 35, 36 moved to Wed 11:00 / 14:30 / 15:30, all done by then | the review call ran to 18:17; delay notices to the CEO on Telegram, 21:57 and 23:59 |
 | Wed 18 | 10, 25 (contact form limits, task 14) | Wed 18 | Mon 23 Nov, 23:59 | moved by the CEO (#128): Wednesday was about 10 h |
 | Wed 18 | restart (incident review action 3, #183) | — | 09:43–09:46, inside the CEO's window | notes on #140 |
+| Wed 18 | 28 (run of show, task 42) | `docs/event/RUN-OF-SHOW.md` on the event branch | on `dev`, with the other event docs | the workbook's wording was an error (the CEO, #171); the same for task 55 |
+| Wed 18 | 29 (release PR, task 45) | — | first merge the CEO's #193 (`.htaccess`, `cache-control: no-cache`) into `event` and check it on staging | Hostinger let browsers keep `config.js` for 7 days (#191); the kit's fix, so my diff stays `config.js` and `brand.css` |

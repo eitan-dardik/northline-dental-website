@@ -11,7 +11,7 @@
 - **Timetable (D3):** 10:00 doors open and free smile checks (10-minute slots) · 10:30 a short talk on caring for children's teeth · 11:00 meet the team · 12:00 close
 - **Offer for guests who came (D8):** everyone who comes gets a free check-up in the first two weeks of December (Denise's email, forwarded 15 Nov)
 - **What to bring:** nothing (the same email)
-- **Desk staff:** named by Denise at the go/no-go call on Mon 23 Nov (D7); I rehearse the desk myself on Wed 18 Nov
+- **Desk staff:** named by Denise at the go/no-go call on Mon 23 Nov (D7); I rehearsed the desk myself on Wed 18 Nov (22 s and 35 s per guest; RUN-OF-SHOW.md has the two desk lines)
 - **Poster:** goes to print **Wed 18 Nov**; the QR code file must reach Denise by then (D6)
 - **Debrief:** Wed 25 Nov, 10:00 her time = 17:00 Israel (D9)
 - **Client ticket:** #114
@@ -87,7 +87,7 @@ Also watched: hosting maintenance during the event week (as on 11 Nov, 00:00–0
 - ✅ D2 The invite list (the CEO's email, Sun 15 Nov, 23:09; kept outside the repository): checked Tue 17 Nov, 108 reachable after Denise fixed 5 addresses on Wed 18 (LIST-CHECK.md)
 - ✅ D3 Page text from her first message; address and phone above
 - ✅ D4 Her OK on the email texts: received Tue 17 Nov (#114), with the parking and group size 7
-- ✅ D5 Her OK on the screenshots by Thu 19 Nov, 08:00
+- ✅ D5 Her OK on the screenshots: "Yes, it can go live on Thursday" ([#114](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-6987822915), Wed 18 Nov)
 - ✅ D6 The poster prints Wed 18 Nov; the QR file must reach her by then
 - ⏳ D7 Desk staff: at the go/no-go call, Mon 23 Nov
 - ✅ D8 The offer (her email, forwarded 15 Nov, earlier than planned): a free check-up in the first two weeks of December
