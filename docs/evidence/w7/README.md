@@ -8,10 +8,10 @@
 | 4 | Kit configured, staging, CI | Kit as it came: [PR #150](https://github.com/eitan-dardik/northline-dental-website/pull/150); configured: [22b66db](https://github.com/eitan-dardik/northline-dental-website/commit/22b66db) ([#152](https://github.com/eitan-dardik/northline-dental-website/issues/152)), [diff against the kit](https://github.com/eitan-dardik/northline-dental-website/compare/5b699eb...22b66db); decision record line: [PR #153](https://github.com/eitan-dardik/northline-dental-website/pull/153); staging and CI: [PR #155](https://github.com/eitan-dardik/northline-dental-website/pull/155), [green CI run on `event`](https://github.com/eitan-dardik/northline-dental-website/actions/runs/43943229108); the main site's deploy unchanged; details: [see below](#row-4-kit-configured-staging-ci) |
 | 5 | Releases v0.1.0, v0.2.0, v0.3.0, v1.0.0 | [event-v0.1.0](https://github.com/eitan-dardik/northline-dental-website/releases/tag/event-v0.1.0) (Mon 16 Nov, on `76af798`); [event-v0.2.0](https://github.com/eitan-dardik/northline-dental-website/releases/tag/event-v0.2.0) (Wed 18 Nov, on `b2ea3df`). To do: event-v0.3.0, event-v1.0.0 |
 | 6 | Migration, rules proof, phone read-back | [the migration](https://github.com/eitan-dardik/northline-dental-website/blob/dev/supabase/migrations/20261117191400_event_registrations.sql) (PR [#185](https://github.com/eitan-dardik/northline-dental-website/pull/185)); insert `201` / read `401`; the row: 22:49:40 Israel, `utm_source invitation`; details: [see below](#row-6-migration-rules-proof-phone-read-back) |
-| 7 | Confirmation, confirm link and deliverability | the confirmation for `+og003`: accepted 12 s after registering, `verified_at` 10:16:00 Israel; details: [see below](#row-7-confirmation-confirm-link-and-deliverability). [email-check.md](email-check.md) (task 35: Gmail and Outlook, both Inbox, SPF/DKIM/DMARC pass);  To do: the `+og006` reminder to confirm (due after 00:05 Thu) |
-| 8 | Umami events, UTM links, QR | every event from laptop and phone, no token or personal data (0), the confirm view without `t=`; the poster QR to Denise at 12:53 ([#114](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-6976434725)), [img/34-qr.png](img/34-qr.png); details: [see below](#row-8-umami-events-utm-links-qr). To do: the `website` link (banner) |
-| 9 | Desk rehearsal | To do: times; the count against query 3; the two desk lines |
-| 10 | Screenshots and Denise's approval | To do: link to the ticket comment |
+| 7 | Confirmation, confirm link and deliverability | the confirmation for `+og003`: accepted 12 s after registering, `verified_at` 10:16:00 Israel; details: [see below](#row-7-confirmation-confirm-link-and-deliverability). [email-check.md](email-check.md) (task 35: Gmail and Outlook, both Inbox, SPF/DKIM/DMARC pass). To do: the `+og006` reminder to confirm (due after 00:05 Thu) |
+| 8 | Umami events, UTM links, QR | every event from laptop and phone, no token or personal data (0), the confirm view without `t=`; all four links in Umami (`invitation`, `reminder`, `poster`, `website`); the poster QR to Denise at 12:53 ([#114](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-6976434725)), [img/34-qr.png](img/34-qr.png); the banner ([PR #192](https://github.com/eitan-dardik/northline-dental-website/pull/192)); details: [see below](#row-8-umami-events-utm-links-qr) |
+| 9 | Desk rehearsal | Wed 18 Nov, 17:54–17:57: check-ins in 22 s and 35 s, a walk-up in 34 s; the page's count = query 3 (11 registered, 3 arrived, 1 walk-up); the two desk lines; details: [see below](#row-9-desk-rehearsal) |
+| 10 | Screenshots and Denise's approval | six screenshots on [#114, Wed 18 Nov 18:33](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-6984843417), asking "Can this go live on Thursday?". To do: her answer (by Thu 8:00 her time) |
 | 11 | Run of show draft | To do: link to RUN-OF-SHOW.md |
 | 12 | Restore drill and decision brief | To do: restore.md; decision-brief.md |
 | 13 | Production release | To do: times merged, live, checked |
@@ -22,7 +22,7 @@
 | Task | Item | Proof |
 |---|---|---|
 | 16 | Invite list check | [LIST-CHECK.md](https://github.com/eitan-dardik/northline-dental-website/blob/dev/docs/event/LIST-CHECK.md) (PR [#180](https://github.com/eitan-dardik/northline-dental-website/pull/180): the counts, each problem row and what I do with it, 103 reachable contacts; no list in the repository); [the reply on #114](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-6950048179); updated Wed 18 with Denise's fixes: 108 reachable ([PR #188](https://github.com/eitan-dardik/northline-dental-website/pull/188)) |
-| 14 | Contact form limits | To do: the PR into `dev` with each rule's refused insert and its error code; one refused insert repeated on staging; both names in other languages accepted; #35 and #36 closed with the proof |
+| 14 | Contact form limits | To do: the PR into `dev` with each rule's refused insert and its error code; one refused insert repeated on staging; both names in other languages accepted; #35 and #36 closed with the proof. Moved again by the CEO to Mon 23 Nov, 23:59 ([#128](https://github.com/eitan-dardik/northline-dental-website/issues/128)) |
 | 18 | Week 4 evidence pack | [PR #148](https://github.com/eitan-dardik/northline-dental-website/pull/148) |
 
 **Actual (h)** is filled in on every finished card on the [Open Morning board](https://github.com/users/eitan-dardik/projects/7).
@@ -113,7 +113,7 @@ $ curl … "https://<staging API>/rest/v1/registrations?select=*"    # read
 401
 ```
 
-**Staging desk code:** set at 22:15 with query 1 of the kit's `queries.sql`, the code passed in a variable so it isn't in the server's history; stored only as a hash. The code is in my password manager, never in the repository.
+**Staging desk code:** set at 22:15 with query 1 of the kit's `queries.sql`, the code passed in a variable so it isn't in the server's history; stored only as a hash. The code is in my password manager, never in the repository. (Set again on Wed 18 with a length check, see row 9.)
 
 **The phone test (task 33, [#164](https://github.com/eitan-dardik/northline-dental-website/issues/164)):** after [PR #186](https://github.com/eitan-dardik/northline-dental-website/pull/186) (`registration: 'open'`, `maxGuests: 7`), on staging, Chrome private tab, mobile data, Tue 17 Nov.
 
@@ -221,7 +221,14 @@ $ (staging) registrations from the page since 13:00                    →  4
 
 - **The poster QR** (`poster-qr.png` / `.svg`, made with `npx qrcode -e H` from the poster link): sent to Denise on [#114](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-6976434725) at **12:53**, before her poster prints.
 - **The test:** a second QR from the same link with the staging address, scanned from about 1 m: the page opened with `utm_source=poster&utm_medium=qr`, and the registrations were stored under `poster`.
-- **In Umami:** `invitation`, `reminder` and `poster` (table above). `website`: to do, with the banner on the main site's staging.
+- **In Umami:** `invitation`, `reminder` and `poster` (table above), and `website` from the banner (below).
+- **The banner** ([PR #192](https://github.com/eitan-dardik/northline-dental-website/pull/192)): one line under the main site's menu, on every page: "Open Morning, Tue 24 Nov: free smile checks. Register →", linking to the event page with the website tags. Its address comes from a build setting, `VITE_EVENT_URL`, set only on the staging site for now; production gets it after event-v1.0.0. Hidden once the event starts. Lighthouse (mobile, localhost): accessibility 100. Clicked on staging, Wed 18 Nov:
+
+```
+  israel  | url_path |                               url_query                                | utm_source
+----------+----------+------------------------------------------------------------------------+------------
+ 17:37:20 | /        | utm_source=website&utm_medium=banner&utm_campaign=2026-11-open-morning | website
+```
 
 ```
 $ query 4 (staging)
@@ -232,4 +239,36 @@ $ query 4 (staging)
  (no tag)   |          1 |    0
 ```
 
-<img width="250" alt="the poster QR sent to Denise" src="img/34-qr.png" />
+| The poster QR sent to Denise | The banner on Northline's staging site |
+|---|---|
+| <img width="250" alt="the poster QR sent to Denise" src="img/34-qr.png" /> | <img width="250" alt="phone: the banner on Northline's staging site" src="img/38-banner.jpg" /> |
+
+
+## Row 9: desk rehearsal
+
+**Task 39 ([#168](https://github.com/eitan-dardik/northline-dental-website/issues/168)),** on staging, from my phone, Wed 18 Nov.
+
+| Check | Result |
+|---|---|
+| The printed list (query 5) | 11 guests, sorted by name, with email and group size; unconfirmed guests included. Looked at on the server, then deleted (`rm`) |
+| Guest 1, from the list | checked in in **22 s**: "Checked in: Test." |
+| Guest 2, a group of 2 | **35 s**: "Checked in: Test. Group of 2." Over the 30 s target: typing a long email on a phone keyboard. On the day the desk types from the printed list, on a tablet or laptop if they have one |
+| A walk-up (no email, new patient) | **34 s**, counted |
+| The page's count against query 3 | "3 of 11 registered · 1 walk-up" = registered 11, arrived 3, walk-ups 1 |
+| Found | the desk code set on Tue didn't match my password manager (likely a paste error into `read -rs`, which hides what's pasted). Set again with a length check (17 characters); the same check for production on Thursday |
+
+```
+$ query 3 (staging)
+ registered | confirmed | arrived | walk_ups
+------------+-----------+---------+----------
+         11 |         4 |       3 |        1
+```
+
+**The two desk lines, for Denise's team:**
+
+1. **A guest on the list:** find their name on the printed list, type their email exactly as printed into "The guest's email", and press **Check in**. The page says "Checked in" with their first name and group size; tick them on the list. Not on the list: add them as a walk-up (name, new or existing patient, how many).
+2. **If the page stops working** (no internet, or "The desk code is not right"): carry on with the printed list. Tick each guest who arrives and write walk-ups at the bottom; nobody waits. Tell Eitan; the list is entered afterwards.
+
+| The printed list (emails masked) | Guest 1 (22 s) | Guest 2 (35 s) | The count |
+|---|---|---|---|
+| <img width="250" alt="the printed list, query 5, emails masked" src="img/39-desk-list.png" /> | <img width="200" alt="phone: Checked in: Test." src="img/39-checkin-1.jpg" /> | <img width="200" alt="phone: Checked in, group of 2" src="img/39-checkin-2.jpg" /> | <img width="200" alt="phone: 3 of 11 registered, 1 walk-up" src="img/39-count.jpg" /> |
