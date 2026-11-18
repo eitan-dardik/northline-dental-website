@@ -66,3 +66,7 @@ I follow this list in order. Every step is 1 hour or less; times are the workboo
 | Sun 15 | 7 (agenda) | 20:00 | sent 21:30 | late; said on #149 |
 | Mon 16 | 10, 25 (contact form limits, task 14) | Mon 16 + Wed 18 | Wed 18 | moved by the CEO (W6 scorecard, 15 Nov) |
 | Mon 16, 21:19 | 11 (on-call review, task 26) | Mon 16, 17:15 | Tue 17, 17:15 | moved by the CEO (his message at 21:19); #149 |
+| Tue 17 | 16 (migration, task 32) | merge `dev` into `event` first | pushed to staging from `dev`, no merge | task 14's migration wasn't on staging (task 14 moved); `dev` has every migration staging has; merging `dev` would put the whole site on the event branch (#185) |
+| Tue 17, 21:57 | 16–20 (tasks 32–36) | Tue 22:00 / 23:59 | 32 at 22:15, 33 at 23:21; 34, 35, 36 moved to Wed 11:00 / 14:30 / 15:30, all done by then | the review call ran to 18:17; delay notices to the CEO on Telegram, 21:57 and 23:59 |
+| Wed 18 | 10, 25 (contact form limits, task 14) | Wed 18 | Mon 23 Nov, 23:59 | moved by the CEO (#128): Wednesday was about 10 h |
+| Wed 18 | restart (incident review action 3, #183) | — | 09:43–09:46, inside the CEO's window | notes on #140 |

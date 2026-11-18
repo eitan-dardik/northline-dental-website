@@ -274,6 +274,73 @@ Check `df -h /` again afterwards.
 
 ---
 
+
+## Entry: A guest says the confirmation email never came
+
+The Open Morning emails come from the mailer on the VPS (`services/mailer/`, PR #187). It sends an event email only on a server whose `mailer.env` has `EVENT_URL` (staging since Tue 17 Nov; production from the release on Thu 19 Nov).
+
+### Symptoms
+
+- "I registered but got no email."
+- A test registration has no `confirmation` row in `registration_emails`, or the row is there but the inbox stays empty.
+
+### Investigate
+Stop as soon as one step explains it.
+
+1. **Is the mailer running, with event emails on?**
+```bash
+   cd ~/northline/<stage|prod>/supabase
+   docker compose ps mailer                                   # Up (healthy)
+   docker compose logs mailer --timestamps | grep 'mailer started'
+```
+   `event emails off (no EVENT_URL)` → this server doesn't send them: see Resolve.
+
+2. **Did it send this guest's email, and did the mail server accept it?** Find the registration's time first (query 2 of the kit's `queries.sql`), then:
+```bash
+   docker compose logs mailer --since 2h --timestamps | grep -E 'sent: registration|failed: registration'
+```
+   - `sent: registration <id> confirmation: 250 2.0.0 OK …` → our mail server accepted it. The email left our system: go to step 3.
+   - `failed: registration <id> confirmation (try n of 3): …` → our mail server refused it: the text after the colon says why. After 3 tries the mailer gives up on that email until it restarts.
+   - Neither → the mailer never picked it up: check `registration_emails` (step 4) and the `round failed` lines.
+
+3. **Accepted but not in the inbox:** ask the guest to look in Spam / Junk and, on Outlook, the "Other" tab. On 18 Nov, Outlook held the first email from us for 20 minutes (no bounce, no error), then delivered it; the next one took 4 s. Look for a bounce in the sending mailbox (Hostinger webmail).
+
+4. **The database's record** (the team's access, on the server):
+```sql
+   select r.created_at, r.verified_at, e.kind, e.sent_at
+   from public.registrations r left join public.registration_emails e on e.registration_id = r.id
+   where r.event_id = '2026-11-open-morning' and lower(r.email) = lower('<the guest''s email>');
+```
+   One `confirmation` row = sent once. Never paste the result (it has the email) into a ticket or the repository.
+
+### Resolve
+- **Event emails off on a server that should send them:** add `EVENT_URL=https://<event host>` to that stack's `mailer.env`, then `docker compose up -d mailer`. The log must say `event emails on`.
+- **Refused by our mail server:** fix the cause (a wrong SMTP setting in `mailer.env`, a full mailbox, Hostinger's sending limit), then `docker compose restart mailer`: it retries the emails that have no row.
+- **Delayed or in Spam at the guest's provider:** nothing to fix on our side if SPF, DKIM and DMARC pass (evidence/w7 `email-check.md`). The guest's place is saved either way; the desk checks them in from the printed list.
+- **Send one confirmation again:** delete that guest's `confirmation` row (`delete from public.registration_emails where registration_id = '<id>' and kind = 'confirmation';`); the mailer sends it on its next round (15 s). Only after checking step 2: the guest may already have it.
+
+### Rollback
+- **Stop the event emails:** remove `EVENT_URL` from `mailer.env` and run `docker compose up -d mailer`. The mailer handles leads only again; nothing else changes.
+- **The code:** revert PR #187 on `dev`, `git pull` in `~/northline/repo`, then rebuild only that stack's mailer (`docker compose up -d --build mailer`). Staging and production build from the same clone: rebuild only the one you mean.
+
+### Escalate
+- **Our mail server refuses every email** (every line is `failed:`), or it's Thursday and the invitations are waiting: escalate straight away with the log lines.
+- **More than one guest reports no email:** escalate with the times, the log lines, and which providers.
+- **Always confirm back** to Denise's team once the guest has the email or is on the printed list.
+
+---
+
+## Known gaps
+
+Things we know are missing, agreed with the CEO, with no work planned yet.
+
+| Gap | Risk | Agreed | When |
+|---|---|---|---|
+| **No copy of the nightly backup outside the VPS.** The dumps (`~/backups/nightly-prod-*.dump`, kept 7 days) are on the same server they protect. | If the VPS itself is lost (the disk, the provider, a deletion), the backups go with it. Hostinger's own weekly backup and the snapshot are the only copies elsewhere. | with the CEO in the incident review, Tue 17 Nov ([#149](https://github.com/eitan-dardik/northline-dental-website/issues/149)): a known gap, no work this week | after the event |
+
+---
+
+
 ## Entry: (add the next one here)
  
 ### Symptoms
