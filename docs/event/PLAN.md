@@ -4,7 +4,9 @@
 - **When:** Tue 24 Nov 2026, 10:00–12:00 clinic time (Eastern) = 17:00–19:00 Israel
 - **Where:** Northline's main office, Maple Ridge: 1847 Maple Ridge Road, Suite 200 (D3)
 - **Phone on the day:** (440) 555-0140, for guests who need the clinic (D3)
-- **For whom:** past patients and neighbors, especially families with children. Reachable contacts: ❓ after the list check; the list arrived with the event kit on Sun 15 Nov (D2, task 16 due Tue 17 Nov, 23:59)
+- **For whom:** past patients and neighbors, especially families with children. Reachable contacts: **108** of 120 (93 patients, 15 neighbours; LIST-CHECK.md, Tue 17 Nov, updated Wed 18 with Denise's fixes) (D2)
+- **Group size:** up to 7 people per sign-up (Denise, #114, Tue 17 Nov)
+- **Parking:** free, behind the building, entrance from Maple Ridge Road (Denise, #114)
 - **Targets (approved by Denise, D1):** 30 registered · 20 attend · 8 book a visit within 7 days
 - **Timetable (D3):** 10:00 doors open and free smile checks (10-minute slots) · 10:30 a short talk on caring for children's teeth · 11:00 meet the team · 12:00 close
 - **Offer for guests who came (D8):** everyone who comes gets a free check-up in the first two weeks of December (Denise's email, forwarded 15 Nov)
@@ -79,12 +81,12 @@ Also watched: hosting maintenance during the event week (as on 11 Nov, 00:00–0
 2. The banner link on Northline's website (the invitation, the reminder and the poster QR still bring people)
 3. The "sorry we missed you" email (the thank-you still goes to every guest who came)
 
-## Denise's answers (#114, Wed 11 Nov)
+## Denise's answers (#114, from Wed 11 Nov)
 
 - ✅ D1 Goal and targets approved: 30 / 20 / 8
-- ⏳ D2 The invite list arrived with the event kit (the CEO's email, Sun 15 Nov, 23:09; kept outside the repository); my check is due Tue 17 Nov, 23:59 (task 16)
+- ✅ D2 The invite list (the CEO's email, Sun 15 Nov, 23:09; kept outside the repository): checked Tue 17 Nov, 108 reachable after Denise fixed 5 addresses on Wed 18 (LIST-CHECK.md)
 - ✅ D3 Page text from her first message; address and phone above
-- ✅ D4 Her OK on the email texts by Tue 17 Nov (we send them Thu 12 Nov)
+- ✅ D4 Her OK on the email texts: received Tue 17 Nov (#114), with the parking and group size 7
 - ✅ D5 Her OK on the screenshots by Thu 19 Nov, 08:00
 - ✅ D6 The poster prints Wed 18 Nov; the QR file must reach her by then
 - ⏳ D7 Desk staff: at the go/no-go call, Mon 23 Nov

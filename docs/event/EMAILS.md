@@ -4,9 +4,9 @@ Six short emails, in the order a guest gets them (the brief's five, plus the rem
 
 Each shows when it is sent, its link, its subject and its text.
 
-**Denise:** please reply on the ticket with "OK" or with changes, by **Tue 17 Nov**.
+**Denise's OK:** received on #114, Tue 17 Nov, with the parking and her answers below.
 
-Anything in `<…>` is filled in when each email is sent (the guest's name, the links), except `<parking, from Denise>`: that one is a question for you, listed at the end.
+Anything in `<…>` is filled in when each email is sent (the guest's name, the links).
 
 Sender for all: **Northline Dental Group**.
 
@@ -64,7 +64,7 @@ All times below are the clinic's (Eastern).
 
 ## 2b. Reminder to confirm
 
-**Sent:** once, 24 hours after registering, only if the confirm link was not pressed  
+**Sent:** once, 24 hours after the confirmation, only if the confirm link was not pressed (never after the event starts)  
 **Link:** the same confirm link
 
 **Subject:** One tap to confirm your place
@@ -94,7 +94,7 @@ All times below are the clinic's (Eastern).
 >
 > A quick reminder: our Open Morning is **tomorrow, Tuesday 24 November, 10:00–12:00**, at 1847 Maple Ridge Road, Suite 200.
 >
-> Parking: `<parking, from Denise>`
+> Parking: free parking behind the building, entrance from Maple Ridge Road.
 >
 > The day's plan is here: **[Open Morning details]**
 >
@@ -160,10 +160,10 @@ All times below are the clinic's (Eastern).
 
 ---
 
-## Questions for Denise
+## Denise's answers (#114, Tue 17 Nov)
 
-1. **Parking** (email 3): where can guests park?
-2. **The booking link** (emails 4 and 5): "Book a visit" opens the event's booking page, which asks which office the guest usually goes to, as you asked. Is that right, or would you rather it say "call us at (440) 555-0140"?
-3. **Group size:** how many people may one guest register, including themselves? We've planned up to 7, to plan the smile-check slots and the chairs.
+1. **Parking** (email 3): free parking behind the building, entrance from Maple Ridge Road.
+2. **The booking link** (emails 4 and 5): the event's booking page is fine.
+3. **Group size:** up to 7 people per sign-up, including the guest.
 
-Answered in your email of 15 Nov: what to bring (nothing) and the offer (a free check-up in the first two weeks of December).
+Answered in her email of 15 Nov: what to bring (nothing) and the offer (a free check-up in the first two weeks of December).

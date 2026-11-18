@@ -12,7 +12,7 @@ As few as possible. Nothing that the event doesn't need.
 | Full name | yes | the desk finds the guest on the printed list |
 | Email | yes | the confirmation link, the reminder and the thank-you |
 | Phone | optional | to reach a guest on the day if something changes |
-| How many will come for a check-up | yes, default 1, from 1 to 7 by this design. **Today the form stops at 6** (the kit's default `maxGuests` in `config.js`); it changes to 7 with task 33, when registration opens. The database allows up to 10 (the kit's outer limit, also used by the desk for walk-ups). Asked Denise to confirm the number (#114) | to plan the 10-minute smile-check slots and the chairs; the cap stops typos |
+| How many will come for a check-up | yes, default 1, from 1 to 7: Denise's number (#114, Tue 17 Nov). The form stops at 7 (`maxGuests: 7`, since task 33, #186). The database allows up to 10: the kit's safety bound, not a product rule, so the migration stays as the kit has it (the CEO, #152) | to plan the 10-minute smile-check slots and the chairs; the cap stops typos |
 
 **Not asked:** date of birth, address, insurance, health details. The event doesn't need them, and every extra field is personal data we would have to protect.
 
@@ -84,7 +84,7 @@ The confirm page sets `verified_at` only for the row whose `token` matches. The 
 |---|---|---|---|
 | `invitation` | every reachable contact on Denise's list | Thu 19 Nov | — |
 | `confirmation` | the guest | right after registering, within 60 seconds | — |
-| `verify_reminder` | the guest | once, 24 h after registering | `verified_at` is still empty |
+| `verify_reminder` | the guest | once, 24 h after the confirmation was sent (the kit's query 8), and not after the event starts | `verified_at` is still empty |
 | `reminder` | every registered guest | Mon 23 Nov, 15:00 | — |
 | `thank_you` (survey + offer) | guests who came | Wed 25 Nov, 16:00 | `checked_in_at` is set |
 | `missed_you` (survey + offer) | guests who registered and didn't come | Wed 25 Nov, 16:00 | `checked_in_at` is empty |
@@ -105,7 +105,7 @@ The kit's `supabase/migration.sql` is what gets built. Its rules stay as they ca
 
 | Designed here | In the kit | What it means |
 |---|---|---|
-| `party_size`, 1 to 7 | `guests`, 1 to 10 in the database; the form's limit is `maxGuests` in `config.js`, the kit's default 6 | set to 7 in task 33 (the PR that opens registration), so the form matches this design. If Denise names another number, that number instead. The database never refuses what the form allows |
+| `party_size`, 1 to 7 | `guests`, 1 to 10 in the database; the form's limit is `maxGuests` in `config.js`, the kit's default 6 | set to 7 in task 33 (#186), Denise's number (#114). The CEO (#152): the form's 7 is the limit guests can reach; the database's 10 is the kit's safety bound, so the migration stays unchanged. The database never refuses what the form allows |
 | `name` 1–100 characters | 1–120, not blank | the form stops at 120 too |
 | `email` required, unique | required for every sign-up from the page; empty only for a walk-up the desk adds. Unique per event, in lower case, so a second sign-up gets the same "you are registered" | the same idea, plus walk-ups |
 | `phone` up to 30 characters | 7 to 20 characters: digits, spaces, `+ ( ) . -` | the form checks the same pattern |
@@ -117,6 +117,15 @@ The kit's `supabase/migration.sql` is what gets built. Its rules stay as they ca
 | visitors: insert only, a read returns nothing | insert only, on listed columns only (never `token`, `verified_at`, `checked_in_at`, `walk_up`); a read is refused with `401` | stricter than `leads`; proven in task 32 (insert `201`, read `401`) |
 | registration open until Thu 26 Nov | the page stops online sign-ups when the event starts (10:00 Eastern); the desk takes walk-ups. `registration: 'closed'` after the event is still my step | "registered" ends at the start; walk-ups are their own row |
 | — | the printed desk list (query 5) includes guests who never confirmed | as planned: confirming never decides the place |
+
+
+**Asked after the kit check (Tue 17 Nov):**
+
+- **The guest's office on the form?** No: the booking page asks it after the event; the form stays as it is (the CEO, #152).
+- **How many of a guest's people are children?** Not this week: the yes/no "Are you bringing children?" on the confirmed page already shows which sign-ups are families. A count would be a column, a migration and a form question; if Denise still wants it, it goes in the debrief as a change request (the CEO, #152; told Denise on #114, Wed 18 Nov).
+
+**Tested on the real form (W7 tasks 33–35):** a registration from my phone read back with its `utm_source`, no second row for the same email, the error with the phone number in airplane mode, the confirmation within seconds and its link setting `verified_at`. Proof: evidence/w7, rows 6 and 7.
+
 
 ## The privacy line (what the guest sees)
 
