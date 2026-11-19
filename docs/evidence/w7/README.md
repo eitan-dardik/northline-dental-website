@@ -8,7 +8,7 @@
 | 4 | Kit configured, staging, CI | Kit as it came: [PR #150](https://github.com/eitan-dardik/northline-dental-website/pull/150); configured: [22b66db](https://github.com/eitan-dardik/northline-dental-website/commit/22b66db) ([#152](https://github.com/eitan-dardik/northline-dental-website/issues/152)), [diff against the kit](https://github.com/eitan-dardik/northline-dental-website/compare/5b699eb...22b66db); decision record line: [PR #153](https://github.com/eitan-dardik/northline-dental-website/pull/153); staging and CI: [PR #155](https://github.com/eitan-dardik/northline-dental-website/pull/155), [green CI run on `event`](https://github.com/eitan-dardik/northline-dental-website/actions/runs/43943229108); the main site's deploy unchanged; details: [see below](#row-4-kit-configured-staging-ci) |
 | 5 | Releases v0.1.0, v0.2.0, v0.3.0, v1.0.0 | [event-v0.1.0](https://github.com/eitan-dardik/northline-dental-website/releases/tag/event-v0.1.0) (Mon 16 Nov, on `76af798`); [event-v0.2.0](https://github.com/eitan-dardik/northline-dental-website/releases/tag/event-v0.2.0) (Wed 18 Nov, on `b2ea3df`); [event-v0.3.0](https://github.com/eitan-dardik/northline-dental-website/releases/tag/event-v0.3.0) (Wed 18 Nov, on `9dd0aec`). To do: event-v1.0.0 |
 | 6 | Migration, rules proof, phone read-back | [the migration](https://github.com/eitan-dardik/northline-dental-website/blob/dev/supabase/migrations/20261117191400_event_registrations.sql) (PR [#185](https://github.com/eitan-dardik/northline-dental-website/pull/185)); insert `201` / read `401`; the row: 22:49:40 Israel, `utm_source invitation`; details: [see below](#row-6-migration-rules-proof-phone-read-back) |
-| 7 | Confirmation, confirm link and deliverability | the confirmation for `+og003`: accepted 12 s after registering, `verified_at` 10:16:00 Israel; details: [see below](#row-7-confirmation-confirm-link-and-deliverability). [email-check.md](email-check.md) (task 35: Gmail and Outlook, both Inbox, SPF/DKIM/DMARC pass). To do: the `+og006` reminder to confirm (due after 00:05 Thu) |
+| 7 | Confirmation, confirm link and deliverability | the confirmation for `+og003`: accepted 12 s after registering, `verified_at` 10:16:00 Israel; details: [see below](#row-7-confirmation-confirm-link-and-deliverability). [email-check.md](email-check.md) (task 35: Gmail and Outlook, both Inbox, SPF/DKIM/DMARC pass). the `+og006` reminder to confirm: sent Thu 19 Nov, 00:05 Israel, 24 h after registering, link not pressed |
 | 8 | Umami events, UTM links, QR | every event from laptop and phone, no token or personal data (0), the confirm view without `t=`; all four links in Umami (`invitation`, `reminder`, `poster`, `website`); the poster QR to Denise at 12:53 ([#114](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-6976434725)), [img/34-qr.png](img/34-qr.png); the banner ([PR #192](https://github.com/eitan-dardik/northline-dental-website/pull/192)); details: [see below](#row-8-umami-events-utm-links-qr) |
 | 9 | Desk rehearsal | Wed 18 Nov, 17:54–17:57: check-ins in 22 s and 35 s, a walk-up in 34 s; the page's count = query 3 (11 registered, 3 arrived, 1 walk-up); the two desk lines; details: [see below](#row-9-desk-rehearsal) |
 | 10 | Screenshots and Denise's approval | six screenshots on [#114, Wed 18 Nov 18:33](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-6984843417), asking "Can this go live on Thursday?"; Denise's answer: [Yes, it can go live on Thursday](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-6987822915) (Wed 18 Nov) |
@@ -159,7 +159,7 @@ sent: registration 602b54f3-… confirmation: 250 2.0.0 OK ids=546866b7… (acce
 | The address after the page loaded | `https://<event staging>/confirm/?utm_source=confirmation&utm_medium=email&utm_campaign=2026-11-open-morning`: **no `t=`** |
 | Pressed it again | 10:17: "Already confirmed"; `verified_at` unchanged |
 | `registration_emails` | one `confirmation` row for each of the 4 registrations |
-| `+og006` | registered Wed 00:05 Israel, link not pressed: its reminder to confirm is due after 00:05 Thu |
+| The reminder to confirm (`+og006`, link never pressed) | registered 22:05:02 UTC (Wed 00:05 Israel); confirmation 2 s later; reminder to confirm Wed 22:05:08 UTC = **Thu 00:05 Israel**, 24 h after; sent once, `verified_at` still empty |
 | Found | the first two test emails, sent in the same second, arrived about 2 minutes apart in Gmail; the server accepted both at once (`250 OK`), so the delay was after my server |
 
 <img width="700" alt="read-back: +og003 verified_at 08:16:00 UTC, one confirmation row each, emails masked" src="img/34-readback.png" />
@@ -167,6 +167,17 @@ sent: registration 602b54f3-… confirmation: 250 2.0.0 OK ids=546866b7… (acce
 | 1. The email (23:57) | 2. Confirmed (10:16) | 3. Pressed again (10:17) |
 |---|---|---|
 | <img width="250" alt="the confirmation email in Gmail" src="img/34-confirmation-email.png" /> | <img width="200" alt="phone: Your email is confirmed" src="img/34-confirmed.jpg" /> | <img width="200" alt="phone: Already confirmed" src="img/34-already-confirmed.jpg" /> |
+
+The reminder to confirm, read back (Thu 19 Nov, 06:28 UTC; no email address in the output):
+
+```
+      kind       |          sent_at           |          created_at           | verified_at
+-----------------+----------------------------+-------------------------------+-------------
+ confirmation    | 2026-11-17 22:05:04.752+00 | 2026-11-17 22:05:02.836012+00 |
+ verify_reminder | 2026-11-18 22:05:08.951+00 | 2026-11-17 22:05:02.836012+00 |
+```
+
+<img width="300" alt="the reminder to confirm in Gmail, 00:05" src="img/34-verify-reminder.png" />
 
 
 ## Row 8: Umami events, UTM links, QR
