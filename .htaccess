@@ -1,0 +1,6 @@
+# Event kit: the browser checks every file on each visit (ETag) and downloads
+# only what changed. Without this, Hostinger keeps config.js for 7 days, so a
+# closed registration or a fix would not reach a returning guest.
+<IfModule mod_headers.c>
+  Header set Cache-Control "no-cache"
+</IfModule>
