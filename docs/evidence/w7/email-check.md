@@ -1,19 +1,19 @@
 # Email check: confirmation, Wed 18 Nov
 
-Task 35 ([#166](https://github.com/eitan-dardik/northline-dental-website/issues/166)). The Open Morning confirmation email (the "Confirmation" text in [EMAILS.md](https://github.com/eitan-dardik/northline-dental-website/blob/dev/docs/event/EMAILS.md), as Denise approved it), sent by my mailer on staging ([PR #187](https://github.com/eitan-dardik/northline-dental-website/pull/187)) through Hostinger's mail server, to two providers. Israel time unless marked UTC. The sending domain is written `<domain>` here.
+Task 35 ([#166](https://github.com/eitan-dardik/northline-dental-website/issues/166)). The Open Morning confirmation email (the "Confirmation" text in [EMAILS.md](https://github.com/eitan-dardik/northline-dental-website/blob/dev/docs/event/EMAILS.md), as Denise approved it), sent by my mailer on staging ([PR #187](https://github.com/eitan-dardik/northline-dental-website/pull/187)) through Hostinger's mail server, to two providers. Israel time unless marked UTC.
 
 ## The records (from dig, on the server)
 
 - SPF: `v=spf1 include:_spf.mail.hostinger.com ~all`
-- DKIM (selector `hostingermail-a`, from the `s=` of a received email): present (`hostingermail-a._domainkey.<domain>` points to Hostinger's key, `v=DKIM1; k=rsa; p=MIIB…`)
+- DKIM (selector `hostingermail-a`, from the `s=` of a received email): present (`hostingermail-a._domainkey.holistech.tech` points to Hostinger's key, `v=DKIM1; k=rsa; p=MIIB…`)
 - DMARC: `v=DMARC1; p=none`
 
 ```
-$ dig +short TXT <domain> | grep -i spf
+$ dig +short TXT holistech.tech | grep -i spf
 "v=spf1 include:_spf.mail.hostinger.com ~all"
-$ dig +short TXT _dmarc.<domain>
+$ dig +short TXT _dmarc.holistech.tech
 "v=DMARC1; p=none"
-$ dig +short TXT hostingermail-a._domainkey.<domain> | cut -c1-80
+$ dig +short TXT hostingermail-a._domainkey.holistech.tech | cut -c1-80
 hostingermail-a.dkim.mail.hostinger.com.
 "v=DKIM1;k=rsa;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs+RijpkYCOFcf5HdHXc
 ```
@@ -36,4 +36,4 @@ Each test is one registration on the staging page (PC, private window), so the m
 
 <img width="600" alt="Outlook: both confirmations in the Inbox, 11:15 and 11:19" src="img/35-outlook-inbox.png" />
 
-**p=none means:** the receiving server only reports a failed DMARC check to us; it still delivers the email, so a forged email from `<domain>` that fails DMARC can still reach the inbox. A stricter policy (`quarantine`, then `reject`) would stop it; that's a later change, after the event, once the reports show only our own mail passing.
+**p=none means:** the receiving server only reports a failed DMARC check to us; it still delivers the email, so a forged email from `holistech.tech` that fails DMARC can still reach the inbox. A stricter policy (`quarantine`, then `reject`) would stop it; that's a later change, after the event, once the reports show only our own mail passing.

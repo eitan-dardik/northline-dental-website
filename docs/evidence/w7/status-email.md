@@ -2,7 +2,7 @@ Subject: Open Morning: status, Thu 19 Nov
 
 Hi Denise,
 
-- **Done:** The Open Morning page is live, with the screenshots you approved yesterday. Guests can sign up, they get a confirmation email within a minute, and the check-in page for your front desk works (I tested all of it from my phone this afternoon). The invitations are going out to all 108 people on your list who can be emailed: 102 went out this afternoon, your time, and the last 6 go out early this evening, because our email provider limits how many emails we can send in one hour. The QR code for your poster leads to the same page.
+- **Done:** The Open Morning page is live, with the screenshots you approved yesterday. Guests can sign up, they get a confirmation email within a minute, and the check-in page for your front desk works (I tested all of it from my phone this afternoon). The invitations went out this afternoon and this evening, your time: 105 of the 108 people on your list who can be emailed have theirs. The last 3 go out tomorrow (Friday) morning, because our email provider limits how many emails we can send in one hour. The QR code for your poster leads to the same page.
 - **In progress:** Nothing is waiting on our side. I keep an eye on the sign-ups every day and will tell you the numbers on Monday.
 - **Next week:**
   - **Monday 23 Nov, 8:00 your time:** a short reminder email to everyone who signed up, with the address, the parking and the number to call if they can't come.
@@ -19,3 +19,7 @@ Next update: Monday 23 Nov, at our 9:00 call.
 
 Thanks,
 Eitan
+
+---
+
+Sent on #114: https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-7024116175, Fri 20 Nov, 00:36 Israel (Thu, her evening).
