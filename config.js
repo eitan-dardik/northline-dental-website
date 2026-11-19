@@ -142,11 +142,11 @@ window.EVENT_KIT_CONFIG = {
       umamiScriptUrl: 'https://analytics.holistech.tech/script.js',
       umamiWebsiteId: '58d4cb58-4873-4d5b-929e-192d9170a3a4'
     },
-    'REPLACE-event.example.com': {
+    'event.holistech.tech': {
       label: 'production',
-      supabaseUrl: 'https://REPLACE-api.example.com',
-      publishableKey: 'REPLACE-production-publishable-key',
-      umamiScriptUrl: 'https://REPLACE-analytics.example.com/script.js',
+      supabaseUrl: 'https://northline-api.holistech.tech',
+      publishableKey: 'sb_publishable_1j6ru6IFHakfr-R_2CtMyA_Znk7CPaE',
+      umamiScriptUrl: 'https://analytics.holistech.tech/script.js',
       umamiWebsiteId: 'e89c00dc-f225-4981-b5d0-0773c1e579fb'
     }
   }
