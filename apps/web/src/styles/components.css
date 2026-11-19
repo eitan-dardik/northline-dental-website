@@ -84,6 +84,7 @@
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-block;
+  text-decoration: none;
   background: linear-gradient(to bottom,  var(--color-accent-light) 0%, var(--color-accent) 100%);
   color: var(--color-text-on-dark) !important;
   font-weight: bold;
@@ -204,7 +205,7 @@ hr.sep {
   padding: 10px 16px;
   font-size: 12px;
 }
-.footer-bottom a { color: var(--color-accent-lightest); }
+.footer-bottom a { color: var(--color-accent-lightest); text-decoration: underline; text-underline-offset: 2px; }
 
 /* ---------- Notice banner ---------- */
 /* Deliberately NOT nested inside .page-wrap's fixed-width layout (see
@@ -227,6 +228,25 @@ hr.sep {
   font-size: 13px;
   margin: 0;
   color: var(--color-notice-text);
+}
+
+/* ---------- Event banner (Open Morning) ---------- */
+/* Reuses .notice-banner's full-width layout and type (components/EventBanner.jsx),
+   but in calm brand colours instead of the warning red, and a white link. */
+.event-banner {
+  background: var(--color-primary-dark);
+  color: var(--color-text-on-dark);
+}
+.event-banner a,
+.event-banner a:hover {
+  color: var(--color-text-on-dark);
+  font-weight: bold;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.event-banner a:focus-visible {
+  outline: 2px solid var(--color-text-on-dark);
+  outline-offset: 2px;
 }
 
 /* ---------- Responsive (mobile) ---------- */

@@ -26,5 +26,6 @@ p { margin: 0 0 12px; }
 
 a { color: var(--color-accent); text-decoration: none; }
 a:hover { color: var(--color-primary); text-decoration: underline; }
+p a { text-decoration: underline; text-underline-offset: 2px; }
 
 img { max-width: 100%; height: auto; }

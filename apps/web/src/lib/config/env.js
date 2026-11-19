@@ -8,4 +8,5 @@ export const env = {
   supabasePublishableKey: clean(import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY),
   umamiScriptUrl:         clean(import.meta.env.VITE_UMAMI_SCRIPT_URL),
   umamiWebsiteId:         clean(import.meta.env.VITE_UMAMI_WEBSITE_ID),
+  eventUrl:               clean(import.meta.env.VITE_EVENT_URL),
 };

@@ -7,3 +7,4 @@ vault/
 /apps/web/public/assets/unapproved_assets
 .vscode/
 apps/web/public/llms.txt
+*.dump

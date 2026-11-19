@@ -17,38 +17,38 @@
   },
   "images": {
     "receptionMainOffice": {
-      "src": "/assets/placeholder.svg",
+      "src": "/assets/reception-maple-ridge.webp",
       "alt": "Dental office reception",
       "locationId": "maple-ridge",
       "caption": "Our welcoming reception area at {location}"
     },
     "homeOffice": {
-      "src": "/assets/placeholder.svg",
+      "src": "/assets/office-maple-ridge.webp",
       "alt": "Our main office",
       "locationId": "maple-ridge",
       "caption": "Our main office at {location}"
     },
     "treatmentRoom":{
-      "src": "/assets/placeholder.svg",
+      "src": "/assets/treatment-room.webp",
       "alt": "One of our treatment rooms",
       "locationId": "maple-ridge",
       "caption": "One of our treatment rooms at {location}"
     },
     "aboutTeam": {
-      "src": "/assets/placeholder.svg",
+      "src": "/assets/team.webp",
       "alt": "Northline Dental Group team",
       "caption": "Our team at work"
     },
     "aboutPatel": {
-      "src": "/assets/aboutPatel.png",
+      "src": "/assets/dr-patel.webp",
       "alt": "Dr. Anjali Patel, DDS"
     },
     "aboutFeld": {
-      "src": "/assets/placeholder.svg",
+      "src": "/assets/dr-feld.webp",
       "alt": "Dr. Marcus Feld, DDS"
     },
     "aboutDenise": {
-      "src": "/assets/aboutDenise.png",
+      "src": "/assets/denise.webp",
       "alt": "Denise Kowalczyk"
     }
   },

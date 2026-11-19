@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import NoticeBanner from './NoticeBanner';
 import { config } from '../lib/config/index.js';
+import EventBanner from './EventBanner';
 
 const NAV_ITEMS = [
     { to: '/', label: 'Home', end: true },
@@ -46,7 +47,7 @@ export default function SiteLayout() {
                         ))}
                     </ul>
                 </nav>
-
+                <EventBanner />
                 <main>
                     <Outlet />
                 </main>

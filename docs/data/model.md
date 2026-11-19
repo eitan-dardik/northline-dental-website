@@ -94,9 +94,8 @@ npx supabase status.
 the PK is saved as VITE_SUPABASE_PUBLISHABLE_KEY in the apps/web/.env.local and is read in apps/web/src/lib/data/supabase.js
 in order to use it in code to communicate with the supabase API.
 **What would go wrong without it:**
-without the PK there could be no way to authenticated with the API
-which mean that supabase and the db itself are unlinked from the project.
-without SK- if i work locally like now it not much of a difference because in studio I authenticate as postgres which is the superuser. but later we will move supabase to a VPS and we'll need to authenticated as admin via the APIand for that we need SK 
+without the PK there could be no way to authenticate with the API, which means that supabase and the db itself are unlinked from the project.
+the SK is not a login for a person: it is a key for code that runs on the server and has to do what a visitor may not, for example my mailer, which reads `leads` to send the emails (its key is in `mailer.env` on the VPS, never in the repo). because it skips every RLS rule, it must never reach the browser, `apps/web/.env.local` or Git. if it leaked, anyone could read, change or delete every lead. to manage the database myself I don't use the SK: locally I use Studio (as postgres), and on the VPS SSH and Studio or psql through the tunnel.
 
 ## 9. Why does anon read the content tables but only insert into leads?
 content tables such as **locations, location_hours, team_members, team_member_locations, site_notice and services**
