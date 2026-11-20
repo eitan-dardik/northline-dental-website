@@ -7,9 +7,9 @@ Thu 19 – Fri 20 Nov 2026, Israel time (Toronto is 7 hours behind). Counts only
 | | |
 |---|---|
 | Reachable contacts ([LIST-CHECK.md](https://github.com/eitan-dardik/northline-dental-website/blob/dev/docs/event/LIST-CHECK.md)) | **108** |
-| Sent (accepted by the mail server, `250 2.0.0 OK`) | **106** of 108 |
-| Arrived (counted in the receiving mailbox) | **101** counted at 00:05 (guests 1–101, all in the Inbox; guest 081 arrived about 30 min after it was sent); 102–106 were sent after that count |
-| Not sent yet | **2**: guests **107, 108**, refused by Hostinger's sending limit (`451 4.7.1 Ratelimit "hostinger_out_ratelimit" exceeded`); a `451` means the email was never sent, so nobody gets a duplicate. They go out on Fri 20 Nov, in the morning |
+| Sent (accepted by the mail server, `250 2.0.0 OK`) | **108** of 108 (107 sent Fri 10:37:16; 108 was delivered overnight, although every try was answered `451`, see Found) |
+| Arrived (counted in the receiving mailbox) | **108**: 101 counted at 00:05 (guest 081 arrived about 30 min after it was sent); 103–106 and 108 arrived overnight; **108** counted Fri 10:38: Gmail, conversation view off, `in:anywhere` (Inbox, Spam and Trash): 108 messages, one per guest tag |
+| Not sent | **0** |
 | Failed for any other reason | 0 |
 | Sent to an `example.com` address, or with a `+og` tag | 0 (the script refuses both) |
 
@@ -26,6 +26,8 @@ Thu 19 – Fri 20 Nov 2026, Israel time (Toronto is 7 hours behind). Counts only
 | Retry | 104–108, 3 min apart | Fri 00:08–00:21 | 105 sent (00:11:52); 104, 106, 107, 108 refused |
 | Retry | 104, then 106, 107, 108 one by one | Fri 00:30 | 104 sent; 106, 107, 108 refused |
 | Retry | 106, 107, 108 one by one | Fri 00:58 | 106 sent; 107, 108 refused |
+| Overnight | 108 | — | **delivered**, although every try was answered `451` |
+| Last | 107 | Fri 10:37:16 | sent; nothing else resent |
 
 **Delay notices:** on #175 and to the CEO on Telegram, before 23:59 and again after 00:15, each with the new time.
 
@@ -45,7 +47,7 @@ A one-off Node.js script, `invite.mjs` (about 120 lines), run **inside the produ
 - **Chosen at run time, never in the file:** the destination address (`INVITE_TO`), the batch (first and last guest number) and the pause between emails (`PAUSE_MS`).
 - **Safety checks:** it refuses `example.com` and an address that already has a `+tag` (so a `+og` test tag can't slip in); a dry run first prints the batch size and the link and sends nothing.
 - **The log:** one line per email with the guest number and the mail server's reply, never a name or an address; at the end, `done: N sent, N failed`. An email counts as sent only when the server accepted it.
-- **Where:** in `~/invite/` on the VPS (`chmod 600`) and in the container's `/app` for the runs. They stay until the last 2 are sent, then both copies and `names.csv` are deleted (on the server and on my PC).
+- **Where:** in `~/invite/` on the VPS (`chmod 600`) and in the container's `/app` for the runs. After the last one (Fri 10:37:16), both copies and `names.csv` were deleted (on the server and on my PC): Fri 20 Nov, 10:40 Israel (checked with `ls`: no such file).
 
 ### Why my Gmail, not a mailbox on our domain
 
@@ -53,7 +55,8 @@ I first tried a mailbox on our own domain (`guests@holistech.tech`), to keep 108
 
 ## Found
 
-- **Hostinger limits how many emails one account sends:** about 100 in an hour, and after that it frees up more slowly than one per minute. Every `451` was refused before sending, so no guest got two.
+- **Hostinger limits how many emails one account sends:** about 100 in an hour, and after that it frees up more slowly than one per minute.
+- **A `451` from Hostinger doesn't always mean "not sent":** guest 108 was answered `451` at every try, yet one copy was delivered overnight. So I checked every retried guest (102–108) in Gmail before sending again: each has exactly one invitation, and the total is 108. For Monday's reminders: after a `451`, check the mailbox before any resend.
 - **The production mailer sends from the same account**, so while the limit is reached, a guest's confirmation can wait too (the mailer tries 3 times, then waits for a restart). Checked at 00:00: the only registration on production is my `+og006` test, and it has its confirmation; no guest was affected.
 - **For Monday's reminders (task 50) and Wednesday's follow-ups:** fewer than 100 emails each, but the reminder must not run in the same hour as anything else from that account. Before Monday: ask Hostinger for the exact limit, or send in batches with a longer pause.
 - **Gmail delays:** guest 081 arrived about 30 minutes after the server accepted it (as on Tuesday, a delay after our server).
@@ -61,5 +64,5 @@ I first tried a mailbox on our own domain (`guests@holistech.tech`), to keep 108
 ## Proof
 
 - The script's output, per run (the table above): `done: 5 sent, 0 failed, of 5` · `done: 50 sent, 0 failed, of 50` · `done: 46 sent, 7 failed, of 53` · `done: 1 sent, 0 failed, of 1` · `done: 1 sent, 5 failed, of 6` · `done: 1 sent, 4 failed, of 5` · 00:30: 104 sent; 106, 107, 108 refused · 00:58: 106 sent; 107, 108 refused.
-- Gmail, conversation view off, `in:anywhere subject:"You're invited: Northline Open Morning"`: 100, then 101 when guest 081 arrived (00:05).
+- Gmail, conversation view off, `in:anywhere subject:"You're invited: Northline Open Morning"`: 100, then 101 when guest 081 arrived (00:05), then **108** (Fri 10:38); `deliveredto:` for each of 102–108: 1 each.
 - Umami (`Open Morning – production`): the view from the first invitation's button, 23:14:40.
