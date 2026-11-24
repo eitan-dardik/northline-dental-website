@@ -8,3 +8,6 @@ vault/
 .vscode/
 apps/web/public/llms.txt
 *.dump
+ops/monitor/monitor.env
+ops/monitor/state.json
+ops/monitor/monitor.log
