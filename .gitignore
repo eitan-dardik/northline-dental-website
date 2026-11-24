@@ -11,3 +11,6 @@ apps/web/public/llms.txt
 ops/monitor/monitor.env
 ops/monitor/state.json
 ops/monitor/monitor.log
+
+ops/monitor/event_count.env
+ops/monitor/event_state.json
