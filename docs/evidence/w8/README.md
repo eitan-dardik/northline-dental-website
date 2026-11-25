@@ -9,7 +9,7 @@ Israel time unless marked UTC (the clinic is 7 hours behind). **Masking rule for
 | 3 | Go/no-go and freeze | [the go/no-go note](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-7103072549) (GO, all eight rules pass) · [the freeze notice](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-7103090834) (Mon 17:00 → Tue 19:00, live `57dd9a8`, revert steps); [img/53-live-deploy.png](img/53-live-deploy.png) |
 | 4 | Run of show, filled in on the day | [RUN-OF-SHOW.md](https://github.com/eitan-dardik/northline-dental-website/blob/dev/docs/event/RUN-OF-SHOW.md): finished Mon 23 (task 55, [PR #219](https://github.com/eitan-dardik/northline-dental-website/pull/219)); filled in on Tue 24 ([PR #222](https://github.com/eitan-dardik/northline-dental-website/pull/222)): the final check (five lines, 16:29–16:35, task 56), a line every 15 minutes 17:00–19:00, and the five problems with heard / what I did / solved (task 57, [#207](https://github.com/eitan-dardik/northline-dental-website/issues/207)); details: [see below](#row-4-the-event) |
 | 5 | Note to Denise | [the note on #114](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-7138605472), posted before 19:30 (task 58, [#208](https://github.com/eitan-dardik/northline-dental-website/issues/208)) |
-| 6 | Follow-ups with survey links, and promise log | To do (Wed 25, 16:00): PROMISES.md; the counts of `thank_you` and `missed_you` sent |
+| 6 | Follow-ups with survey links, and promise log | In progress: the dry run and both tests done Wed 14:35 ([see below](#row-6-follow-ups)); the send at 16:00; PROMISES.md and the counts of `thank_you` and `missed_you` after it |
 | 7 | Real numbers, the funnel report and what guests said | To do (Wed 25): REPORT.md, with the survey response rate |
 | 8 | Registration closed, page archived, export sent | To do (Thu 26): the release; the refused test; the date sent |
 | 9 | Retirement note | To do (Thu 26): RETIREMENT.md |
@@ -121,4 +121,29 @@ Then by time (`where created_at > now() - interval '1 hour'`):
 **Problems (heard → solved):** 16:33 → 16:35 (my test check-in: a typo in my own test address); 17:21 → 17:21 ([two walk-ins](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-7135899651)); 17:35 → by 18:00 ([a guest with no emails](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-7136271413): a typo in her address, [my answer](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-7137164141); the right address confirmed by Denise on Telegram); 18:15 → 18:33 (walk-ups not in the database: the walk-ins on paper); 18:25 → 18:28 ([a dad and son](https://github.com/eitan-dardik/northline-dental-website/issues/114#issuecomment-7137715436)). Each with what I did, in the run of show. Nothing broke on the servers; no revert, nothing changed during the freeze.
 
 **After the freeze (19:14):** the guest with the typo: her address corrected and her registration marked arrived (18:00), in one transaction, dry run first (`ROLLBACK`), then `COMMIT` (`UPDATE 1`) and a read-back; the address confirmed by Denise (Telegram), the time from the CEO (Telegram). So she gets the thank-you on Wednesday, and she's counted once. Check-ins on the system: 6.
+
+## Row 6: follow-ups
+
+**Task 59 ([#209](https://github.com/eitan-dardik/northline-dental-website/issues/209)).** EMAILS.md emails 4 ("Thank you for coming") and 5 ("We missed you at the Open Morning"), word for word as Denise approved them, with the offer she confirmed (#114, Mon 23): a free check-up in the first two weeks of December. Sent by a one-off script, `followup.mjs`, run inside the production mailer's container like `remind.mjs`: the same sender and settings, claim-first on `registration_emails` (`thank_you` or `missed_you`; the primary key stops a second send), my test registrations left out, and a log with the registration id's first 8 characters and the mail server's reply only (never a name, an address or a token).
+
+- **Who gets which (query 9):** signed up and checked in → the thank-you; signed up and not checked in → "sorry we missed you". Walk-ups gave no email, so they get none.
+- **Each guest's own survey link:** `feedback/?t=<token>` (with `&k=missed` for "missed you"), and **Book a visit** → `book/`; both tagged `utm_source=thank-you` or `missed-you`, `utm_medium=email`, `utm_campaign=2026-11-open-morning`.
+
+| Step | Time | Result |
+|---|---|---|
+| Dry run | 14:3x | `30 registered, 6 test rows skipped, 24 guests (6 came, 18 missed), 0 already sent; to send: 6 thank_you, 18 missed_you` |
+| Test thank-you, to my test registration `+og2301` (checked in), with its own token; no database row | 14:35:16 | `250 2.0.0 OK` · `done: 1 sent, 0 failed, of 1` |
+| Test "missed you", to `+og2302` (not checked in) | 14:35:17 | `250 2.0.0 OK` · `done: 1 sent, 0 failed, of 1` |
+| Both on my phone, mobile data | 14:36–14:39 | the texts as approved; **Book a visit** opens `book/` with its tags; the thank-you survey answered "We already have your answers" (`+og2301` answered it in the phone test, Mon 15:18: one answer per guest holds on production); the "missed you" survey shows only "What kept you away?" |
+| Umami (production), UTM | 14:4x | source `thank-you` 2 views (booking + survey), `missed-you` 1; medium `email`; campaign `2026-11-open-morning` |
+| **The send** | 16:00 | to come |
+| `registration_emails`, read back | | to come |
+
+| The thank-you (test) | Its survey: one answer per guest | "Missed you" (test) | Its survey: one question |
+|---|---|---|---|
+| <img width="200" alt="Gmail: the test thank-you, address masked" src="img/59-test-thank-you.jpg" /> | <img width="200" alt="the survey: We already have your answers" src="img/59-test-survey-thanks.jpg" /> | <img width="200" alt="Gmail: the test missed-you, address masked" src="img/59-test-missed-you.jpg" /> | <img width="200" alt="the survey: What kept you away?" src="img/59-test-survey-missed.jpg" /> |
+
+| Book a visit | Umami: the two sources |
+|---|---|
+| <img width="200" alt="the booking page from the email" src="img/59-booking.jpg" /> | <img width="500" alt="Umami UTM: thank-you 2, missed-you 1" src="img/59-umami-utm.png" /> |
 
