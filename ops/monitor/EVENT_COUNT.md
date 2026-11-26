@@ -38,6 +38,8 @@ Read only: two `SELECT`s, nothing written to any database.
 
 The values go into the SQL as `psql` variables (`:'ev'`), never pasted into the query text. The queries run as the users you set, through `docker exec`, the way the team reads them on the server; the script only ever sends `SELECT`s.
 
+**For a real client:** run both queries through a database user that can only `SELECT` (a read-only role), not the application's own user. Then "read only" is a fact of the database, not a promise of the script.
+
 ## How the settings work: two files
 
 | | `monitor.env` (loaded first) | `event_count.env` (added on top) |
