@@ -277,7 +277,7 @@ Check `df -h /` again afterwards.
 
 ## Entry: A guest says the confirmation email never came
 
-The Open Morning emails come from the mailer on the VPS (`services/mailer/`, PR #187). It sends an event email only on a server whose `mailer.env` has `EVENT_URL` (staging since Tue 17 Nov; production from the release on Thu 19 Nov).
+The Open Morning emails come from the mailer on the VPS (`services/mailer/`, PR #187). It sends an event email only on a server whose `mailer.env` has `EVENT_URL` (staging since Tue 17 Nov; production from the release on Thu 19 Nov). **Since Thu 26 Nov, 21:49, both have event emails off**: the event is over, and the page's public key would let anyone trigger an email in Northline's name (see the retirement note).
 
 ### Symptoms
 
@@ -327,6 +327,53 @@ Stop as soon as one step explains it.
 - **Our mail server refuses every email** (every line is `failed:`), or it's Thursday and the invitations are waiting: escalate straight away with the log lines.
 - **More than one guest reports no email:** escalate with the times, the log lines, and which providers.
 - **Always confirm back** to Denise's team once the guest has the email or is on the printed list.
+
+---
+
+## Running an event for a client
+
+From the Northline Open Morning (Tue 24 Nov 2026, 10:00–12:00 Toronto), run from Israel. T is the event day; times in the client's zone unless marked. The event's own files: `docs/event/` (PLAN, MEASURE, CAPTURE, EMAILS, LIST-CHECK, RUN-OF-SHOW, REPORT, PROMISES, RETIREMENT), the kit's README, and `ops/monitor/`.
+
+### Before (T−21 to T−1)
+
+| When | Step | Done when |
+|---|---|---|
+| T−21 | Log the request as a ticket; reply with the needs list and a date for each need; open the board | the client has the needs list, every need has a date |
+| T−21 | **Plan the final report now, before anything is built:** what the client gets at the end (a short visual report: planned vs. done at each step, the goals beside the numbers, where guests came from, what they said, and the work they never see: every email sent for them, confirmations, reminders, follow-ups). Every measurement below is chosen to fill it | the report's outline is agreed with the CEO |
+| T−18 | Event plan with targets (registered, came, booked) and a release plan; what we measure (one UTM tag per channel; counts, not percentages, under 10) | PLAN.md and MEASURE.md approved |
+| T−16 | Invite list checked (reachable, duplicates out, counts only in the repository); what the form stores (the CEO approves any change); the email texts sent to the client for approval | LIST-CHECK.md, CAPTURE.md; the client's OK on EMAILS.md |
+| T−14 | Decision record: where the page runs (subdomain, branch, deploy) | the record is merged |
+| T−12 to T−8 | The kit on staging: migration by CLI, rules proven through the API, desk code (different per environment, never in the repository), confirmation and reminder-to-confirm emails, Umami events, the poster QR, the website banner (hidden by date after the start) | every test in the kit README passes on staging from a phone |
+| T−6 | Desk rehearsal with the client's device; screenshots to the client for approval | the client approves |
+| T−6 | **Umami Replay on** for the event page, staging first, then production: it records each visit's clicks, scrolling and page changes as a replay, with the text masked (Mask Level moderate or stricter), the check-in page left out (it shows guests' names), sample rate 1 (every visit). Turned on before the event, so the day itself is recorded | a test visit appears as a replay with its text masked |
+| T−5 | Restore drill and decision brief, then the production release; invitations **after** the release is checked. The mail host limits sending (Hostinger: about 100 an hour); after a `451`, check the mailbox before any resend | invitations: sent = arrived, counts in the evidence |
+| T−1 | **Reminders to everyone registered, sent after the last sign-ups** (the evening before or the morning of the event; run again for late sign-ups) · phone test of every link and the QR on mobile data · go/no-go · freeze until the event ends · printed list to the client by email (no file kept) · the monitor and an alarm for every check | the dry run's count = the registrations; every link opens on a phone; GO posted; freeze posted with the revert steps |
+
+### On the day (T)
+
+1. **T−1 h:** the late list (sign-ups after the printed list) to the client by email.
+2. **T−30 min, the final check, five lines with times:** the page on a phone (mobile data); a test registration with a new `+og` address, read back; check-in of that test guest; the visit in Umami, then tracking off on my own browsers and phone; today's backup (name, time, size).
+3. **T to the end, every 15 minutes:** one line in the run of show: registrations, check-ins (arrived + walk-ups), visitors on the page, servers. `ops/monitor/event_count.py` sends these numbers to Telegram (see EVENT_COUNT.md); remove its cron line after the event.
+4. **Every message from the desk:** answered within minutes on the ticket; logged as heard / what I did / solved. Personal data never on the ticket (send it by email or Telegram).
+5. **If something breaks:** evidence first (time, screenshot, logs), tell the CEO within 10 minutes, revert only if the release causes it; nothing else changes during the freeze.
+6. **If the counts go flat while the desk is busy:** ask whether they switched to paper; get the paper count at the end.
+7. **The end:** the page switches by itself (`endsAt`); the note to the client within 30 minutes (counts, problems, tomorrow).
+
+### After (T+1 to T+30)
+
+| When | What | Who |
+|---|---|---|
+| T+1 | Follow-ups at the client's morning: thank-you to everyone checked in, "sorry we missed you" to the rest, each with the guest's own survey link; one test of each to my `+og` addresses first; claim-first so nobody gets two. Test traffic separated (all / mine / guests per step). The final report linked on the ticket before the debrief. Debrief | me |
+| T+2 | Close registration as a release; **event emails off** (remove `EVENT_URL` from both mailers, the log says `event emails off`); remove the desk code on both databases; export the data to the client and delete my copies; the call-back list (visit requests and "contact me" answers) to the client's team by email; retirement note; this runbook; the retro | me |
+| T+7 | Bookings counted; the survey read again; the report updated; guests' questions answered (for example "is there another date?") | the client's team (bookings, answers), me (the report) |
+| T+5 | The report final first, then **the personal data deleted**: the rows (not the tables, the next event needs them) of the registrations, their email log, the survey answers and the visit requests, the invite list and every copy of mine; the page comes down (every event address redirects to the main site, no 404); the API's visitor insert rules dropped by a migration; the one-off scripts removed; every card closed. Umami stays (no names or addresses) | me, with the CEO's OK for the redirect and the migration |
+| T+30 | Tokens replaced; the backups that still hold the deleted data have aged out | me |
+
+### What went wrong or nearly did, and the check that catches it
+
+1. **No guest got a reminder:** it was sent on schedule the day before, but the guests signed up later that day, and no second run followed. The biggest drop was registered → came (6 of 24), and a guest said so in the survey. **Check:** at T−1 evening, the reminder's dry run must count every registration; anyone without a `reminder` row before the event gets one.
+2. **A typo in a guest's address** ("mose" for "moose"): the confirmation went to a mailbox that doesn't exist, so she never confirmed and wasn't found on the tablet. It was flagged on the printed list the day before, but not followed up. **Check:** the day before, list everyone unconfirmed and every flagged address, and ask the client to reach them by phone; next time, show the address back on the "You are registered" page.
+3. **Walk-ups on paper, never entered:** when the desk got busy, the walk-ins went on the paper list, so the counts stayed flat for over an hour and the walk-ups never reached the database. **Check:** if the 15-minute counts stop moving while the desk reports arrivals, ask at once whether they are on paper; enter the paper list the same day, with the new/existing question asked.
 
 ---
 
