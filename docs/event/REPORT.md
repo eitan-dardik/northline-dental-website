@@ -33,18 +33,26 @@
 
 **0 so far** (read Wed 25, 16:15, my tests left out): no "please call me" request yet, so none by office, dentist, children or new patients. The booking link went out at 16:00 in all 24 follow-ups; the offer runs to mid-December, and Denise's team counts bookings (calls included) at T+7.
 
-## What guests said (the survey, read Wed 25 Nov 16:15)
+## What guests said (the survey, read Thu 26 Nov 16:55)
 
-- **Answers:** 0 of 24 guests who got a survey link (0 of 6 from the thank-you, 0 of 18 from "sorry we missed you"), 15 minutes after the send. Read again at the debrief and on Thu 26.
-- **Average rating, most useful, would recommend, asked to be contacted:** none yet.
-- **In their words:** no comments yet.
+- **Answers:** 4 of 24 guests who got a survey link: **2 of 6** from the thank-you, **2 of 18** from "sorry we missed you" (my own test answer left out).
+- **Average rating:** **4.5 out of 5** (2 answers: a 5 and a 4).
+- **Most useful:** not answered (0 of 2).
+- **Would recommend:** yes 2, maybe 0, no 0.
+- **What kept them away:** forgot 1, the time 1.
+- **Asked to be contacted about booking:** 1 (the details went to Denise's team by email, not into this report).
+- **In their words** (no names):
+  - "The smile check was quick and friendly. Thank you!" (a guest who came)
+  - "Lovely morning. I never got your emails before the event, so I was not sure I was on the list." (a guest who came)
+  - "I forgot, and I did not get a reminder." (a guest who didn't come)
+  - "Work ran late. Is there another date?" (a guest who didn't come)
 
 ## Where people dropped off
 
 - **Invited → opened:** 36 of 108 opened the invitation link.
 - **Opened → registered:** 24 of 66.
 - **Registered → confirmed:** 21 of 24. One of the 3 who didn't had a typo in her address, so the confirmation never reached her; she came anyway.
-- **Registered → came: the biggest drop, 6 of 24.** No reminder reached any guest (see above), and 18 sign-ups didn't come.
+- **Registered → came: the biggest drop, 6 of 24.** No reminder reached any guest (see above), and 18 sign-ups didn't come. One of them says so in the survey: "I forgot, and I did not get a reminder."
 
 ## What worked (at most three)
 
@@ -83,7 +91,7 @@ Read Wed 25 Nov, 14:20 Israel (task 60), on production: the `registrations` and 
 | Walk-ups | 0 in the database | 0 | **4 people in 2 groups**, on Denise's paper list (#114) |
 | Thank-you sent (Wed 16:00) | 6 | 0 (tests left out by the script) | **6** |
 | "Sorry we missed you" sent (Wed 16:00) | 18 | 0 | **18** |
-| Survey answers (read Wed 16:15) | 1 | 1 (`+og2301`, the phone test, Mon 15:18) | **0** of 24 links sent (response rate 0 so far) |
+| Survey answers (read Thu 26, 16:55) | 5 | 1 (`+og2301`, the phone test, Mon 15:18) | **4** of 24 links sent: 2 of 6 thank-you, 2 of 18 "missed you" |
 
 **Confirmed is counted from `verified_at`,** the time a guest pressed the link, never from the confirmation email being sent: 24 emails went to guests, 21 guests pressed the link.
 
