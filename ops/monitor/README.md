@@ -18,10 +18,11 @@ Everything about our server (the sites, the VPS, the repository, the tokens) is 
 
 ## The messages
 
-**An alert** when a check **starts** failing: which check, what it saw, and the time in every `SHOW_TIMES` zone. One message per failure, not one every 5 minutes while it stays broken (`state.json` remembers what was sent), and one **"fixed"** message when it passes again.
+**An alert** when a check fails **two runs in a row** (10 minutes): which check, what it saw, since when, and the time in every `SHOW_TIMES` zone. A check that fails once and passes the next run (one slow API call) is only written to the log, never messaged. One message per failure, not one every 5 minutes while it stays broken (`state.json` remembers what was sent and what is waiting for a second run), and one **"fixed"** message when it passes again.
 
 ```
 ❌ Northline: Site https://…: no answer after 10.0 s (want 200 within 10 s)
+(failing since 2026-11-24 11:35 UTC)
 🕒 Tue 24 Nov · 11:40 UTC · 13:40 Israel · 06:40 Eastern
 ```
 
@@ -52,7 +53,7 @@ Everything about our server (the sites, the VPS, the repository, the tokens) is 
 - **The weekly backup's size:** the API gives it in KB (12302336 = hPanel's 11.73 GB); its dates are in UTC.
 - **GitHub:** the last CI run on `GITHUB_BRANCH` and the repository's latest release (public API, no token). Leave both GitHub settings empty for no GitHub lines.
 
-**`STATUS_AT`** takes times and ranges with a step in minutes, comma-separated, in `TIMEZONE`: `09:00` (#182's morning message), or `08:30, 16:00-19:00/15` (also every 15 minutes during an event). The first run at or after each time sends it, so there's one cron line and nothing to change at summer time. After a pause (the server down), only the newest missed status goes out, never a backlog; changing `STATUS_AT` never sends a catch-up for a time already passed. Use a colon and 5-minute marks (`13:30`, not `13.29`): the bot runs every 5 minutes.
+**`STATUS_AT`** takes times and ranges with a step in minutes, comma-separated, in `TIMEZONE`: `09:00` (#182's morning message; **ours runs at 08:30 Israel**, when the ops log is read, so the two match), or `08:30, 16:00-19:00/15` (also every 15 minutes during an event). The first run at or after each time sends it, so there's one cron line and nothing to change at summer time. After a pause (the server down), only the newest missed status goes out, never a backlog; changing `STATUS_AT` never sends a catch-up for a time already passed. Use a colon and 5-minute marks (`13:30`, not `13.29`): the bot runs every 5 minutes.
 
 **Beyond #182:** #182 asks for one morning message; the event-window times are my addition (the same status, more often; no new check). The status message's layout (emoji marks) is mine too. The event's own numbers (registrations, check-ins, visitors) are a separate helper, `event_count.py`, in its own pull request: it reads databases, which this bot never does.
 
@@ -64,7 +65,8 @@ On the VPS, by cron, in `~/northline/monitor/`. Not on a laptop: if the bot goes
 ~/northline/monitor/          chmod 700: only my user can list or open it
   monitor.py          700     the bot (copied from ops/monitor/ in the repository)
   monitor.env         600     every setting and the secrets; never in git
-  state.json          600     which checks are failing, and the last status time sent (written by the bot)
+  state.json          600     which checks are failing or waiting for a second run, and the last status time sent (written by the bot)
+  monitor.lock        600     held by a run while it works, so two runs never overlap (created by `flock`)
   monitor.log         600     one line per run (written by cron)
 ```
 
@@ -102,6 +104,7 @@ chmod 700 monitor.py
 cp monitor.env.example monitor.env && chmod 600 monitor.env
 nano monitor.env                       # fill every line
 python3 monitor.py check --dry-run     # the checks; prints what it would send, sends nothing, writes nothing
+                                       # (a dry run writes no state, so a failing check shows as "waiting for a second run")
 python3 monitor.py status --dry-run    # the status message, printed
 python3 monitor.py test                # one real test message to every chat id
 ```
@@ -110,16 +113,16 @@ The tokens are typed into `monitor.env` with an editor or `read -rs`, never on a
 
 ## Cron
 
-One line; the status messages come from the same run:
+One line; the status messages come from the same run. `flock -n` holds `monitor.lock` while a run works: if a run hangs (five sites at 10 s each, plus docker), the next one exits at once instead of starting a second copy:
 
 ```
-*/5 * * * * umask 077 && cd $HOME/northline/monitor && /usr/bin/python3 monitor.py check >> monitor.log 2>&1
+*/5 * * * * umask 077 && cd $HOME/northline/monitor && /usr/bin/flock -n monitor.lock /usr/bin/python3 monitor.py check >> monitor.log 2>&1
 ```
 
 Add it without touching the other lines (the nightly backup), then check both are there:
 
 ```bash
-( crontab -l; echo '*/5 * * * * umask 077 && cd $HOME/northline/monitor && /usr/bin/python3 monitor.py check >> monitor.log 2>&1' ) | crontab -
+( crontab -l; echo '*/5 * * * * umask 077 && cd $HOME/northline/monitor && /usr/bin/flock -n monitor.lock /usr/bin/python3 monitor.py check >> monitor.log 2>&1' ) | crontab -
 crontab -l
 ```
 

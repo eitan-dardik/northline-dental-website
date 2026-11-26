@@ -2,7 +2,7 @@
 """Server monitoring bot (#182). Runs on the server; Python 3 standard library only.
 
   python3 monitor.py check            every 5 minutes (cron): run the 5 checks; a Telegram message only when a
-                                      check starts failing, and one when it is fixed. At each STATUS_AT time
+                                      check fails two runs in a row, and one when it is fixed. At each STATUS_AT time
                                       it also sends the status message (the first run at or after that time).
   python3 monitor.py status           send the status message now
   python3 monitor.py test             send one test message
@@ -24,7 +24,7 @@ from zoneinfo import ZoneInfo
 
 HERE = Path(__file__).resolve().parent
 ENV_FILE = HERE / 'monitor.env'
-STATE_FILE = HERE / 'state.json'      # what is failing now, and the last status time sent
+STATE_FILE = HERE / 'state.json'      # what is failing (reported or pending), and the last status time sent
 HOSTINGER_API = 'https://developers.hostinger.com/api/vps/v1/virtual-machines'   # public API, the same for every customer
 HPANEL = 'https://hpanel.hostinger.com/vps'
 TELEGRAM_API = 'https://api.telegram.org'
@@ -419,19 +419,28 @@ def read_state():
 
 
 def cmd_check(env, dry):
+    """Alert only on the second failing run in a row: a first failure is kept as 'pending' in state.json and
+    reported only if the next run (5 minutes later) fails the same way. A single blip (one slow API call) is
+    logged, never messaged. A check that was reported gets one 'fixed' message when it passes again."""
     failures, facts = run_checks(env)
     state = read_state()
-    was, now_failing = state['failing'], {}
+    was, pending = state['failing'], state.get('pending', {})
+    now_failing, now_pending = {}, {}
     name = env['NAME']
     for key, text in failures.items():
         if key in was:                          # already reported: no second message
             now_failing[key] = was[key]
-        elif send(env, f'❌ {name}: {text}\n🕒 {times(env)}', dry):
-            now_failing[key] = stamp()          # recorded only once the message went out, else retried next run
+        elif key not in pending:                # first failing run: wait for the next one
+            now_pending[key] = stamp()
+        elif send(env, f'❌ {name}: {text}\n(failing since {pending[key]})\n🕒 {times(env)}', dry):
+            now_failing[key] = pending[key]     # second run in a row: reported, since the first failure
+        else:
+            now_pending[key] = pending[key]     # couldn't send: try again next run
+    blips = sorted(k for k in pending if k not in failures)     # failed once, passed the next run: no message
     for key, since in was.items():
         if key not in failures and not send(env, f'✅ {name}: fixed: {key}\n(failing since {since})\n🕒 {times(env)}', dry):
             now_failing[key] = since            # couldn't tell anyone: keep it, try again next run
-    state['failing'] = now_failing
+    state['failing'], state['pending'] = now_failing, now_pending
     status = ''
     slot = status_due(env, state)
     if slot and send(env, status_text(env, failures, facts), dry):
@@ -440,7 +449,9 @@ def cmd_check(env, dry):
     if not dry:
         STATE_FILE.write_text(json.dumps(state, indent=1))
     print(f'{stamp()} check: {len(failures)} failing'
-          + (f": {', '.join(sorted(failures))}" if failures else '') + status)
+          + (f": {', '.join(sorted(failures))}" if failures else '')
+          + (f"; waiting for a second run: {', '.join(sorted(now_pending))}" if now_pending else '')
+          + (f"; passed again after one failure (no message): {', '.join(blips)}" if blips else '') + status)
 
 
 def main():
