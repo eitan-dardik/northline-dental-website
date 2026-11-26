@@ -1,6 +1,6 @@
 # Open Morning: results (T+1, read Wed 25 Nov 16:10)
 
-**In one line:** 24 registered against a goal of 30, and 10 people came against 20 (6 of the sign-ups and 4 walk-ups); bookings are counted at T+7 (Tue 1 Dec).
+**In one line:** 24 registered against a goal of 30, and 10 people came against 20 (6 of the sign-ups and 4 walk-ups); **7 visit requests for 11 people** came in after the follow-ups, against a goal of 8 bookings, which Denise's team counts at T+7 (Tue 1 Dec).
 
 ## The funnel (guests only; tests taken out, see the table below)
 
@@ -13,7 +13,8 @@
 | Reminded | 0 | 0 of 24 | `registration_emails`, `reminder` | Wed 25, 14:20 |
 | Attended | 6 sign-ups + 4 walk-ups = **10 people** | 6 of 24 sign-ups (5 of the 21 who confirmed, and 1 who couldn't confirm because of a typo in her address) | check-in on the tablet (5), corrected after the event (1), Denise's paper list (4 walk-ups) | Wed 25, 14:20; paper list Tue evening |
 | Followed up | 6 thank-yous + 18 "sorry we missed you" = 24 of 24 sign-ups, 0 failed | — | `registration_emails`, `thank_you` / `missed_you` | Wed 25, 16:05 |
-| Booked a visit | not yet | | Denise, at T+7 | |
+| Asked for a visit (booking page) | **7 requests, 11 people** | 7 requests after 24 follow-ups | `visit_requests` | Thu 26, 18:15 |
+| Booked a visit | not yet (goal 8) | | Denise, at T+7 | |
 
 **Why "Reminded" is 0:** the day-before reminder went out on Mon 23 at 14:48 Israel, as planned, but the guests signed up later that day (19:14–19:16), and no second reminder was sent (agreed with the CEO on Mon 23).
 
@@ -31,7 +32,23 @@
 
 ## Visit requests (the booking page)
 
-**0 so far** (read Wed 25, 16:15, my tests left out): no "please call me" request yet, so none by office, dentist, children or new patients. The booking link went out at 16:00 in all 24 follow-ups; the offer runs to mid-December, and Denise's team counts bookings (calls included) at T+7.
+**7 requests for 11 people** (read Thu 26 Nov 18:15, my tests left out; the last one Wed 25 Nov 19:26), all after the follow-ups at 16:00. Against the goal of **8 bookings**, these are requests, not yet bookings: Denise's team confirms each visit and counts the bookings at T+7.
+
+| | Requests | People |
+|---|---|---|
+| **All** | 7 | 11 (4 of them children) |
+| New patients | 4 | |
+
+**By office and dentist:**
+
+| Office | Dentist | Requests | People |
+|---|---|---|---|
+| Maple Ridge | Dr. Patel | 3 | 4 |
+| Fairview | Dr. Patel | 2 | 4 |
+| Fairview | Dr. Feld | 1 | 1 |
+| Grandon | Dr. Feld | 1 | 2 |
+
+The requests' contact details go to Denise's team by email (query 13), never into this report.
 
 ## What guests said (the survey, read Thu 26 Nov 16:55)
 
@@ -68,7 +85,7 @@
 
 ## Not measurable this time, and why
 
-- **Bookings:** counted by Denise's team at T+7.
+- **Bookings:** the 7 requests are counted here; which of them became booked visits, Denise's team counts at T+7.
 - **The 4 walk-ups:** no names and no new/existing answer on the paper list, so they are counted here but not in the database.
 - **Why the reminder link brought 13 visitors and 3 sign-ups** although no guest got the reminder email: the link may have been shared; the data can't tell.
 - **People vs devices:** Umami counts devices (sessions), not people.
